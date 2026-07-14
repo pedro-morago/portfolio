@@ -10,10 +10,10 @@ const observer = new IntersectionObserver(
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         navLinks.forEach((link) => {
-          link.style.color =
+          link.classList.toggle(
+            "active",
             link.getAttribute("href") === `#${entry.target.id}`
-              ? "var(--accent)"
-              : "";
+          );
         });
       }
     });
