@@ -57,6 +57,7 @@ a:hover { text-decoration: underline; }
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }
 
 .nav-logo {
@@ -429,7 +430,12 @@ a:hover { text-decoration: underline; }
     gap: 4px 16px;
   }
   .nav-links a { font-size: 0.82rem; white-space: nowrap; padding: 9px 2px; display: inline-block; }
-  .nav-links .lang-switch { padding: 8px 14px; }
+  .nav-links .lang-switch {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    padding: 8px 14px;
+  }
   section[id] { scroll-margin-top: 110px; }
   .hero { padding: 50px 0 45px; }
   .hero-terminal { font-size: 0.78rem; }
