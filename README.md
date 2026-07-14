@@ -2,6 +2,10 @@
 
 Web personal de portfolio de QA Engineer. Página estática sin dependencias: HTML, CSS y JavaScript vanilla.
 
+Disponible en dos idiomas con selector en la navegación:
+- Español: `index.html` → `https://pedro-morago.github.io/portfolio/`
+- Inglés: `en/index.html` → `https://pedro-morago.github.io/portfolio/en/`
+
 ## Proyectos destacados
 
 - **[CI Shard Advisor](https://github.com/pedro-morago/ci-shard-advisor)** — Paraleliza Cypress en CI de forma óptima, sin Cypress Cloud.

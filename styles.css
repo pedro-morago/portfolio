@@ -76,6 +76,16 @@ a:hover { text-decoration: underline; }
 .nav-links a:hover,
 .nav-links a.active { color: var(--accent); text-decoration: none; }
 
+.nav-links .lang-switch {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 3px 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.nav-links .lang-switch:hover { border-color: var(--accent); color: var(--accent); }
+
 /* ===== Hero ===== */
 .hero {
   padding: 90px 0 70px;
@@ -419,6 +429,7 @@ a:hover { text-decoration: underline; }
     gap: 4px 16px;
   }
   .nav-links a { font-size: 0.82rem; white-space: nowrap; padding: 9px 2px; display: inline-block; }
+  .nav-links .lang-switch { padding: 8px 14px; }
   section[id] { scroll-margin-top: 110px; }
   .hero { padding: 50px 0 45px; }
   .hero-terminal { font-size: 0.78rem; }
