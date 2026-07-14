@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pedro Morago · QA Engineer</title>
+  <meta name="description" content="Portfolio de Pedro Morago, QA Engineer. Automatización de pruebas, tooling de CI/CD y calidad de software." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✅</text></svg>" />
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo"><span class="mono">&gt;_</span> pedro.morago</a>
+      <div class="nav-links">
+        <a href="#sobre-mi">Sobre mí</a>
+        <a href="#proyectos">Proyectos</a>
+        <a href="#skills">Skills</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container">
+      <p class="hero-kicker mono">// QA Engineer · Test Automation</p>
+      <h1>Pedro Morago</h1>
+      <p class="hero-tagline">
+        Ingeniero de QA especializado en <strong>automatización de pruebas</strong> y
+        <strong>tooling para CI/CD</strong>. Me gusta construir herramientas que hacen
+        que testear sea más rápido, más barato y más fiable.
+      </p>
+      <div class="hero-terminal mono" aria-hidden="true">
+        <div class="terminal-bar"><span></span><span></span><span></span></div>
+        <div class="terminal-body">
+          <p><span class="prompt">$</span> npx cypress run --record false</p>
+          <p class="ok">✓ Todos los tests pasan · 0 flaky · pipeline en verde</p>
+          <p><span class="prompt">$</span> <span class="cursor">▊</span></p>
+        </div>
+      </div>
+      <div class="hero-actions">
+        <a href="#proyectos" class="btn btn-primary">Ver proyectos</a>
+        <a href="https://github.com/pedro-morago" target="_blank" rel="noopener" class="btn btn-ghost">GitHub ↗</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="sobre-mi" class="section">
+      <div class="container">
+        <h2><span class="section-num mono">01.</span> Sobre mí</h2>
+        <div class="about-grid">
+          <p>
+            Soy QA Engineer con foco en <strong>calidad de software de principio a fin</strong>:
+            desde el diseño de estrategias de testing hasta la optimización de pipelines de CI.
+            Trabajo a diario con Cypress, Playwright y TypeScript, y disfruto especialmente
+            construyendo <strong>herramientas propias</strong> que resuelven dolores reales del
+            día a día de un equipo de QA — paralelización de suites, reporte de bugs con
+            evidencias completas, o entrenamiento de habilidades.
+          </p>
+          <p>
+            Creo que el mejor QA no solo encuentra bugs: <strong>diseña sistemas que evitan
+            que lleguen a producción</strong>. Por eso mis proyectos personales giran en torno a
+            testing, DX y automatización.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="proyectos" class="section">
+      <div class="container">
+        <h2><span class="section-num mono">02.</span> Proyectos</h2>
+
+        <article class="project">
+          <div class="project-header">
+            <h3>CI Shard Advisor</h3>
+            <span class="badge badge-live">Publicado</span>
+          </div>
+          <p class="project-tagline mono">Paraleliza Cypress en CI con cabeza — y sin Cypress Cloud.</p>
+          <p>
+            Herramienta que analiza los reportes de tus ejecuciones de Cypress y recomienda la
+            <strong>estrategia óptima de sharding</strong> para tu pipeline: mide el rendimiento actual,
+            detecta desbalances entre contenedores y sugiere la partición exacta de specs que minimiza
+            el tiempo total de ejecución, con <strong>certificación de optimalidad</strong> mediante un
+            algoritmo branch &amp; bound.
+          </p>
+          <ul class="project-features">
+            <li>Análisis 100 % local y privado: los reportes nunca salen del navegador.</li>
+            <li>Tres interfaces: web interactiva, CLI con modo <em>quality-gate</em> y API REST local.</li>
+            <li>Recomendaciones accionables: listas de specs por contenedor listas para copiar en GitHub Actions o Bitbucket Pipelines.</li>
+            <li>Núcleo puro con arquitectura hexagonal, probado con tests de propiedades, metamórficos y de invariantes.</li>
+          </ul>
+          <div class="project-tech mono">
+            <span>TypeScript</span><span>React</span><span>Vite</span><span>Fastify</span><span>Node.js</span><span>pnpm</span><span>Playwright</span><span>k6</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/pedro-morago/ci-shard-advisor" target="_blank" rel="noopener" class="btn btn-small">Código en GitHub ↗</a>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="project-header">
+            <h3>Screen Recorder · QA mode</h3>
+            <span class="badge badge-live">Publicado</span>
+          </div>
+          <p class="project-tagline mono">Extensión de Chrome para reportar bugs con todas las evidencias, en una sola grabación.</p>
+          <p>
+            Extensión de navegador (Manifest V3) que graba pantalla, ventana o pestaña y, mientras tanto,
+            captura automáticamente <strong>todo lo que un desarrollador necesita para reproducir el bug</strong>:
+            logs de consola sincronizados con el vídeo, excepciones no controladas, peticiones de red en formato
+            HAR y los pasos del usuario numerados. Sin límites de tiempo, sin marca de agua y sin cuenta.
+          </p>
+          <ul class="project-features">
+            <li>Modo QA: consola, errores, 404s y HAR sincronizados por timestamp con el vídeo.</li>
+            <li>Anotaciones sobre el vídeo en directo y marcadores con atajo de teclado para señalar el momento exacto del bug.</li>
+            <li>Registro automático de pasos (clics, formularios) exportable como <code>*.steps.md</code> — sin registrar nunca los valores escritos.</li>
+            <li>Genera el reporte completo y crea el issue directamente en <strong>Jira Cloud o Linear</strong>.</li>
+            <li>Cero dependencias externas: solo APIs nativas del navegador.</li>
+          </ul>
+          <div class="project-tech mono">
+            <span>JavaScript</span><span>Manifest V3</span><span>chrome.desktopCapture</span><span>Cypress</span><span>Playwright</span><span>GitHub Actions</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/pedro-morago/grabador-pantalla" target="_blank" rel="noopener" class="btn btn-small">Código en GitHub ↗</a>
+          </div>
+        </article>
+
+        <article class="project project-wip">
+          <div class="project-header">
+            <h3>Spins Trainer</h3>
+            <span class="badge badge-wip">En desarrollo</span>
+          </div>
+          <p class="project-tagline mono">Próximamente…</p>
+          <p>
+            Proyecto actualmente en construcción. Muy pronto habrá más detalles por aquí —
+            mientras tanto, puedes seguir el progreso en mi GitHub.
+          </p>
+          <div class="project-links">
+            <a href="https://github.com/pedro-morago" target="_blank" rel="noopener" class="btn btn-small">Seguir en GitHub ↗</a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section id="skills" class="section">
+      <div class="container">
+        <h2><span class="section-num mono">03.</span> Skills</h2>
+        <div class="skills-grid">
+          <div class="skill-group">
+            <h4 class="mono">Automatización E2E</h4>
+            <ul>
+              <li>Cypress</li>
+              <li>Playwright</li>
+              <li>REST Assured</li>
+            </ul>
+          </div>
+          <div class="skill-group">
+            <h4 class="mono">Lenguajes</h4>
+            <ul>
+              <li>TypeScript / JavaScript</li>
+              <li>Java (JUnit 5)</li>
+              <li>HTML &amp; CSS</li>
+            </ul>
+          </div>
+          <div class="skill-group">
+            <h4 class="mono">CI/CD &amp; Performance</h4>
+            <ul>
+              <li>GitHub Actions</li>
+              <li>Paralelización / sharding</li>
+              <li>k6 (pruebas de carga)</li>
+            </ul>
+          </div>
+          <div class="skill-group">
+            <h4 class="mono">Prácticas</h4>
+            <ul>
+              <li>Arquitectura hexagonal</li>
+              <li>Property-based testing</li>
+              <li>Reporte de bugs con evidencias</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto" class="section section-contact">
+      <div class="container">
+        <h2><span class="section-num mono">04.</span> Contacto</h2>
+        <p class="contact-text">
+          ¿Hablamos de calidad de software? Estoy abierto a nuevas oportunidades y colaboraciones.
+        </p>
+        <div class="contact-actions">
+          <a href="mailto:pedromorago97@gmail.com" class="btn btn-primary">pedromorago97@gmail.com</a>
+          <a href="https://github.com/pedro-morago" target="_blank" rel="noopener" class="btn btn-ghost">github.com/pedro-morago ↗</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container mono">
+      <p>© <span id="year"></span> Pedro Morago · Hecho a mano, sin frameworks — como debe ser una buena suite de tests.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
