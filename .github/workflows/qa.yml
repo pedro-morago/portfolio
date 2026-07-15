@@ -4,6 +4,10 @@ on:
   push:
   pull_request:
 
+concurrency:
+  group: qa-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   qa:
     runs-on: ubuntu-latest
@@ -13,6 +17,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
 
       - name: Build y comprobación de drift
         run: |
