@@ -208,15 +208,6 @@ strong { color: var(--bright); font-weight: 700; }
 
 .about-grid p { color: var(--dim); max-width: 720px; margin-bottom: 16px; }
 
-.quote {
-  border-left: 2px solid var(--green);
-  background: var(--panel);
-  padding: 16px 22px;
-  margin-bottom: 24px;
-  max-width: 720px;
-}
-.quote p { color: var(--fg); margin: 0; font-size: 0.95rem; }
-
 /* ===== Proyectos ===== */
 .project {
   background: var(--panel);
@@ -421,11 +412,10 @@ strong { color: var(--bright); font-weight: 700; }
   h1, h2, h3, strong, a, .accent, .hero-role, .ps1 .user, .project-tagline,
   .badge-live, .badge-wip, .job-dates, .skill-group h3, .credential h3 { color: #000 !important; }
   p, li, .ps1, .job-meta, .contact-text, .footer p, .project-tech span { color: #222 !important; }
-  .section, .project, .skill-group, .credential, .quote, .job {
+  .section, .project, .skill-group, .credential, .job {
     background: #fff !important;
     border-color: #999 !important;
   }
-  .quote { border-left: 2px solid #000; }
 }
 
 /* ===== Responsive ===== */
