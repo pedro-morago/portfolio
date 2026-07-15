@@ -1,0 +1,166 @@
+{
+  "htmlLang": "en",
+  "path": "en/",
+  "root": "../",
+  "ogLocale": "en_US",
+  "meta": {
+    "title": "Pedro Morago · QA Engineer",
+    "description": "Portfolio of Pedro Morago López-Vázquez, QA Engineer with 5 years of experience in test automation, API testing and CI/CD for international SaaS products.",
+    "ogDescription": "QA Engineer with 5 years of experience: E2E automation (Playwright, Cypress), API testing (REST Assured) and CI/CD pipeline optimization.",
+    "twitterDescription": "QA Engineer with 5 years of experience: E2E automation, API testing and CI/CD pipeline optimization."
+  },
+  "skipLink": { "target": "content", "label": "Skip to content" },
+  "nav": [
+    { "href": "#about", "label": "about" },
+    { "href": "#experience", "label": "experience" },
+    { "href": "#projects", "label": "projects" },
+    { "href": "#skills", "label": "skills" },
+    { "href": "#contact", "label": "contact" }
+  ],
+  "langSwitch": { "href": "../", "label": "[ES]", "lang": "es", "hreflang": "es", "aria": "Cambiar a español" },
+  "hero": {
+    "typed": "whoami",
+    "name": "Pedro Morago",
+    "role": "QA Engineer · Test Automation · ISTQB CTFL v4.0",
+    "tagline": "QA Engineer with <strong>5 years of experience</strong> in quality assurance and test automation for <strong>international SaaS products</strong>. I automate E2E tests with <strong>Playwright and Cypress</strong>, test APIs in Java and integrate testing into <strong>CI/CD pipelines</strong>.",
+    "ctaProjects": "View projects",
+    "ctaGithub": "GitHub ↗"
+  },
+  "about": {
+    "id": "about",
+    "aria": "About",
+    "cmd": "cat about.md",
+    "quote": "\"In programming, perfect is the enemy of good,\" a teacher used to repeat at the bootcamp where I trained as a developer. Coming from <strong>Mathematics</strong>, I never quite got used to that idea, so I chose the specialty where rigor isn't an obstacle, but the craft itself: <strong>QA</strong>.",
+    "paragraphs": [
+      "I've been a QA Engineer since 2021, focused on <strong>software quality end to end</strong>: defining quality strategy and designing test cases across the whole testing pyramid, combining manual and automated testing. I work daily with <strong>Playwright, Cypress and TypeScript</strong> for E2E, and with <strong>Java, REST Assured and JUnit 5</strong> for API automation, always with tests integrated into CI/CD pipelines and within fully remote, distributed agile teams.",
+      "That mathematical background (University of Cantabria) shows up in practice: at IriusRisk I designed a <strong>mixed-integer linear programming</strong> model to parallelize E2E test execution in CI/CD, cutting pipeline validation time by around <strong>40 % with no extra infrastructure cost</strong>. That idea led to my personal project <a href=\"#projects\">CI Shard Advisor</a>.",
+      "Beyond finding bugs, I'm interested in building <strong>processes and tools that help keep them out of production</strong>. That's why my personal projects revolve around testing and automation. <strong>ISTQB CTFL v4.0</strong> certified."
+    ]
+  },
+  "experience": {
+    "id": "experience",
+    "aria": "Experience",
+    "cmd": "cat experience.log",
+    "jobs": [
+      {
+        "title": "QA Engineer · IriusRisk",
+        "dates": "Apr 2024 – Present",
+        "meta": "Remote · International SaaS · Cybersecurity / Threat Modelling",
+        "bullets": [
+          "I lead the testing strategy for the <strong>Security Content</strong> module, defining the test mix across the pyramid (unit, integration, backend, E2E).",
+          "Designed and deployed a Python <strong>optimization model (MILP)</strong> for parallel E2E test execution in CI/CD: <strong>40 % less pipeline time</strong> with no extra infrastructure cost, validated in production.",
+          "Backend API automation in <strong>Java with REST Assured and JUnit 5</strong>: Given-When-Then pattern, JSON schema validation, negative cases and Qase integration.",
+          "Took part in the migration from TestCafe to <strong>Playwright with TypeScript</strong>: 80 % less execution time and a more stable suite.",
+          "I contribute to CI/CD pipelines in Bitbucket and apply <strong>Shift Left</strong>: reviewing requirements and technical designs from early stages."
+        ]
+      },
+      {
+        "title": "QA Engineer · Fieldeas",
+        "dates": "May 2021 – Apr 2024",
+        "meta": "Santander, Spain · Field Service Management SaaS",
+        "bullets": [
+          "Designed and executed functional, regression and integration tests across multiple client projects, reporting <strong>500+ bugs</strong> prioritized by product risk and business criticality.",
+          "Built and maintained automated E2E suites with <strong>Cypress and JavaScript</strong>, evolving the team's approach from manual testing to a scalable automation model.",
+          "Data validation with <strong>SQL</strong> within test cases and issue management in Jira, coordinating releases with development.",
+          "Trained and mentored new team members on tools and automation best practices, reducing onboarding time."
+        ]
+      }
+    ]
+  },
+  "projects": {
+    "id": "projects",
+    "aria": "Projects",
+    "cmd": "ls projects/",
+    "items": [
+      {
+        "name": "CI Shard Advisor",
+        "badge": "published",
+        "wip": false,
+        "tagline": "Optimal parallelization of Cypress suites in CI, without relying on Cypress Cloud.",
+        "description": "A tool that analyzes your Cypress run reports and recommends the <strong>optimal sharding strategy</strong> for your pipeline: it measures current performance, detects imbalances between containers and suggests the exact spec partition that minimizes total execution time, with <strong>optimality certification</strong> via a branch &amp; bound algorithm.",
+        "features": [
+          "100 % local, private analysis: reports never leave the browser.",
+          "Three interfaces: interactive web app, CLI with a <em>quality-gate</em> mode, and a local REST API.",
+          "Actionable recommendations: per-container spec lists ready to paste into GitHub Actions or Bitbucket Pipelines.",
+          "Pure core with hexagonal architecture, tested with property-based, metamorphic and invariant tests."
+        ],
+        "tech": ["TypeScript", "React", "Vite", "Fastify", "Node.js", "pnpm", "Playwright", "k6"],
+        "link": { "href": "https://github.com/pedro-morago/ci-shard-advisor", "label": "Code on GitHub ↗" }
+      },
+      {
+        "name": "Screen Recorder · QA mode",
+        "badge": "published",
+        "wip": false,
+        "tagline": "Chrome extension for reporting bugs with full evidence in a single recording.",
+        "description": "A browser extension (Manifest V3) that records your screen, window or tab while automatically capturing <strong>everything a developer needs to reproduce the bug</strong>: console logs synced with the video, uncaught exceptions, network requests as HAR, and numbered user steps. No time limits, no watermark, no account.",
+        "features": [
+          "QA mode: console, errors, 404s and HAR synced to the video by timestamp.",
+          "Live on-video annotations and keyboard-shortcut markers to flag the exact moment of the bug.",
+          "Automatic step recording (clicks, forms) exportable as <code>*.steps.md</code>, and typed values are never logged.",
+          "Generates the full report and files the issue directly in <strong>Jira Cloud or Linear</strong>.",
+          "Zero external dependencies: native browser APIs only."
+        ],
+        "tech": ["JavaScript", "Manifest V3", "chrome.desktopCapture", "Cypress", "Playwright", "GitHub Actions"],
+        "link": { "href": "https://github.com/pedro-morago/grabador-pantalla", "label": "Code on GitHub ↗" }
+      },
+      {
+        "name": "Spins Trainer",
+        "badge": "in progress",
+        "wip": true,
+        "tagline": "Coming soon…",
+        "description": "Currently under construction. More details here soon. In the meantime you can follow the progress on my GitHub.",
+        "features": [],
+        "tech": [],
+        "link": { "href": "https://github.com/pedro-morago", "label": "Follow on GitHub ↗" }
+      }
+    ]
+  },
+  "skills": {
+    "id": "skills",
+    "aria": "Skills",
+    "cmd": "cat skills.txt",
+    "groups": [
+      { "title": "e2e-automation", "items": ["Playwright", "Cypress", "Selenium · TestCafe"] },
+      { "title": "api-backend", "items": ["REST Assured · JUnit 5", "Postman · API Testing", "SQL"] },
+      { "title": "languages", "items": ["Java", "JavaScript / TypeScript", "Python"] },
+      { "title": "ci-cd-tools", "items": ["Bitbucket Pipelines · GitHub Actions", "Git · Docker", "Jira · Confluence · Qase"] },
+      { "title": "strategy-processes", "items": ["Test Strategy · Shift Left", "Test case design", "Agile / Scrum / Kanban"] },
+      { "title": "testing-types", "items": ["Functional · Regression", "Integration · API", "E2E"] }
+    ],
+    "credentials": [
+      {
+        "blocks": [
+          {
+            "title": "education",
+            "html": "<p><strong>BSc in Mathematics</strong><br />University of Cantabria · 2015 – 2020</p><p><strong>Advanced Web Application Development with Java</strong><br />CIC Bootcamp · 2021</p>"
+          }
+        ]
+      },
+      {
+        "blocks": [
+          {
+            "title": "certifications",
+            "html": "<p><strong>ISTQB® Certified Tester Foundation Level (CTFL) v4.0</strong><br />Dec 2024</p>"
+          },
+          {
+            "title": "languages",
+            "html": "<p>Spanish (native) · English C1.1, professional proficiency</p>"
+          }
+        ]
+      }
+    ]
+  },
+  "contact": {
+    "id": "contact",
+    "aria": "Contact",
+    "cmd": "cat contact.md",
+    "text": "Want to talk software quality? I'm open to new opportunities and collaborations.",
+    "location": "Santander, Spain · Remote",
+    "email": "pedromoragolv@gmail.com",
+    "links": [
+      { "href": "https://www.linkedin.com/in/pedro-morago-l%C3%B3pez-vazquez", "label": "LinkedIn ↗" },
+      { "href": "https://github.com/pedro-morago", "label": "GitHub ↗" }
+    ]
+  },
+  "footer": "exit 0 · © <span id=\"year\">2026</span> Pedro Morago López-Vázquez · HTML, CSS and JS, no frameworks."
+}

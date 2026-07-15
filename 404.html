@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 · Pedro Morago</title>
+  <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#060907" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23060907'/><text x='14' y='70' font-family='monospace' font-size='46' font-weight='bold' fill='%233dff77'>&gt;_</text></svg>" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #060907;
+      color: #cde8d4;
+      font-family: ui-monospace, "Cascadia Code", "SF Mono", Menlo, Consolas, monospace;
+      font-size: 15px;
+      line-height: 1.7;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    main { max-width: 560px; }
+    .user { color: #3dff77; }
+    .err { color: #ffb454; }
+    h1 { color: #eafff0; font-size: 1.6rem; margin: 14px 0 6px; }
+    p { color: #8fb39b; margin-bottom: 20px; }
+    a {
+      display: inline-block;
+      color: #3dff77;
+      border: 1px solid #3dff77;
+      padding: 9px 18px;
+      text-decoration: none;
+      font-weight: 700;
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+    a:hover { background: #3dff77; color: #041008; }
+  </style>
+</head>
+<body>
+  <main>
+    <p><span class="user">pedro@morago</span>:~$ cat pagina</p>
+    <p class="err">cat: pagina: No such file or directory</p>
+    <h1>Error 404</h1>
+    <p>Esta página no existe, pero el resto del portfolio sí. / This page doesn't exist, but the rest of the portfolio does.</p>
+    <a href="/portfolio/">Volver al inicio</a>
+    <a href="/portfolio/en/">English version</a>
+  </main>
+</body>
+</html>

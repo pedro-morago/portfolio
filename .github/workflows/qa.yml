@@ -1,0 +1,32 @@
+name: QA
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Build y comprobación de drift
+        run: |
+          node build.js
+          git diff --exit-code -- index.html en/index.html || {
+            echo "::error::Los HTML generados no coinciden con src/. Ejecuta 'node build.js' y commitea el resultado."
+            exit 1
+          }
+
+      - name: Instalar dependencias de QA
+        run: npm ci
+
+      - name: Instalar Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Auditoría QA (responsive, accesibilidad, contraste, paridad ES/EN)
+        run: npm run qa
