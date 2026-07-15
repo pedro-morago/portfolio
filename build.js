@@ -127,7 +127,9 @@ function renderHero(c) {
 }
 
 function renderSectionHeading(s) {
-  return `        <h2 aria-label="${s.aria}"><span class="accent">$</span> ${s.cmd}</h2>`;
+  // El nombre real de la sección va oculto visualmente para lectores de
+  // pantalla; el comando de terminal es presentación y se marca aria-hidden.
+  return `        <h2><span class="sr-only">${s.aria}</span><span aria-hidden="true"><span class="accent">$</span> ${s.cmd}</span></h2>`;
 }
 
 function renderAbout(c) {

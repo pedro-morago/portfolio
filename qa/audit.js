@@ -160,6 +160,23 @@ async function auditPage(browser, pageDef) {
     });
   }, CONTRAST_SELECTORS);
 
+  // Comportamiento: el efecto de tecleo debe terminar escribiendo el comando
+  const typedOk = await page
+    .waitForFunction(() => document.getElementById("typed")?.textContent === "whoami", null, { timeout: 5000 })
+    .then(() => true)
+    .catch(() => false);
+  if (!typedOk) fail(`${tag} el efecto de tecleo no completa "whoami"`);
+
+  // Comportamiento: al hacer scroll a una sección, su enlace de nav se activa
+  const activeOk = await page.evaluate(async () => {
+    const section = document.querySelectorAll("section[id]")[2];
+    window.scrollTo({ top: section.offsetTop + 100, behavior: "instant" });
+    await new Promise((r) => setTimeout(r, 700));
+    const active = document.querySelector(".nav-links a.active");
+    return active?.getAttribute("href") === `#${section.id}`;
+  });
+  if (!activeOk) fail(`${tag} el resaltado de sección activa en la nav no funciona`);
+
   // Posición del selector de idioma (para la comprobación de paridad)
   const pillPositions = {};
   for (const width of [390, 1280]) {

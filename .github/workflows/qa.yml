@@ -30,8 +30,48 @@ jobs:
       - name: Instalar dependencias de QA
         run: npm ci
 
+      - name: Validar HTML
+        run: npm run lint:html
+
+      - name: Versión de Playwright (para la caché del navegador)
+        id: pw
+        run: echo "version=$(node -e "console.log(require('./package-lock.json').packages['node_modules/playwright'].version)")" >> "$GITHUB_OUTPUT"
+
+      - name: Caché de Chromium
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-chromium-${{ steps.pw.outputs.version }}
+
       - name: Instalar Chromium
         run: npx playwright install --with-deps chromium
 
-      - name: Auditoría QA (responsive, accesibilidad, contraste, paridad ES/EN)
+      - name: Auditoría QA (responsive, accesibilidad, contraste, comportamiento, paridad ES/EN)
         run: npm run qa
+
+  # El despliegue solo ocurre en main y solo si la auditoría ha pasado:
+  # el CI es un quality gate real, no un semáforo decorativo.
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: qa
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - id: deployment
+        uses: actions/deploy-pages@v4

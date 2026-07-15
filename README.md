@@ -52,7 +52,8 @@ Requisitos para la auditoría en local: `npm install` y un Chromium disponible (
 Cada push ejecuta `.github/workflows/qa.yml`:
 
 1. **Build y drift**: regenera los HTML y falla si no coinciden con lo commiteado (evita ediciones a mano de los generados o divergencia entre `src/` y la web publicada).
-2. **Auditoría** (`qa/audit.js`) sobre ambos idiomas:
+2. **Validación de HTML** con `html-validate` (`npm run lint:html`).
+3. **Auditoría** (`qa/audit.js`) sobre ambos idiomas:
    - Sin overflow horizontal en 6 viewports (320px a 1920px)
    - Sin errores de JavaScript ni de consola
    - Anclas válidas, IDs únicos, un solo h1, jerarquía de encabezados correcta
@@ -60,10 +61,14 @@ Cada push ejecuta `.github/workflows/qa.yml`:
    - Contraste de texto WCAG AA (mínimo 4.5:1)
    - Áreas táctiles de la navegación en móvil
    - `rel="noopener"` en enlaces externos
-   - Paridad ES/EN: mismas secciones, proyectos y enlaces, y el selector de idioma en la misma posición exacta en ambas versiones (test de regresión de un bug real)
+   - Comportamiento: el efecto de tecleo del hero completa y el resaltado de sección activa en la nav funciona al hacer scroll
+   - Archivos auxiliares: `robots.txt`, `sitemap.xml` y `404.html` coherentes con las URLs canónicas
+   - Paridad ES/EN: mismas secciones, proyectos, enlaces y versiones de assets, y el selector de idioma en la misma posición exacta en ambas versiones (test de regresión de un bug real)
 
 ## Despliegue
 
-GitHub Pages sirve la rama `main` desde la raíz. No hay paso de build en el despliegue: los HTML generados están commiteados, así que la web funciona aunque Actions esté caído. El CI actúa como quality gate, no como builder.
+El despliegue a GitHub Pages lo hace el propio workflow (job `deploy`) y **solo en `main` y solo si la auditoría ha pasado**: el CI es un quality gate real, no un semáforo decorativo. Un push que rompa la auditoría no llega a publicarse.
+
+Los HTML generados siguen commiteados en el repo: la web es reproducible en local con solo abrir `index.html`, sin build ni dependencias.
 
 Otros archivos: `404.html` (página de error temática), `sitemap.xml` y `robots.txt`.
