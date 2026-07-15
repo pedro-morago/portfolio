@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pedro Morago · QA Engineer</title>
   <meta name="description" content="Portfolio de Pedro Morago López-Vázquez, QA Engineer con 5 años de experiencia en automatización de pruebas, testing de APIs y CI/CD en productos SaaS internacionales." />
-  <meta name="theme-color" content="#0b1120" />
+  <meta name="theme-color" content="#060907" />
   <link rel="canonical" href="https://pedro-morago.github.io/portfolio/" />
   <link rel="alternate" hreflang="es" href="https://pedro-morago.github.io/portfolio/" />
   <link rel="alternate" hreflang="en" href="https://pedro-morago.github.io/portfolio/en/" />
@@ -20,11 +20,8 @@
   <meta name="twitter:title" content="Pedro Morago · QA Engineer" />
   <meta name="twitter:description" content="QA Engineer con 5 años de experiencia: automatización E2E, testing de APIs y optimización de pipelines CI/CD." />
   <meta name="twitter:image" content="https://pedro-morago.github.io/portfolio/og-image.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✅</text></svg>" />
+  <link rel="stylesheet" href="styles.css?v=3" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23060907'/><text x='14' y='70' font-family='monospace' font-size='46' font-weight='bold' fill='%233dff77'>&gt;_</text></svg>" />
 </head>
 <body>
 
@@ -32,36 +29,30 @@
 
   <nav class="nav">
     <div class="nav-inner">
-      <a href="#" class="nav-logo"><span class="mono">&gt;_</span> pedro.morago</a>
+      <a href="#" class="nav-logo"><span class="accent">&gt;_</span> pedro.morago</a>
       <div class="nav-links">
-        <a href="#sobre-mi">Sobre mí</a>
-        <a href="#experiencia">Experiencia</a>
-        <a href="#proyectos">Proyectos</a>
-        <a href="#skills">Skills</a>
-        <a href="#contacto">Contacto</a>
-        <a href="en/" class="lang-switch mono" lang="en" hreflang="en" aria-label="Switch to English">EN</a>
+        <a href="#sobre-mi">sobre mí</a>
+        <a href="#experiencia">experiencia</a>
+        <a href="#proyectos">proyectos</a>
+        <a href="#skills">skills</a>
+        <a href="#contacto">contacto</a>
       </div>
+      <a href="en/" class="lang-switch" lang="en" hreflang="en" aria-label="Switch to English">[EN]</a>
     </div>
   </nav>
 
   <header class="hero">
     <div class="container">
-      <p class="hero-kicker mono">// QA Engineer · Test Automation · ISTQB CTFL v4.0</p>
+      <p class="ps1"><span class="user">pedro@morago</span>:~$ <span class="cmd" id="typed">whoami</span></p>
       <h1>Pedro Morago</h1>
+      <p class="hero-role">QA Engineer · Test Automation · ISTQB CTFL v4.0</p>
       <p class="hero-tagline">
         QA Engineer con <strong>5 años de experiencia</strong> en aseguramiento de la calidad y
         automatización de pruebas en <strong>productos SaaS internacionales</strong>.
         Automatización E2E con <strong>Playwright y Cypress</strong>, testing de APIs en Java
         e integración de pruebas en <strong>pipelines de CI/CD</strong>.
       </p>
-      <div class="hero-terminal mono" aria-hidden="true">
-        <div class="terminal-bar"><span></span><span></span><span></span></div>
-        <div class="terminal-body">
-          <p><span class="prompt">$</span> npx cypress run --record false</p>
-          <p class="ok">✓ Todos los tests pasan · 0 flaky · pipeline en verde</p>
-          <p><span class="prompt">$</span> <span class="cursor">▊</span></p>
-        </div>
-      </div>
+      <p class="ps1" aria-hidden="true"><span class="user">pedro@morago</span>:~$ <span class="cursor"></span></p>
       <div class="hero-actions">
         <a href="#proyectos" class="btn btn-primary">Ver proyectos</a>
         <a href="https://github.com/pedro-morago" target="_blank" rel="noopener" class="btn btn-ghost">GitHub ↗</a>
@@ -72,7 +63,7 @@
   <main id="contenido">
     <section id="sobre-mi" class="section">
       <div class="container">
-        <h2><span class="section-num mono">01.</span> Sobre mí</h2>
+        <h2 aria-label="Sobre mí"><span class="accent">$</span> cat sobre-mi.md</h2>
         <div class="about-grid">
           <p>
             Soy QA Engineer desde 2021, especializado en <strong>calidad de software de principio
@@ -101,14 +92,14 @@
 
     <section id="experiencia" class="section">
       <div class="container">
-        <h2><span class="section-num mono">02.</span> Experiencia</h2>
+        <h2 aria-label="Experiencia"><span class="accent">$</span> cat experiencia.log</h2>
 
         <article class="job">
           <div class="job-header">
             <h3>QA Engineer · IriusRisk</h3>
-            <span class="job-dates mono">Abr 2024 – Actualidad</span>
+            <span class="job-dates">Abr 2024 – Actualidad</span>
           </div>
-          <p class="job-meta mono">En remoto · SaaS internacional · Ciberseguridad / Threat Modelling</p>
+          <p class="job-meta">En remoto · SaaS internacional · Ciberseguridad / Threat Modelling</p>
           <ul class="project-features">
             <li>Lidero la estrategia de testing del módulo <strong>Security Content</strong>, definiendo el mix de pruebas a lo largo de la pirámide (unit, integración, backend, E2E).</li>
             <li>Diseñé y desplegué en Python un modelo de <strong>optimización (MILP)</strong> para la ejecución paralela de los tests E2E en CI/CD: <strong>−40 % de tiempo de pipeline</strong> sin aumentar el coste de infraestructura, validado en producción.</li>
@@ -121,9 +112,9 @@
         <article class="job">
           <div class="job-header">
             <h3>QA Engineer · Fieldeas</h3>
-            <span class="job-dates mono">May 2021 – Abr 2024</span>
+            <span class="job-dates">May 2021 – Abr 2024</span>
           </div>
-          <p class="job-meta mono">Santander, España · SaaS de Field Service Management</p>
+          <p class="job-meta">Santander, España · SaaS de Field Service Management</p>
           <ul class="project-features">
             <li>Diseñé y ejecuté pruebas funcionales, de regresión e integración en múltiples proyectos de cliente, reportando <strong>más de 500 bugs</strong> priorizados por riesgo y criticidad de negocio.</li>
             <li>Construí y mantuve suites automatizadas E2E con <strong>Cypress y JavaScript</strong>, evolucionando el enfoque del equipo de manual a un modelo escalable de automatización.</li>
@@ -136,14 +127,14 @@
 
     <section id="proyectos" class="section">
       <div class="container">
-        <h2><span class="section-num mono">03.</span> Proyectos</h2>
+        <h2 aria-label="Proyectos"><span class="accent">$</span> ls proyectos/</h2>
 
         <article class="project">
           <div class="project-header">
             <h3>CI Shard Advisor</h3>
-            <span class="badge badge-live">Publicado</span>
+            <span class="badge badge-live">publicado</span>
           </div>
-          <p class="project-tagline mono">Paralelización óptima de suites de Cypress en CI, sin depender de Cypress Cloud.</p>
+          <p class="project-tagline">Paralelización óptima de suites de Cypress en CI, sin depender de Cypress Cloud.</p>
           <p>
             Herramienta que analiza los reportes de tus ejecuciones de Cypress y recomienda la
             <strong>estrategia óptima de sharding</strong> para tu pipeline: mide el rendimiento actual,
@@ -157,7 +148,7 @@
             <li>Recomendaciones accionables: listas de specs por contenedor listas para copiar en GitHub Actions o Bitbucket Pipelines.</li>
             <li>Núcleo puro con arquitectura hexagonal, probado con tests de propiedades, metamórficos y de invariantes.</li>
           </ul>
-          <div class="project-tech mono">
+          <div class="project-tech">
             <span>TypeScript</span><span>React</span><span>Vite</span><span>Fastify</span><span>Node.js</span><span>pnpm</span><span>Playwright</span><span>k6</span>
           </div>
           <div class="project-links">
@@ -168,9 +159,9 @@
         <article class="project">
           <div class="project-header">
             <h3>Screen Recorder · QA mode</h3>
-            <span class="badge badge-live">Publicado</span>
+            <span class="badge badge-live">publicado</span>
           </div>
-          <p class="project-tagline mono">Extensión de Chrome para reportar bugs con todas las evidencias, en una sola grabación.</p>
+          <p class="project-tagline">Extensión de Chrome para reportar bugs con todas las evidencias, en una sola grabación.</p>
           <p>
             Extensión de navegador (Manifest V3) que graba pantalla, ventana o pestaña y, mientras tanto,
             captura automáticamente <strong>todo lo que un desarrollador necesita para reproducir el bug</strong>:
@@ -184,7 +175,7 @@
             <li>Genera el reporte completo y crea el issue directamente en <strong>Jira Cloud o Linear</strong>.</li>
             <li>Cero dependencias externas: solo APIs nativas del navegador.</li>
           </ul>
-          <div class="project-tech mono">
+          <div class="project-tech">
             <span>JavaScript</span><span>Manifest V3</span><span>chrome.desktopCapture</span><span>Cypress</span><span>Playwright</span><span>GitHub Actions</span>
           </div>
           <div class="project-links">
@@ -195,9 +186,9 @@
         <article class="project project-wip">
           <div class="project-header">
             <h3>Spins Trainer</h3>
-            <span class="badge badge-wip">En desarrollo</span>
+            <span class="badge badge-wip">en desarrollo</span>
           </div>
-          <p class="project-tagline mono">Próximamente…</p>
+          <p class="project-tagline">Próximamente…</p>
           <p>
             Proyecto actualmente en construcción. Muy pronto habrá más detalles por aquí —
             mientras tanto, puedes seguir el progreso en mi GitHub.
@@ -212,10 +203,10 @@
 
     <section id="skills" class="section">
       <div class="container">
-        <h2><span class="section-num mono">04.</span> Skills</h2>
+        <h2 aria-label="Skills"><span class="accent">$</span> cat skills.txt</h2>
         <div class="skills-grid">
           <div class="skill-group">
-            <h3 class="mono">Automatización E2E</h3>
+            <h3>automatización-e2e</h3>
             <ul>
               <li>Playwright</li>
               <li>Cypress</li>
@@ -223,7 +214,7 @@
             </ul>
           </div>
           <div class="skill-group">
-            <h3 class="mono">API / Backend</h3>
+            <h3>api-backend</h3>
             <ul>
               <li>REST Assured · JUnit 5</li>
               <li>Postman · API Testing</li>
@@ -231,7 +222,7 @@
             </ul>
           </div>
           <div class="skill-group">
-            <h3 class="mono">Lenguajes</h3>
+            <h3>lenguajes</h3>
             <ul>
               <li>Java</li>
               <li>JavaScript / TypeScript</li>
@@ -239,7 +230,7 @@
             </ul>
           </div>
           <div class="skill-group">
-            <h3 class="mono">CI/CD &amp; Herramientas</h3>
+            <h3>ci-cd-herramientas</h3>
             <ul>
               <li>Bitbucket Pipelines · GitHub Actions</li>
               <li>Git · Docker</li>
@@ -247,7 +238,7 @@
             </ul>
           </div>
           <div class="skill-group">
-            <h3 class="mono">Estrategia y procesos</h3>
+            <h3>estrategia-procesos</h3>
             <ul>
               <li>Test Strategy · Shift Left</li>
               <li>Diseño de casos de prueba</li>
@@ -255,7 +246,7 @@
             </ul>
           </div>
           <div class="skill-group">
-            <h3 class="mono">Tipos de testing</h3>
+            <h3>tipos-de-testing</h3>
             <ul>
               <li>Funcional · Regresión</li>
               <li>Integración · API</li>
@@ -266,14 +257,14 @@
 
         <div class="credentials">
           <div class="credential">
-            <h3 class="mono">🎓 Formación</h3>
+            <h3>formación</h3>
             <p><strong>Grado en Matemáticas</strong><br />Universidad de Cantabria · 2015 – 2020</p>
             <p><strong>Desarrollo Avanzado de Aplicaciones Web con Tecnología Java</strong><br />CIC Bootcamp · 2021</p>
           </div>
           <div class="credential">
-            <h3 class="mono">📜 Certificaciones</h3>
+            <h3>certificaciones</h3>
             <p><strong>ISTQB® Certified Tester Foundation Level (CTFL) v4.0</strong><br />Dic 2024</p>
-            <h3 class="mono credential-langs">🌍 Idiomas</h3>
+            <h3 class="credential-langs">idiomas</h3>
             <p>Español (nativo) · Inglés C1.1 (EOI), competencia profesional</p>
           </div>
         </div>
@@ -282,10 +273,10 @@
 
     <section id="contacto" class="section section-contact">
       <div class="container">
-        <h2><span class="section-num mono">05.</span> Contacto</h2>
+        <h2 aria-label="Contacto"><span class="accent">$</span> cat contacto.md</h2>
         <p class="contact-text">
           ¿Hablamos de calidad de software? Estoy abierto a nuevas oportunidades y colaboraciones.
-          <span class="mono contact-location">📍 Santander, España · En remoto</span>
+          <span class="contact-location">Santander, España · En remoto</span>
         </p>
         <div class="contact-actions">
           <a href="mailto:pedromoragolv@gmail.com" class="btn btn-primary">pedromoragolv@gmail.com</a>
@@ -297,11 +288,11 @@
   </main>
 
   <footer class="footer">
-    <div class="container mono">
-      <p>© <span id="year">2026</span> Pedro Morago López-Vázquez · Web estática: HTML, CSS y JavaScript, sin frameworks.</p>
+    <div class="container">
+      <p><span class="accent">$</span> exit 0 · © <span id="year">2026</span> Pedro Morago López-Vázquez · HTML, CSS y JS, sin frameworks.</p>
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=3"></script>
 </body>
 </html>
