@@ -140,11 +140,6 @@ function renderAbout(c) {
       <div class="container">
 ${renderSectionHeading(c.about)}
         <div class="about-grid">
-          <blockquote class="quote">
-            <p>
-              ${c.about.quote}
-            </p>
-          </blockquote>
 ${paragraphs}
         </div>
       </div>

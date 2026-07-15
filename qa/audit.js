@@ -33,7 +33,7 @@ const PAGES = [
 ];
 const VIEWPORTS = [320, 390, 412, 768, 1280, 1920];
 const CONTRAST_SELECTORS = [
-  ".hero-tagline", ".quote p", ".about-grid > p", ".project > p",
+  ".hero-tagline", ".about-grid > p", ".project > p",
   ".badge-live", ".badge-wip", ".job-dates", ".job-meta", ".footer p",
   ".btn-primary", ".project-tech span", ".skill-group li", ".nav-links a",
 ];

@@ -30,10 +30,10 @@
     "id": "about",
     "aria": "About",
     "cmd": "cat about.md",
-    "quote": "\"In programming, perfect is the enemy of good,\" a teacher used to repeat at the bootcamp where I trained as a developer. Coming from <strong>Mathematics</strong>, I never quite got used to that idea, so I chose the specialty where rigor isn't an obstacle, but the craft itself: <strong>QA</strong>.",
     "paragraphs": [
       "I've been a QA Engineer since 2021, focused on <strong>software quality end to end</strong>: defining quality strategy and designing test cases across the whole testing pyramid, combining manual and automated testing. I work daily with <strong>Playwright, Cypress and TypeScript</strong> for E2E, and with <strong>Java, REST Assured and JUnit 5</strong> for API automation, always with tests integrated into CI/CD pipelines and within fully remote, distributed agile teams.",
-      "That mathematical background (University of Cantabria) shows up in practice: at IriusRisk I designed a <strong>mixed-integer linear programming</strong> model to parallelize E2E test execution in CI/CD, cutting pipeline validation time by around <strong>40 % with no extra infrastructure cost</strong>. That idea led to my personal project <a href=\"#projects\">CI Shard Advisor</a>.",
+      "Before software, I studied <strong>Mathematics</strong> (University of Cantabria). More than a syllabus, the degree trains a way of working: <strong>formulating problems in precise terms</strong>, breaking complex problems into tractable parts, reasoning carefully about edge cases, and not accepting a claim without evidence to support it. That training maps naturally onto QA: testing software is, in essence, <strong>searching for counterexamples</strong> to the claim that it works.",
+      "That foundation also applies directly: at IriusRisk I designed a <strong>mixed-integer linear programming</strong> model to parallelize E2E test execution in CI/CD, cutting pipeline validation time by around <strong>40 % with no extra infrastructure cost</strong>. That idea led to my personal project <a href=\"#projects\">CI Shard Advisor</a>.",
       "Beyond finding bugs, I'm interested in building <strong>processes and tools that help keep them out of production</strong>. That's why my personal projects revolve around testing and automation, and I write about QA in my <a href=\"https://pedro-morago.github.io/formacion/\" target=\"_blank\" rel=\"noopener\">QA Wiki</a> (in Spanish). <strong>ISTQB CTFL v4.0</strong> certified."
     ]
   },
