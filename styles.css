@@ -282,6 +282,8 @@ strong { color: var(--bright); font-weight: 700; }
 .project-tech span::before { content: "["; color: var(--border); }
 .project-tech span::after { content: "]"; color: var(--border); }
 
+.project-links { display: flex; flex-wrap: wrap; gap: 10px; }
+
 .project-wip { border-style: dashed; }
 
 /* ===== Experiencia ===== */

@@ -34,7 +34,7 @@
     "paragraphs": [
       "I've been a QA Engineer since 2021, focused on <strong>software quality end to end</strong>: defining quality strategy and designing test cases across the whole testing pyramid, combining manual and automated testing. I work daily with <strong>Playwright, Cypress and TypeScript</strong> for E2E, and with <strong>Java, REST Assured and JUnit 5</strong> for API automation, always with tests integrated into CI/CD pipelines and within fully remote, distributed agile teams.",
       "That mathematical background (University of Cantabria) shows up in practice: at IriusRisk I designed a <strong>mixed-integer linear programming</strong> model to parallelize E2E test execution in CI/CD, cutting pipeline validation time by around <strong>40 % with no extra infrastructure cost</strong>. That idea led to my personal project <a href=\"#projects\">CI Shard Advisor</a>.",
-      "Beyond finding bugs, I'm interested in building <strong>processes and tools that help keep them out of production</strong>. That's why my personal projects revolve around testing and automation. <strong>ISTQB CTFL v4.0</strong> certified."
+      "Beyond finding bugs, I'm interested in building <strong>processes and tools that help keep them out of production</strong>. That's why my personal projects revolve around testing and automation, and I write about QA in my <a href=\"https://pedro-morago.github.io/formacion/\" target=\"_blank\" rel=\"noopener\">QA Wiki</a> (in Spanish). <strong>ISTQB CTFL v4.0</strong> certified."
     ]
   },
   "experience": {
@@ -73,6 +73,25 @@
     "cmd": "ls projects/",
     "items": [
       {
+        "name": "QA Wiki",
+        "badge": "living document",
+        "wip": false,
+        "tagline": "My Quality Assurance knowledge base: 30+ articles written by me.",
+        "description": "A training and knowledge wiki where I write, in Spanish, about what I practice daily as a QA. It isn't an app: it's the side of the craft that shows <strong>judgment and depth</strong>, not just code. I keep expanding it continuously.",
+        "features": [
+          "Testing strategy: backend and frontend layers, microservices and shift-left with a maturity model.",
+          "API testing with REST Assured and JUnit 5: JSON Schema, negative cases and waits with Awaitility.",
+          "Automation with Playwright and TypeScript, including a real migration case from TestCafe.",
+          "CI/CD: static analysis, parallelization and suite sharding.",
+          "QA fundamentals and quality processes."
+        ],
+        "tech": ["VitePress", "Markdown", "GitHub Actions", "GitHub Pages"],
+        "links": [
+          { "href": "https://pedro-morago.github.io/formacion/", "label": "Read the wiki ↗" },
+          { "href": "https://github.com/pedro-morago/formacion", "label": "Code on GitHub ↗" }
+        ]
+      },
+      {
         "name": "CI Shard Advisor",
         "badge": "published",
         "wip": false,
@@ -85,7 +104,9 @@
           "Pure core with hexagonal architecture, tested with property-based, metamorphic and invariant tests."
         ],
         "tech": ["TypeScript", "React", "Vite", "Fastify", "Node.js", "pnpm", "Playwright", "k6"],
-        "link": { "href": "https://github.com/pedro-morago/ci-shard-advisor", "label": "Code on GitHub ↗" }
+        "links": [
+          { "href": "https://github.com/pedro-morago/ci-shard-advisor", "label": "Code on GitHub ↗" }
+        ]
       },
       {
         "name": "Screen Recorder · QA mode",
@@ -101,7 +122,9 @@
           "Zero external dependencies: native browser APIs only."
         ],
         "tech": ["JavaScript", "Manifest V3", "chrome.desktopCapture", "Cypress", "Playwright", "GitHub Actions"],
-        "link": { "href": "https://github.com/pedro-morago/grabador-pantalla", "label": "Code on GitHub ↗" }
+        "links": [
+          { "href": "https://github.com/pedro-morago/grabador-pantalla", "label": "Code on GitHub ↗" }
+        ]
       },
       {
         "name": "Spins Trainer",
@@ -111,7 +134,9 @@
         "description": "Currently under construction. More details here soon. In the meantime you can follow the progress on my GitHub.",
         "features": [],
         "tech": [],
-        "link": { "href": "https://github.com/pedro-morago", "label": "Follow on GitHub ↗" }
+        "links": [
+          { "href": "https://github.com/pedro-morago", "label": "Follow on GitHub ↗" }
+        ]
       }
     ]
   },

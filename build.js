@@ -10,7 +10,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 
 const SITE_URL = "https://pedro-morago.github.io/portfolio/";
-const ASSET_VERSION = "4";
+const ASSET_VERSION = "5";
 const LANGS = ["es", "en"];
 
 const FAVICON =
@@ -140,6 +140,12 @@ function renderProjects(c) {
             .map((t) => `<span>${t}</span>`)
             .join("")}\n          </div>\n`
         : "";
+      const links = p.links
+        .map(
+          (l) =>
+            `            <a href="${l.href}" target="_blank" rel="noopener" class="btn btn-small">${l.label}</a>`
+        )
+        .join("\n");
       return `        <article class="project${p.wip ? " project-wip" : ""}">
           <div class="project-header">
             <h3>${p.name}</h3>
@@ -150,7 +156,7 @@ function renderProjects(c) {
             ${p.description}
           </p>
 ${features}${tech}          <div class="project-links">
-            <a href="${p.link.href}" target="_blank" rel="noopener" class="btn btn-small">${p.link.label}</a>
+${links}
           </div>
         </article>`;
     })
