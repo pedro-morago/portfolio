@@ -133,14 +133,20 @@ function renderSectionHeading(s) {
 }
 
 function renderAbout(c) {
-  const paragraphs = c.about.paragraphs
-    .map((p) => `          <p>\n            ${p}\n          </p>`)
-    .join("\n");
+  const bullets = c.about.bullets.map((b) => `            <li>${b}</li>`).join("\n");
   return `    <section id="${c.about.id}" class="section">
       <div class="container">
 ${renderSectionHeading(c.about)}
         <div class="about-grid">
-${paragraphs}
+          <p>
+            ${c.about.intro}
+          </p>
+          <ul class="project-features">
+${bullets}
+          </ul>
+          <p>
+            ${c.about.outro}
+          </p>
         </div>
       </div>
     </section>`;
