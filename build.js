@@ -8,18 +8,65 @@
  */
 const fs = require("node:fs");
 const path = require("node:path");
+const crypto = require("node:crypto");
 
 const SITE_URL = "https://pedro-morago.github.io/portfolio/";
-const ASSET_VERSION = "5";
 const LANGS = ["es", "en"];
+
+// Versión de assets derivada del contenido: cambia sola cuando cambia el
+// archivo, así los navegadores nunca sirven CSS/JS cacheados obsoletos.
+const hashFile = (f) =>
+  crypto.createHash("sha256").update(fs.readFileSync(path.join(__dirname, f))).digest("hex").slice(0, 8);
+const CSS_VERSION = hashFile("styles.css");
+const JS_VERSION = hashFile("script.js");
 
 const FAVICON =
   "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23060907'/><text x='14' y='70' font-family='monospace' font-size='46' font-weight='bold' fill='%233dff77'>&gt;_</text></svg>";
 
 const read = (f) => JSON.parse(fs.readFileSync(path.join(__dirname, "src", f), "utf8"));
 
+/**
+ * Los dos JSON de contenido son traducciones paralelas: deben tener las
+ * mismas claves, arrays de la misma longitud y ningún valor vacío. Si no,
+ * el build falla aquí en vez de generar HTML con 'undefined' silenciosos.
+ */
+function assertParity(a, b, at = "$") {
+  const type = (v) => (Array.isArray(v) ? "array" : v === null ? "null" : typeof v);
+  if (type(a) !== type(b))
+    throw new Error(`Paridad es/en rota en ${at}: tipos ${type(a)} vs ${type(b)}`);
+  if (type(a) === "array") {
+    if (a.length !== b.length)
+      throw new Error(`Paridad es/en rota en ${at}: arrays de longitud ${a.length} vs ${b.length}`);
+    a.forEach((v, i) => assertParity(v, b[i], `${at}[${i}]`));
+  } else if (type(a) === "object") {
+    const ka = Object.keys(a).sort(), kb = Object.keys(b).sort();
+    if (ka.join(",") !== kb.join(","))
+      throw new Error(`Paridad es/en rota en ${at}: claves [${ka}] vs [${kb}]`);
+    ka.forEach((k) => assertParity(a[k], b[k], `${at}.${k}`));
+  } else if (type(a) === "string") {
+    if (!a.trim() && at !== "$.path" && at !== "$.root")
+      throw new Error(`Valor vacío en ${at} (es)`);
+    if (!b.trim() && at !== "$.path" && at !== "$.root")
+      throw new Error(`Valor vacío en ${at} (en)`);
+  }
+}
+
 function renderHead(c) {
   const url = SITE_URL + c.path;
+  const jsonLd = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Pedro Morago López-Vázquez",
+    alternateName: "Pedro Morago",
+    jobTitle: "QA Engineer",
+    url: SITE_URL,
+    address: { "@type": "PostalAddress", addressLocality: "Santander", addressCountry: "ES" },
+    alumniOf: "Universidad de Cantabria",
+    sameAs: [
+      "https://github.com/pedro-morago",
+      "https://www.linkedin.com/in/pedro-morago-l%C3%B3pez-vazquez",
+    ],
+  });
   return `<head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -40,8 +87,9 @@ function renderHead(c) {
   <meta name="twitter:title" content="${c.meta.title}" />
   <meta name="twitter:description" content="${c.meta.twitterDescription}" />
   <meta name="twitter:image" content="${SITE_URL}og-image.png" />
-  <link rel="stylesheet" href="${c.root}styles.css?v=${ASSET_VERSION}" />
+  <link rel="stylesheet" href="${c.root}styles.css?v=${CSS_VERSION}" />
   <link rel="icon" href="${FAVICON}" />
+  <script type="application/ld+json">${jsonLd}</script>
 </head>`;
 }
 
@@ -258,16 +306,18 @@ ${renderContact(c)}
     </div>
   </footer>
 
-  <script src="${c.root}script.js?v=${ASSET_VERSION}"></script>
+  <script src="${c.root}script.js?v=${JS_VERSION}"></script>
 </body>
 </html>
 `;
 }
 
-for (const lang of LANGS) {
-  const content = read(`content.${lang}.json`);
+const contents = LANGS.map((lang) => read(`content.${lang}.json`));
+assertParity(contents[0], contents[1]);
+
+for (const content of contents) {
   const outFile = path.join(__dirname, content.path, "index.html");
   fs.mkdirSync(path.dirname(outFile), { recursive: true });
   fs.writeFileSync(outFile, renderPage(content));
-  console.log(`✓ ${path.relative(__dirname, outFile)} (${lang})`);
+  console.log(`✓ ${path.relative(__dirname, outFile)} (${content.htmlLang})`);
 }

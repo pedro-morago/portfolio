@@ -46,6 +46,31 @@ const failures = [];
 const fail = (msg) => failures.push(msg);
 const fileUrl = (f) => "file://" + path.join(ROOT, f);
 
+/** Archivos auxiliares: existencia y coherencia con las URLs canónicas. */
+function auditStaticFiles() {
+  const readIf = (f) =>
+    fs.existsSync(path.join(ROOT, f)) ? fs.readFileSync(path.join(ROOT, f), "utf8") : null;
+
+  const robots = readIf("robots.txt");
+  if (!robots) fail("[estáticos] falta robots.txt");
+  else if (!robots.includes(`Sitemap: ${SITE_URL}sitemap.xml`))
+    fail("[estáticos] robots.txt no apunta al sitemap");
+
+  const sitemap = readIf("sitemap.xml");
+  if (!sitemap) fail("[estáticos] falta sitemap.xml");
+  else
+    for (const p of PAGES)
+      if (!sitemap.includes(`<loc>${p.canonical}</loc>`))
+        fail(`[estáticos] sitemap.xml no incluye ${p.canonical}`);
+
+  const notFound = readIf("404.html");
+  if (!notFound) fail("[estáticos] falta 404.html");
+  else if (!notFound.includes('name="robots" content="noindex"'))
+    fail("[estáticos] 404.html sin meta robots noindex");
+
+  if (!fs.existsSync(path.join(ROOT, "og-image.png"))) fail("[estáticos] falta og-image.png");
+}
+
 async function auditPage(browser, pageDef) {
   const tag = `[${pageDef.lang}]`;
   const jsErrors = [];
@@ -100,6 +125,10 @@ async function auditPage(browser, pageDef) {
     out.sectionCount = document.querySelectorAll("section[id]").length;
     out.projectCount = document.querySelectorAll(".project").length;
     out.navCount = document.querySelectorAll(".nav-links a").length;
+    out.langSwitchHref = document.querySelector(".lang-switch")?.getAttribute("href") || "";
+    out.cssVersion = document.querySelector('link[rel="stylesheet"]')?.href.split("?v=")[1] || "";
+    out.jsVersion = document.querySelector("script[src]")?.src.split("?v=")[1] || "";
+    out.jsonLd = document.querySelectorAll('script[type="application/ld+json"]').length;
     return out;
   });
 
@@ -153,13 +182,16 @@ async function auditPage(browser, pageDef) {
     fail(`${tag} canonical "${doc.canonical}", esperado "${pageDef.canonical}"`);
   if (doc.hreflangs.join(",") !== "en,es,x-default")
     fail(`${tag} hreflang incompletos: ${doc.hreflangs.join(",")}`);
-  if (!fs.existsSync(path.join(ROOT, "og-image.png"))) fail(`${tag} falta og-image.png`);
   if (doc.h1Count !== 1) fail(`${tag} ${doc.h1Count} elementos h1, esperado 1`);
   if (doc.headingJumps) fail(`${tag} ${doc.headingJumps} saltos en la jerarquía de encabezados`);
   if (doc.duplicateIds.length) fail(`${tag} IDs duplicados: ${doc.duplicateIds.join(", ")}`);
   if (doc.brokenAnchors.length) fail(`${tag} anclas rotas: ${doc.brokenAnchors.join(", ")}`);
   if (doc.blankNoOpener) fail(`${tag} ${doc.blankNoOpener} enlaces target=_blank sin rel=noopener`);
   if (!doc.skipTargetOk) fail(`${tag} el destino del enlace 'saltar al contenido' no existe`);
+  const expectedSwitch = pageDef.lang === "es" ? "en/" : "../";
+  if (doc.langSwitchHref !== expectedSwitch)
+    fail(`${tag} selector de idioma apunta a "${doc.langSwitchHref}", esperado "${expectedSwitch}"`);
+  if (doc.jsonLd !== 1) fail(`${tag} ${doc.jsonLd} bloques JSON-LD, esperado 1`);
   if (jsErrors.length) fail(`${tag} errores de JavaScript: ${jsErrors.join(" | ")}`);
   if (consoleErrors.length) fail(`${tag} errores de consola: ${consoleErrors.join(" | ")}`);
   for (const c of contrast) {
@@ -171,6 +203,7 @@ async function auditPage(browser, pageDef) {
 }
 
 (async () => {
+  auditStaticFiles();
   const browser = await chromium.launch(launchOptions);
   const results = {};
   for (const pageDef of PAGES) {
@@ -187,6 +220,8 @@ async function auditPage(browser, pageDef) {
     fail(`[paridad] proyectos: es=${es.doc.projectCount}, en=${en.doc.projectCount}`);
   if (es.doc.navCount !== en.doc.navCount)
     fail(`[paridad] enlaces de nav: es=${es.doc.navCount}, en=${en.doc.navCount}`);
+  if (es.doc.cssVersion !== en.doc.cssVersion || es.doc.jsVersion !== en.doc.jsVersion)
+    fail(`[paridad] versiones de assets distintas entre idiomas (css: ${es.doc.cssVersion}/${en.doc.cssVersion}, js: ${es.doc.jsVersion}/${en.doc.jsVersion})`);
   for (const width of [390, 1280]) {
     const a = es.pillPositions[width], b = en.pillPositions[width];
     if (Math.abs(a.top - b.top) > 1 || Math.abs(a.right - b.right) > 1)

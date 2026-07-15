@@ -1,5 +1,7 @@
 # Portfolio · Pedro Morago
 
+![QA](https://github.com/pedro-morago/portfolio/actions/workflows/qa.yml/badge.svg)
+
 Web personal de portfolio de QA Engineer, con estética de terminal. Estática, sin frameworks y sin ninguna petición externa en runtime.
 
 - Español: `https://pedro-morago.github.io/portfolio/`
@@ -22,6 +24,11 @@ qa/og-image.js        ← regenera og-image.png
 ```
 
 La estructura HTML vive una única vez en `build.js`; cada idioma es solo un archivo de datos. Así un cambio de estructura se hace en un sitio y un cambio de texto en el JSON del idioma que toque, sin riesgo de que las dos versiones diverjan.
+
+Dos salvaguardas del build:
+
+- **Validación de paridad**: los dos JSON deben tener las mismas claves, arrays de la misma longitud y ningún valor vacío; si no, el build falla con un error que señala la ruta exacta.
+- **Versionado automático de assets**: el `?v=` de CSS y JS es un hash del contenido del archivo, así que el cache-busting ocurre solo, sin bumps manuales.
 
 ## Flujo de trabajo
 

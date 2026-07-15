@@ -2,6 +2,9 @@
   "name": "portfolio",
   "private": true,
   "description": "Portfolio de Pedro Morago. Web estática generada con build.js, sin dependencias en runtime.",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "build": "node build.js",
     "qa": "node qa/audit.js",
