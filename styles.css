@@ -208,6 +208,15 @@ strong { color: var(--bright); font-weight: 700; }
 
 .about-grid p { color: var(--dim); max-width: 720px; margin-bottom: 16px; }
 
+.quote {
+  border-left: 2px solid var(--green);
+  background: var(--panel);
+  padding: 16px 22px;
+  margin-bottom: 24px;
+  max-width: 720px;
+}
+.quote p { color: var(--fg); margin: 0; font-size: 0.95rem; }
+
 /* ===== Proyectos ===== */
 .project {
   background: var(--panel);
