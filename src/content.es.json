@@ -34,7 +34,7 @@
     "paragraphs": [
       "Soy QA Engineer desde 2021, especializado en <strong>calidad de software de principio a fin</strong>: definición de estrategia de calidad y diseño de casos de prueba a lo largo de toda la pirámide de testing, combinando testing manual y automatizado. Trabajo a diario con <strong>Playwright, Cypress y TypeScript</strong> en E2E, y con <strong>Java, REST Assured y JUnit 5</strong> en automatización de APIs, siempre con las pruebas integradas en pipelines de CI/CD y en equipos ágiles 100 % remotos y distribuidos.",
       "Esa formación matemática (Universidad de Cantabria) se aplica en la práctica: en IriusRisk diseñé un modelo de <strong>programación lineal entera mixta</strong> para paralelizar la ejecución de los tests E2E en CI/CD, reduciendo el tiempo de validación de la pipeline en torno a un <strong>40 % sin aumentar el coste de infraestructura</strong>. De esa idea nació mi proyecto personal <a href=\"#proyectos\">CI Shard Advisor</a>.",
-      "Más allá de encontrar bugs, me interesa construir <strong>procesos y herramientas que ayuden a evitar que lleguen a producción</strong>. Por eso mis proyectos personales giran en torno al testing y la automatización. Certificado <strong>ISTQB CTFL v4.0</strong>."
+      "Más allá de encontrar bugs, me interesa construir <strong>procesos y herramientas que ayuden a evitar que lleguen a producción</strong>. Por eso mis proyectos personales giran en torno al testing y la automatización, y escribo sobre QA en mi <a href=\"https://pedro-morago.github.io/formacion/\" target=\"_blank\" rel=\"noopener\">QA Wiki</a>. Certificado <strong>ISTQB CTFL v4.0</strong>."
     ]
   },
   "experience": {
@@ -73,6 +73,25 @@
     "cmd": "ls proyectos/",
     "items": [
       {
+        "name": "QA Wiki",
+        "badge": "documento vivo",
+        "wip": false,
+        "tagline": "Mi base de conocimiento en Quality Assurance: más de 30 artículos escritos por mí.",
+        "description": "Wiki de formación y divulgación donde escribo, en español, sobre lo que practico a diario como QA. No es una app: es la parte del oficio que demuestra <strong>criterio y profundidad</strong>, no solo código. La amplío continuamente.",
+        "features": [
+          "Estrategia de testing: capas backend y frontend, microservicios y shift-left con modelo de madurez.",
+          "API testing con REST Assured y JUnit 5: JSON Schema, casos negativos y esperas con Awaitility.",
+          "Automatización con Playwright y TypeScript, incluido un caso real de migración desde TestCafe.",
+          "CI/CD: análisis estático, paralelización y sharding de suites.",
+          "Fundamentos de QA y procesos de calidad."
+        ],
+        "tech": ["VitePress", "Markdown", "GitHub Actions", "GitHub Pages"],
+        "links": [
+          { "href": "https://pedro-morago.github.io/formacion/", "label": "Leer la wiki ↗" },
+          { "href": "https://github.com/pedro-morago/formacion", "label": "Código en GitHub ↗" }
+        ]
+      },
+      {
         "name": "CI Shard Advisor",
         "badge": "publicado",
         "wip": false,
@@ -85,7 +104,9 @@
           "Núcleo puro con arquitectura hexagonal, probado con tests de propiedades, metamórficos y de invariantes."
         ],
         "tech": ["TypeScript", "React", "Vite", "Fastify", "Node.js", "pnpm", "Playwright", "k6"],
-        "link": { "href": "https://github.com/pedro-morago/ci-shard-advisor", "label": "Código en GitHub ↗" }
+        "links": [
+          { "href": "https://github.com/pedro-morago/ci-shard-advisor", "label": "Código en GitHub ↗" }
+        ]
       },
       {
         "name": "Screen Recorder · QA mode",
@@ -101,7 +122,9 @@
           "Cero dependencias externas: solo APIs nativas del navegador."
         ],
         "tech": ["JavaScript", "Manifest V3", "chrome.desktopCapture", "Cypress", "Playwright", "GitHub Actions"],
-        "link": { "href": "https://github.com/pedro-morago/grabador-pantalla", "label": "Código en GitHub ↗" }
+        "links": [
+          { "href": "https://github.com/pedro-morago/grabador-pantalla", "label": "Código en GitHub ↗" }
+        ]
       },
       {
         "name": "Spins Trainer",
@@ -111,7 +134,9 @@
         "description": "Proyecto actualmente en construcción. Muy pronto habrá más detalles por aquí. Mientras tanto puedes seguir el progreso en mi GitHub.",
         "features": [],
         "tech": [],
-        "link": { "href": "https://github.com/pedro-morago", "label": "Seguir en GitHub ↗" }
+        "links": [
+          { "href": "https://github.com/pedro-morago", "label": "Seguir en GitHub ↗" }
+        ]
       }
     ]
   },
