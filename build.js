@@ -10,7 +10,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 const crypto = require("node:crypto");
 
-const SITE_URL = "https://pedro-morago.github.io/portfolio/";
+const SITE_URL = "https://pedromorago.com/";
 const LANGS = ["es", "en"];
 
 // Versión de assets derivada del contenido: cambia sola cuando cambia el

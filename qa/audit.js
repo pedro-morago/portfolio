@@ -26,7 +26,7 @@ try {
 }
 
 const ROOT = path.join(__dirname, "..");
-const SITE_URL = "https://pedro-morago.github.io/portfolio/";
+const SITE_URL = "https://pedromorago.com/";
 const PAGES = [
   { lang: "es", file: "index.html", canonical: SITE_URL },
   { lang: "en", file: "en/index.html", canonical: `${SITE_URL}en/` },

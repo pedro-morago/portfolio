@@ -4,8 +4,8 @@
 
 Web personal de portfolio de QA Engineer, con estética de terminal. Estática, sin frameworks y sin ninguna petición externa en runtime.
 
-- Español: `https://pedro-morago.github.io/portfolio/`
-- Inglés: `https://pedro-morago.github.io/portfolio/en/`
+- Español: `https://pedromorago.com/`
+- Inglés: `https://pedromorago.com/en/`
 
 ## Arquitectura
 

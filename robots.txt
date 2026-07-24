@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://pedro-morago.github.io/portfolio/sitemap.xml
+Sitemap: https://pedromorago.com/sitemap.xml
