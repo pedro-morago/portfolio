@@ -1,7 +1,7 @@
 {
   "htmlLang": "en",
-  "path": "en/",
-  "root": "../",
+  "path": "",
+  "root": "",
   "ogLocale": "en_US",
   "meta": {
     "title": "Pedro Morago · QA Engineer",
@@ -17,7 +17,6 @@
     { "href": "#skills", "label": "skills" },
     { "href": "#contact", "label": "contact" }
   ],
-  "langSwitch": { "href": "../", "label": "[ES]", "lang": "es", "hreflang": "es", "aria": "Cambiar a español" },
   "hero": {
     "typed": "whoami",
     "name": "Pedro Morago",

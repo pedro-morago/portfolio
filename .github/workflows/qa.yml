@@ -46,7 +46,7 @@ jobs:
       - name: Instalar Chromium
         run: npx playwright install --with-deps chromium
 
-      - name: Auditoría QA (responsive, accesibilidad, contraste, comportamiento, paridad ES/EN)
+      - name: Auditoría QA (responsive, accesibilidad, contraste, comportamiento)
         run: npm run qa
 
   # El despliegue solo ocurre en main y solo si la auditoría ha pasado:

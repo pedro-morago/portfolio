@@ -2,21 +2,19 @@
 
 ![QA](https://github.com/pedro-morago/portfolio/actions/workflows/qa.yml/badge.svg)
 
-Web personal de portfolio de QA Engineer, con estética de terminal. Estática, sin frameworks y sin ninguna petición externa en runtime.
+Web personal de portfolio de QA Engineer, con estética de terminal. Estática, sin frameworks y sin ninguna petición externa en runtime. Solo en inglés (público objetivo: mercado internacional).
 
-- Español: `https://pedromorago.com/`
-- Inglés: `https://pedromorago.com/en/`
+- `https://pedromorago.com/` (la antigua `/en/` redirige a la raíz)
 
 ## Arquitectura
 
 ```
-src/content.es.json   ← textos en español          (editar aquí)
-src/content.en.json   ← textos en inglés           (editar aquí)
+src/content.en.json   ← textos (editar aquí)
 build.js              ← estructura de la página, una sola vez (sin dependencias)
         │ node build.js
         ▼
 index.html            ← generado, no editar a mano
-en/index.html         ← generado, no editar a mano
+en/index.html         ← generado: redirección de la URL antigua a la raíz
 styles.css, script.js ← assets compartidos
 qa/audit.js           ← auditoría QA (Playwright)
 qa/og-image.js        ← regenera og-image.png
