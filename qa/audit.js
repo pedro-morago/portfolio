@@ -3,17 +3,16 @@
  * Auditoría QA del portfolio. Se ejecuta en CI en cada push y también
  * en local con `npm run qa`.
  *
- * Comprueba, en ambos idiomas:
+ * Comprueba:
  *  - Sin overflow horizontal en 6 viewports (320px a 1920px)
  *  - Sin errores de JavaScript ni de consola
  *  - Anclas internas válidas y sin IDs duplicados
  *  - Un único h1 y jerarquía de encabezados sin saltos
- *  - Metadatos: title, description, canonical, hreflang (es/en/x-default)
+ *  - Metadatos: title, description, canonical (sin hreflang: sitio monolingüe)
  *  - Contraste de texto >= 4.5:1 (WCAG AA)
  *  - Áreas táctiles de la navegación >= 24px en móvil
  *  - rel="noopener" en enlaces con target="_blank"
- *  - Paridad ES/EN: mismo número de secciones, proyectos y enlaces de nav,
- *    y el selector de idioma en la misma posición exacta (test de regresión)
+ *  - La antigua URL /en/ existe como redirección a la raíz (noindex + canonical)
  */
 const path = require("node:path");
 const fs = require("node:fs");
@@ -27,10 +26,7 @@ try {
 
 const ROOT = path.join(__dirname, "..");
 const SITE_URL = "https://pedromorago.com/";
-const PAGES = [
-  { lang: "es", file: "index.html", canonical: SITE_URL },
-  { lang: "en", file: "en/index.html", canonical: `${SITE_URL}en/` },
-];
+const PAGES = [{ lang: "en", file: "index.html", canonical: SITE_URL }];
 const VIEWPORTS = [320, 390, 412, 768, 1280, 1920];
 const CONTRAST_SELECTORS = [
   ".hero-tagline", ".about-grid > p", ".project > p",
@@ -69,6 +65,14 @@ function auditStaticFiles() {
     fail("[estáticos] 404.html sin meta robots noindex");
 
   if (!fs.existsSync(path.join(ROOT, "og-image.png"))) fail("[estáticos] falta og-image.png");
+
+  const enStub = readIf("en/index.html");
+  if (!enStub) fail("[estáticos] falta en/index.html (redirección de la URL antigua)");
+  else {
+    if (!enStub.includes('http-equiv="refresh"')) fail("[estáticos] en/index.html no redirige");
+    if (!enStub.includes(`rel="canonical" href="${SITE_URL}"`)) fail("[estáticos] en/index.html sin canonical a la raíz");
+    if (!enStub.includes('name="robots" content="noindex"')) fail("[estáticos] en/index.html sin noindex");
+  }
 }
 
 async function auditPage(browser, pageDef) {
@@ -88,7 +92,7 @@ async function auditPage(browser, pageDef) {
       const doc = document.documentElement;
       return {
         overflowX: doc.scrollWidth > doc.clientWidth,
-        navTap: Math.min(...[...document.querySelectorAll(".nav-links a, .lang-switch")]
+        navTap: Math.min(...[...document.querySelectorAll(".nav-links a")]
           .map((a) => a.getBoundingClientRect().height)),
       };
     });
@@ -125,7 +129,6 @@ async function auditPage(browser, pageDef) {
     out.sectionCount = document.querySelectorAll("section[id]").length;
     out.projectCount = document.querySelectorAll(".project").length;
     out.navCount = document.querySelectorAll(".nav-links a").length;
-    out.langSwitchHref = document.querySelector(".lang-switch")?.getAttribute("href") || "";
     out.cssVersion = document.querySelector('link[rel="stylesheet"]')?.href.split("?v=")[1] || "";
     out.jsVersion = document.querySelector("script[src]")?.src.split("?v=")[1] || "";
     out.jsonLd = document.querySelectorAll('script[type="application/ld+json"]').length;
@@ -177,17 +180,6 @@ async function auditPage(browser, pageDef) {
   });
   if (!activeOk) fail(`${tag} el resaltado de sección activa en la nav no funciona`);
 
-  // Posición del selector de idioma (para la comprobación de paridad)
-  const pillPositions = {};
-  for (const width of [390, 1280]) {
-    await page.setViewportSize({ width, height: 900 });
-    await page.waitForTimeout(150);
-    pillPositions[width] = await page.evaluate(() => {
-      const r = document.querySelector(".lang-switch").getBoundingClientRect();
-      const doc = document.documentElement;
-      return { top: Math.round(r.top), right: Math.round(doc.clientWidth - r.right) };
-    });
-  }
   await page.close();
 
   // Validación de resultados
@@ -197,17 +189,14 @@ async function auditPage(browser, pageDef) {
     fail(`${tag} meta description fuera de rango (${doc.description.length} caracteres)`);
   if (doc.canonical !== pageDef.canonical)
     fail(`${tag} canonical "${doc.canonical}", esperado "${pageDef.canonical}"`);
-  if (doc.hreflangs.join(",") !== "en,es,x-default")
-    fail(`${tag} hreflang incompletos: ${doc.hreflangs.join(",")}`);
+  if (doc.hreflangs.length)
+    fail(`${tag} hreflang inesperados en sitio monolingüe: ${doc.hreflangs.join(",")}`);
   if (doc.h1Count !== 1) fail(`${tag} ${doc.h1Count} elementos h1, esperado 1`);
   if (doc.headingJumps) fail(`${tag} ${doc.headingJumps} saltos en la jerarquía de encabezados`);
   if (doc.duplicateIds.length) fail(`${tag} IDs duplicados: ${doc.duplicateIds.join(", ")}`);
   if (doc.brokenAnchors.length) fail(`${tag} anclas rotas: ${doc.brokenAnchors.join(", ")}`);
   if (doc.blankNoOpener) fail(`${tag} ${doc.blankNoOpener} enlaces target=_blank sin rel=noopener`);
   if (!doc.skipTargetOk) fail(`${tag} el destino del enlace 'saltar al contenido' no existe`);
-  const expectedSwitch = pageDef.lang === "es" ? "en/" : "../";
-  if (doc.langSwitchHref !== expectedSwitch)
-    fail(`${tag} selector de idioma apunta a "${doc.langSwitchHref}", esperado "${expectedSwitch}"`);
   if (doc.jsonLd !== 1) fail(`${tag} ${doc.jsonLd} bloques JSON-LD, esperado 1`);
   if (jsErrors.length) fail(`${tag} errores de JavaScript: ${jsErrors.join(" | ")}`);
   if (consoleErrors.length) fail(`${tag} errores de consola: ${consoleErrors.join(" | ")}`);
@@ -216,7 +205,7 @@ async function auditPage(browser, pageDef) {
     else if (c.ratio < 4.5) fail(`${tag} contraste ${c.ratio}:1 < 4.5:1 en ${c.sel}`);
   }
 
-  return { doc, pillPositions };
+  return { doc };
 }
 
 (async () => {
@@ -228,22 +217,6 @@ async function auditPage(browser, pageDef) {
     console.log(`✓ auditada ${pageDef.file}`);
   }
   await browser.close();
-
-  // Paridad entre idiomas
-  const es = results.es, en = results.en;
-  if (es.doc.sectionCount !== en.doc.sectionCount)
-    fail(`[paridad] secciones: es=${es.doc.sectionCount}, en=${en.doc.sectionCount}`);
-  if (es.doc.projectCount !== en.doc.projectCount)
-    fail(`[paridad] proyectos: es=${es.doc.projectCount}, en=${en.doc.projectCount}`);
-  if (es.doc.navCount !== en.doc.navCount)
-    fail(`[paridad] enlaces de nav: es=${es.doc.navCount}, en=${en.doc.navCount}`);
-  if (es.doc.cssVersion !== en.doc.cssVersion || es.doc.jsVersion !== en.doc.jsVersion)
-    fail(`[paridad] versiones de assets distintas entre idiomas (css: ${es.doc.cssVersion}/${en.doc.cssVersion}, js: ${es.doc.jsVersion}/${en.doc.jsVersion})`);
-  for (const width of [390, 1280]) {
-    const a = es.pillPositions[width], b = en.pillPositions[width];
-    if (Math.abs(a.top - b.top) > 1 || Math.abs(a.right - b.right) > 1)
-      fail(`[paridad] selector de idioma en distinta posición a ${width}px: es=${JSON.stringify(a)}, en=${JSON.stringify(b)}`);
-  }
 
   console.log("");
   if (failures.length) {

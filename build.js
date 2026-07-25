@@ -2,16 +2,16 @@
 /**
  * Generador estático del portfolio, sin dependencias.
  *
- * La estructura de la página vive aquí una sola vez; los textos de cada
- * idioma viven en src/content.<lang>.json. Ejecutar `node build.js`
- * regenera index.html y en/index.html. No editar esos HTML a mano.
+ * Sitio solo en inglés (público objetivo: mercado internacional). La
+ * estructura vive aquí una sola vez; los textos en src/content.en.json.
+ * Ejecutar `node build.js` regenera index.html (y en/index.html, que es
+ * una redirección a la raíz para los enlaces antiguos). No editar a mano.
  */
 const fs = require("node:fs");
 const path = require("node:path");
 const crypto = require("node:crypto");
 
 const SITE_URL = "https://pedromorago.com/";
-const LANGS = ["es", "en"];
 
 // Versión de assets derivada del contenido: cambia sola cuando cambia el
 // archivo, así los navegadores nunca sirven CSS/JS cacheados obsoletos.
@@ -26,29 +26,15 @@ const FAVICON =
 const read = (f) => JSON.parse(fs.readFileSync(path.join(__dirname, "src", f), "utf8"));
 
 /**
- * Los dos JSON de contenido son traducciones paralelas: deben tener las
- * mismas claves, arrays de la misma longitud y ningún valor vacío. Si no,
- * el build falla aquí en vez de generar HTML con 'undefined' silenciosos.
+ * El JSON de contenido no puede tener valores vacíos: si los hubiera, el
+ * build fallaría aquí en vez de generar HTML con huecos silenciosos.
  */
-function assertParity(a, b, at = "$") {
-  const type = (v) => (Array.isArray(v) ? "array" : v === null ? "null" : typeof v);
-  if (type(a) !== type(b))
-    throw new Error(`Paridad es/en rota en ${at}: tipos ${type(a)} vs ${type(b)}`);
-  if (type(a) === "array") {
-    if (a.length !== b.length)
-      throw new Error(`Paridad es/en rota en ${at}: arrays de longitud ${a.length} vs ${b.length}`);
-    a.forEach((v, i) => assertParity(v, b[i], `${at}[${i}]`));
-  } else if (type(a) === "object") {
-    const ka = Object.keys(a).sort(), kb = Object.keys(b).sort();
-    if (ka.join(",") !== kb.join(","))
-      throw new Error(`Paridad es/en rota en ${at}: claves [${ka}] vs [${kb}]`);
-    ka.forEach((k) => assertParity(a[k], b[k], `${at}.${k}`));
-  } else if (type(a) === "string") {
-    if (!a.trim() && at !== "$.path" && at !== "$.root")
-      throw new Error(`Valor vacío en ${at} (es)`);
-    if (!b.trim() && at !== "$.path" && at !== "$.root")
-      throw new Error(`Valor vacío en ${at} (en)`);
-  }
+function assertContent(v, at = "$") {
+  if (Array.isArray(v)) v.forEach((x, i) => assertContent(x, `${at}[${i}]`));
+  else if (v && typeof v === "object")
+    Object.keys(v).forEach((k) => assertContent(v[k], `${at}.${k}`));
+  else if (typeof v === "string" && !v.trim() && at !== "$.path" && at !== "$.root")
+    throw new Error(`Valor vacío en ${at}`);
 }
 
 function renderHead(c) {
@@ -74,9 +60,6 @@ function renderHead(c) {
   <meta name="description" content="${c.meta.description}" />
   <meta name="theme-color" content="#060907" />
   <link rel="canonical" href="${url}" />
-  <link rel="alternate" hreflang="es" href="${SITE_URL}" />
-  <link rel="alternate" hreflang="en" href="${SITE_URL}en/" />
-  <link rel="alternate" hreflang="x-default" href="${SITE_URL}" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="${url}" />
   <meta property="og:title" content="${c.meta.title}" />
@@ -103,7 +86,6 @@ function renderNav(c) {
       <div class="nav-links">
 ${links}
       </div>
-      <a href="${c.langSwitch.href}" class="lang-switch" lang="${c.langSwitch.lang}" hreflang="${c.langSwitch.hreflang}" aria-label="${c.langSwitch.aria}">${c.langSwitch.label}</a>
     </div>
   </nav>`;
 }
@@ -315,12 +297,29 @@ ${renderContact(c)}
 `;
 }
 
-const contents = LANGS.map((lang) => read(`content.${lang}.json`));
-assertParity(contents[0], contents[1]);
+const content = read("content.en.json");
+assertContent(content);
 
-for (const content of contents) {
-  const outFile = path.join(__dirname, content.path, "index.html");
-  fs.mkdirSync(path.dirname(outFile), { recursive: true });
-  fs.writeFileSync(outFile, renderPage(content));
-  console.log(`✓ ${path.relative(__dirname, outFile)} (${content.htmlLang})`);
-}
+fs.writeFileSync(path.join(__dirname, "index.html"), renderPage(content));
+console.log("✓ index.html (en)");
+
+// La antigua URL /en/ sigue viva como redirección a la raíz: los enlaces ya
+// compartidos no se rompen y el canonical evita contenido duplicado en SEO.
+const redirect = `<!DOCTYPE html>
+<!-- Generado por build.js: redirección de la antigua URL /en/ a la raíz. -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>${content.meta.title}</title>
+  <meta name="robots" content="noindex" />
+  <link rel="canonical" href="${SITE_URL}" />
+  <meta http-equiv="refresh" content="0; url=/" />
+</head>
+<body>
+  <p><a href="/">pedromorago.com</a></p>
+</body>
+</html>
+`;
+fs.mkdirSync(path.join(__dirname, "en"), { recursive: true });
+fs.writeFileSync(path.join(__dirname, "en", "index.html"), redirect);
+console.log("✓ en/index.html (redirección a /)");
