@@ -134,9 +134,9 @@
         ],
         "tech": ["JavaScript", "Manifest V3", "chrome.desktopCapture", "Cypress", "Playwright", "GitHub Actions"],
         "links": [
-          { "href": "https://github.com/pedro-morago/grabador-pantalla/releases/latest", "label": "Download for Chrome ↗" },
+          { "href": "https://github.com/pedro-morago/screen-recorder-qa/releases/latest", "label": "Download for Chrome ↗" },
           { "href": "https://bench.pedromorago.com/", "label": "Try it on the bug bench ↗" },
-          { "href": "https://github.com/pedro-morago/grabador-pantalla", "label": "Code on GitHub ↗" }
+          { "href": "https://github.com/pedro-morago/screen-recorder-qa", "label": "Code on GitHub ↗" }
         ]
       }
     ]
