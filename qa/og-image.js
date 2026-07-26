@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /**
- * Regenera og-image.png (1200x630) a partir del hero de la página en español.
+ * Regenera og-image.png (1200x630) recortando el hero de la propia página, así
+ * que la tarjeta de redes nunca puede desincronizarse del sitio.
  * Ejecutar con `npm run og` tras cambiar el hero, y commitear el PNG.
  */
 const path = require("node:path");

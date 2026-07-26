@@ -1,0 +1,25 @@
+name: links
+
+# Deliberately NOT part of the deploy gate: this depends on third-party
+# services, and a bad minute at GitHub or LinkedIn must not block publishing a
+# copy change. It runs on a schedule to catch link rot instead.
+on:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+  push:
+    paths:
+      - "src/**"
+      - "qa/links.js"
+      - ".github/workflows/links.yml"
+
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm run links

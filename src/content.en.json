@@ -4,10 +4,10 @@
   "root": "",
   "ogLocale": "en_US",
   "meta": {
-    "title": "Pedro Morago · QA Engineer",
-    "description": "Portfolio of Pedro Morago López-Vázquez, QA Engineer with 5 years of experience in test automation, API testing and CI/CD for international SaaS products.",
-    "ogDescription": "QA Engineer with 5 years of experience: E2E automation (Playwright, Cypress), API testing (REST Assured) and CI/CD pipeline optimization.",
-    "twitterDescription": "QA Engineer with 5 years of experience: E2E automation, API testing and CI/CD pipeline optimization."
+    "title": "Pedro Morago · Senior QA Engineer",
+    "description": "Portfolio of Pedro Morago López-Vázquez, Senior QA Engineer with 5 years of experience in test automation, API testing and CI/CD for international SaaS products.",
+    "ogDescription": "Senior QA Engineer with 5 years of experience: E2E automation (Playwright, Cypress), API testing (REST Assured) and CI/CD pipeline optimization.",
+    "twitterDescription": "Senior QA Engineer with 5 years of experience: E2E automation, API testing and CI/CD pipeline optimization."
   },
   "skipLink": { "target": "content", "label": "Skip to content" },
   "nav": [
@@ -20,8 +20,8 @@
   "hero": {
     "typed": "whoami",
     "name": "Pedro Morago",
-    "role": "QA Engineer · Test Automation · ISTQB CTFL v4.0",
-    "tagline": "QA Engineer with <strong>5 years of experience</strong> in quality assurance and test automation for <strong>international SaaS products</strong>. I automate E2E tests with <strong>Playwright and Cypress</strong>, test APIs in Java and integrate testing into <strong>CI/CD pipelines</strong>.",
+    "role": "Senior QA Engineer · Test Automation · ISTQB CTFL v4.0",
+    "tagline": "Senior QA Engineer with <strong>5 years of experience</strong> in quality assurance and test automation for <strong>international SaaS products</strong>. I automate E2E tests with <strong>Playwright and Cypress</strong>, test APIs in Java and integrate testing into <strong>CI/CD pipelines</strong>.",
     "ctaProjects": "View projects",
     "ctaGithub": "GitHub ↗"
   },
@@ -29,14 +29,14 @@
     "id": "about",
     "aria": "About",
     "cmd": "cat about.md",
-    "intro": "I'm <strong>Pedro Morago</strong>, a QA Engineer with <strong>5 years of experience</strong> in quality assurance and test automation on international SaaS products.",
+    "intro": "I'm <strong>Pedro Morago</strong>, a Senior QA Engineer with <strong>5 years of experience</strong> in quality assurance and test automation on international SaaS products.",
     "bullets": [
-      "Degree in <strong>Mathematics</strong> from the University of Cantabria: that's where my obsession with optimizing everything comes from.",
+      "Degree in <strong>Mathematics</strong> from the University of Cantabria: five years of proving that something holds in every case, which is the same instinct testing asks for.",
       "<strong>ISTQB® Certified Tester Foundation Level (CTFL) v4.0</strong>.",
-      "QA Engineer at a <strong>cybersecurity</strong> SaaS product (threat modelling); previously at a field service management SaaS.",
+      "Now on a <strong>telecom OSS/BSS</strong> platform; before that a <strong>cybersecurity</strong> SaaS (threat modelling) and a field service management SaaS.",
       "Working <strong>100 % remotely</strong> in agile, distributed teams."
     ],
-    "outro": "The details of my day-to-day work are under <a href=\"#experience\">experience</a>. What I learn along the way I write down in my <a href=\"https://pedro-morago.github.io/formacion/\" target=\"_blank\" rel=\"noopener\">QA Wiki</a> (in Spanish): explaining something in your own words is the litmus test that you understand it."
+    "outro": "The details of my day-to-day work are under <a href=\"#experience\">experience</a>. What I learn along the way I write down in my <a href=\"https://wiki.pedromorago.com/\" target=\"_blank\" rel=\"noopener\">QA Wiki</a>: explaining something in your own words is the litmus test that you understand it."
   },
   "experience": {
     "id": "experience",
@@ -44,15 +44,24 @@
     "cmd": "cat experience.log",
     "jobs": [
       {
+        "title": "Senior QA Engineer · Alvatross by SATEC",
+        "dates": "Jul 2026 – Present",
+        "meta": "Telecom · OSS/BSS platform",
+        "bullets": [
+          "Quality on a <strong>telecom OSS/BSS</strong> platform: the systems an operator runs to provision services, keep network inventory correct and bill what was actually delivered.",
+          "Just joined, so this entry is deliberately short. What I ship here gets added once it exists, not before."
+        ]
+      },
+      {
         "title": "QA Engineer · IriusRisk",
-        "dates": "Apr 2024 – Present",
+        "dates": "Apr 2024 – Jul 2026",
         "meta": "Remote · International SaaS · Cybersecurity / Threat Modelling",
         "bullets": [
-          "I lead the testing strategy for the <strong>Security Content</strong> module, defining the test mix across the pyramid (unit, integration, backend, E2E).",
+          "Led the testing strategy for the <strong>Security Content</strong> module, defining the test mix across the pyramid (unit, integration, backend, E2E).",
           "Designed and deployed a Python <strong>optimization model (MILP)</strong> for parallel E2E test execution in CI/CD: <strong>40 % less pipeline time</strong> with no extra infrastructure cost, validated in production.",
-          "Backend API automation in <strong>Java with REST Assured and JUnit 5</strong>: Given-When-Then pattern, JSON schema validation, negative cases and Qase integration.",
+          "Automated the backend API in <strong>Java with REST Assured and JUnit 5</strong>: Given-When-Then pattern, JSON schema validation, negative cases and Qase integration.",
           "Took part in the migration from TestCafe to <strong>Playwright with TypeScript</strong>: 80 % less execution time and a more stable suite.",
-          "I contribute to CI/CD pipelines in Bitbucket and apply <strong>Shift Left</strong>: reviewing requirements and technical designs from early stages."
+          "Contributed to CI/CD pipelines in Bitbucket and applied <strong>Shift Left</strong>: reviewing requirements and technical designs from early stages."
         ]
       },
       {
@@ -76,29 +85,28 @@
       {
         "name": "QA Wiki",
         "badge": "living document",
-        "wip": false,
-        "tagline": "My Quality Assurance knowledge base: 30+ articles written by me.",
-        "description": "A training and knowledge wiki where I write, in Spanish, about what I practice daily as a QA. It isn't an app: it's the side of the craft that shows <strong>judgment and depth</strong>, not just code. I keep expanding it continuously.",
+        "tagline": "My Quality Assurance knowledge base: 50+ articles, all written by me.",
+        "description": "A training and knowledge wiki where I write about what I practice daily as a QA. It isn't an app: it's the side of the craft that shows <strong>judgment and depth</strong>, not just code. I keep expanding it continuously.",
         "features": [
           "Testing strategy: backend and frontend layers, microservices and shift-left with a maturity model.",
           "API testing with REST Assured and JUnit 5: JSON Schema, negative cases and waits with Awaitility.",
           "Automation with Playwright and TypeScript, including a real migration case from TestCafe.",
-          "CI/CD: static analysis, parallelization and suite sharding.",
-          "QA fundamentals and quality processes."
+          "CI/CD for QA: static analysis, parallelization and suite sharding, Docker, Git and AWS.",
+          "Performance with JMeter, QA on telecom OSS/BSS, and the ISTQB fundamentals."
         ],
         "tech": ["VitePress", "Markdown", "GitHub Actions", "GitHub Pages"],
         "links": [
-          { "href": "https://pedro-morago.github.io/formacion/", "label": "Read the wiki ↗" },
+          { "href": "https://wiki.pedromorago.com/", "label": "Read the wiki ↗" },
           { "href": "https://github.com/pedro-morago/formacion", "label": "Code on GitHub ↗" }
         ]
       },
       {
         "name": "CI Shard Advisor",
         "badge": "published",
-        "wip": false,
         "tagline": "Optimal parallelization of Cypress suites in CI, without relying on Cypress Cloud.",
         "description": "A tool that analyzes your Cypress run reports and recommends the <strong>optimal sharding strategy</strong> for your pipeline: it measures current performance, detects imbalances between containers and suggests the exact spec partition that minimizes total execution time, with <strong>optimality certification</strong> via a branch &amp; bound algorithm.",
         "features": [
+          "<strong>Try it in the browser</strong>: it opens with a demo run already loaded, and you can drop in your own reports — nothing to install and no account.",
           "100 % local, private analysis: reports never leave the browser.",
           "Three interfaces: interactive web app, CLI with a <em>quality-gate</em> mode, and a local REST API.",
           "Actionable recommendations: per-container spec lists ready to paste into GitHub Actions or Bitbucket Pipelines.",
@@ -106,16 +114,17 @@
         ],
         "tech": ["TypeScript", "React", "Vite", "Fastify", "Node.js", "pnpm", "Playwright", "k6"],
         "links": [
+          { "href": "https://pedro-morago.github.io/ci-shard-advisor/", "label": "Open the live demo ↗" },
           { "href": "https://github.com/pedro-morago/ci-shard-advisor", "label": "Code on GitHub ↗" }
         ]
       },
       {
         "name": "Screen Recorder · QA mode",
         "badge": "published",
-        "wip": false,
         "tagline": "Chrome extension for reporting bugs with full evidence in a single recording.",
         "description": "A browser extension (Manifest V3) that records your screen, window or tab while automatically capturing <strong>everything a developer needs to reproduce the bug</strong>: console logs synced with the video, uncaught exceptions, network requests as HAR, and numbered user steps. No time limits, no watermark, no account.",
         "features": [
+          "<strong>Install it in 30 seconds</strong>: download the zip, <em>Load unpacked</em> in <code>chrome://extensions</code>. No store account, no build step.",
           "QA mode: console, errors, 404s and HAR synced to the video by timestamp.",
           "Live on-video annotations and keyboard-shortcut markers to flag the exact moment of the bug.",
           "Automatic step recording (clicks, forms) exportable as <code>*.steps.md</code>, and typed values are never logged.",
@@ -124,19 +133,8 @@
         ],
         "tech": ["JavaScript", "Manifest V3", "chrome.desktopCapture", "Cypress", "Playwright", "GitHub Actions"],
         "links": [
+          { "href": "https://github.com/pedro-morago/grabador-pantalla/releases/latest", "label": "Download for Chrome ↗" },
           { "href": "https://github.com/pedro-morago/grabador-pantalla", "label": "Code on GitHub ↗" }
-        ]
-      },
-      {
-        "name": "Spins Trainer",
-        "badge": "in progress",
-        "wip": true,
-        "tagline": "Coming soon…",
-        "description": "Currently under construction. More details here soon. In the meantime you can follow the progress on my GitHub.",
-        "features": [],
-        "tech": [],
-        "links": [
-          { "href": "https://github.com/pedro-morago", "label": "Follow on GitHub ↗" }
         ]
       }
     ]

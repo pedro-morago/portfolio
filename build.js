@@ -44,10 +44,11 @@ function renderHead(c) {
     "@type": "Person",
     name: "Pedro Morago López-Vázquez",
     alternateName: "Pedro Morago",
-    jobTitle: "QA Engineer",
+    jobTitle: "Senior QA Engineer",
     url: SITE_URL,
     address: { "@type": "PostalAddress", addressLocality: "Santander", addressCountry: "ES" },
-    alumniOf: "Universidad de Cantabria",
+    worksFor: { "@type": "Organization", name: "Alvatross by SATEC" },
+    alumniOf: { "@type": "CollegeOrUniversity", name: "University of Cantabria" },
     sameAs: [
       "https://github.com/pedro-morago",
       "https://www.linkedin.com/in/pedro-morago-l%C3%B3pez-vazquez",
@@ -162,7 +163,6 @@ ${jobs}
 function renderProjects(c) {
   const items = c.projects.items
     .map((p) => {
-      const badgeClass = p.wip ? "badge-wip" : "badge-live";
       const features = p.features.length
         ? `          <ul class="project-features">\n${p.features
             .map((f) => `            <li>${f}</li>`)
@@ -173,16 +173,18 @@ function renderProjects(c) {
             .map((t) => `<span>${t}</span>`)
             .join("")}\n          </div>\n`
         : "";
+      // El primer enlace es la acción principal del proyecto (abrir la demo,
+      // descargar); se destaca para que no compita visualmente con el resto.
       const links = p.links
         .map(
-          (l) =>
-            `            <a href="${l.href}" target="_blank" rel="noopener" class="btn btn-small">${l.label}</a>`
+          (l, i) =>
+            `            <a href="${l.href}" target="_blank" rel="noopener" class="btn btn-small${i === 0 ? " btn-small-primary" : ""}">${l.label}</a>`
         )
         .join("\n");
-      return `        <article class="project${p.wip ? " project-wip" : ""}">
+      return `        <article class="project">
           <div class="project-header">
             <h3>${p.name}</h3>
-            <span class="badge ${badgeClass}">${p.badge}</span>
+            <span class="badge badge-live">${p.badge}</span>
           </div>
           <p class="project-tagline">${p.tagline}</p>
           <p>
