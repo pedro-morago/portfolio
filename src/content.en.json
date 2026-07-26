@@ -31,7 +31,7 @@
     "cmd": "cat about.md",
     "intro": "I'm <strong>Pedro Morago</strong>, a Senior QA Engineer with <strong>5 years of experience</strong> in quality assurance and test automation on international SaaS products.",
     "bullets": [
-      "Degree in <strong>Mathematics</strong> from the <a href=\"https://web.unican.es/estudios/asignaturas?pi=68&amp;c=2026&amp;ga=N\" target=\"_blank\" rel=\"noopener\">University of Cantabria</a> (2015 – 2020) — a degree whose <a href=\"https://warwick.ac.uk/fac/sci/maths/currentstudents/ughandbook/general/overview/transferableskills/\" target=\"_blank\" rel=\"noopener\">transferable skills</a> (stating a problem precisely, arguing logically, not skipping details) read a lot like a tester's job.",
+      "Degree in <a href=\"https://web.unican.es/estudios/asignaturas?pi=68&amp;c=2026&amp;ga=N\" target=\"_blank\" rel=\"noopener\"><strong>Mathematics</strong></a> from the University of Cantabria (2015 – 2020) — a degree whose <a href=\"https://warwick.ac.uk/fac/sci/maths/currentstudents/ughandbook/general/overview/transferableskills/\" target=\"_blank\" rel=\"noopener\">transferable skills</a> (stating a problem precisely, arguing logically, not skipping details) read a lot like a tester's job.",
       "<strong>ISTQB® Certified Tester Foundation Level (CTFL) v4.0</strong>.",
       "Now on a <strong>telecom OSS/BSS</strong> platform; before that a <strong>cybersecurity</strong> SaaS (threat modelling) and a field service management SaaS.",
       "Working <strong>100 % remotely</strong> in agile, distributed teams."
@@ -158,7 +158,7 @@
         "blocks": [
           {
             "title": "education",
-            "html": "<p><strong>BSc in Mathematics</strong><br /><a href=\"https://web.unican.es/estudios/asignaturas?pi=68&amp;c=2026&amp;ga=N\" target=\"_blank\" rel=\"noopener\">University of Cantabria</a> · 2015 – 2020</p><p><strong>Advanced Web Application Development with Java</strong><br />CIC Bootcamp · 2021</p>"
+            "html": "<p><a href=\"https://web.unican.es/estudios/asignaturas?pi=68&amp;c=2026&amp;ga=N\" target=\"_blank\" rel=\"noopener\"><strong>BSc in Mathematics</strong></a><br />University of Cantabria · 2015 – 2020</p><p><strong>Advanced Web Application Development with Java</strong><br />CIC Bootcamp · 2021</p>"
           }
         ]
       },
