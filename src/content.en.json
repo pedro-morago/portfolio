@@ -97,7 +97,7 @@
         "tech": ["VitePress", "Markdown", "GitHub Actions", "GitHub Pages"],
         "links": [
           { "href": "https://wiki.pedromorago.com/", "label": "Read the wiki ↗" },
-          { "href": "https://github.com/pedro-morago/formacion", "label": "Code on GitHub ↗" }
+          { "href": "https://github.com/pedro-morago/qa-wiki", "label": "Code on GitHub ↗" }
         ]
       },
       {
