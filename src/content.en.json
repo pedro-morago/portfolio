@@ -31,7 +31,7 @@
     "cmd": "cat about.md",
     "intro": "I'm <strong>Pedro Morago</strong>, a Senior QA Engineer with <strong>5 years of experience</strong> in quality assurance and test automation on international SaaS products.",
     "bullets": [
-      "Degree in <strong>Mathematics</strong> from the University of Cantabria: five years of proving that something holds in every case, which is the same instinct testing asks for.",
+      "Degree in <strong>Mathematics</strong> from the University of Cantabria (2015 – 2020) — a degree whose <a href=\"https://warwick.ac.uk/fac/sci/maths/currentstudents/ughandbook/general/overview/transferableskills/\" target=\"_blank\" rel=\"noopener\">transferable skills</a> (stating a problem precisely, arguing logically, not skipping details) read a lot like a tester's job.",
       "<strong>ISTQB® Certified Tester Foundation Level (CTFL) v4.0</strong>.",
       "Now on a <strong>telecom OSS/BSS</strong> platform; before that a <strong>cybersecurity</strong> SaaS (threat modelling) and a field service management SaaS.",
       "Working <strong>100 % remotely</strong> in agile, distributed teams."
