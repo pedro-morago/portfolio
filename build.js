@@ -21,7 +21,7 @@ const CSS_VERSION = hashFile("styles.css");
 const JS_VERSION = hashFile("script.js");
 
 const FAVICON =
-  "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23060907'/><text x='14' y='70' font-family='monospace' font-size='46' font-weight='bold' fill='%233dff77'>&gt;_</text></svg>";
+  "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230b0e0c'/><text x='14' y='70' font-family='monospace' font-size='46' font-weight='bold' fill='%237bdb9e'>&gt;_</text></svg>";
 
 const read = (f) => JSON.parse(fs.readFileSync(path.join(__dirname, "src", f), "utf8"));
 
@@ -59,7 +59,7 @@ function renderHead(c) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>${c.meta.title}</title>
   <meta name="description" content="${c.meta.description}" />
-  <meta name="theme-color" content="#060907" />
+  <meta name="theme-color" content="#0b0e0c" />
   <link rel="canonical" href="${url}" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="${url}" />
