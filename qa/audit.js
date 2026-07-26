@@ -153,7 +153,7 @@ async function auditPage(browser, pageDef) {
         if (c && c !== "rgba(0, 0, 0, 0)" && (alpha === undefined || +alpha === 1)) return c;
         e = e.parentElement;
       }
-      return "rgb(6, 9, 7)";
+      return "rgb(11, 14, 12)";
     }
     return selectors.map((sel) => {
       const el = document.querySelector(sel);
