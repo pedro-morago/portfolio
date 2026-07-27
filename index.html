@@ -206,6 +206,31 @@
           </div>
         </article>
 
+        <article class="project">
+          <div class="project-header">
+            <h3>Queue Labs · frontend vs. server-side control</h3>
+            <span class="badge badge-live">security lab</span>
+          </div>
+          <p class="project-tagline">Twin queue apps — one insecure on purpose, one done right — proving why a browser-only access control isn't one.</p>
+          <p>
+            A matched pair I built to <strong>see a security rule fail</strong> instead of quoting it. Both look identical — the same virtual waiting room in front of a members' login — but the control lives in opposite places: the <strong>vulnerable</strong> lab enforces the queue only in the browser, while its <strong>secure</strong> twin issues a server-signed pass. Same façade, opposite internals, and that contrast is the whole lesson.
+          </p>
+          <ul class="project-features">
+            <li><strong>The bug measured, not asserted</strong>: with DevTools network throttling the login form stays exploitable for ~180 ms on a fast connection but over 6 s on Slow 3G — the exploitation window is a table, not a hunch.</li>
+            <li>Three independent bypasses — block the guard script, edit the cookie, or POST straight to <code>/login</code> — make the point that <strong>narrowing the window never closes the hole</strong>.</li>
+            <li>The secure twin issues a <strong>server-signed HMAC-SHA256 pass</strong> (Queue-Fair style), with the expiry and User-Agent inside the signature, so those same three tricks come back 403/425.</li>
+            <li>Published responsibly: self-contained, localhost or an authorized instance only, prominent warnings, fictitious credentials, no third-party services.</li>
+            <li>The QA method made explicit — <strong>build the failure you want to detect</strong>, then prove the fix defeats it — the same reflex behind my bug bench.</li>
+          </ul>
+          <div class="project-tech">
+            <span>Node.js</span><span>Express</span><span>HMAC-SHA256</span><span>Vanilla JS</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/pedro-morago/queue-lab-vulnerable" target="_blank" rel="noopener" class="btn btn-small btn-small-primary">Vulnerable lab · code ↗</a>
+            <a href="https://github.com/pedro-morago/queue-secure-lab" target="_blank" rel="noopener" class="btn btn-small">Secure twin · code ↗</a>
+          </div>
+        </article>
+
       </div>
     </section>
 
