@@ -34,9 +34,9 @@
     "cmd": "cat about.md",
     "paragraphs": [
       "I'm Pedro, a QA engineer from Santander. I studied <a href=\"https://web.unican.es/estudios/asignaturas?pi=68&amp;c=2026&amp;ga=N\" target=\"_blank\" rel=\"noopener\">Mathematics</a> at the University of Cantabria, and I think that's partly why I ended up in QA: I never liked the saying that in software, perfect is the enemy of good. Coming from maths, perfect is just perfect.",
-      "I got into software through a Java development bootcamp in 2021. When it finished, they hired me straight away as a QA, because they saw I was good at it. That was five years ago.",
+      "I got into software through a Java development bootcamp in 2021. When it finished, they hired me straight away as a QA engineer, because they saw I was good at it. That was five years ago.",
       "What I enjoy most is checking that a feature really does what it should, whether by automating the tests or by catching problems early. For me, testing is about verifying functionality more than hunting for errors.",
-      "I'm very detail-oriented and I like to be thorough, but I also keep in mind how much time the team has. I use AI tools a lot in my work and I've learned to use them carefully.",
+      "I'm very detail-oriented and I like to get to the bottom of problems until I really understand them. I use AI tools a lot in my work and I've learned to use them carefully.",
       "I write down what I learn in my <a href=\"https://wiki.pedromorago.com/\" target=\"_blank\" rel=\"noopener\">QA Wiki</a>. The details of my work are under <a href=\"#experience\">experience</a>."
     ]
   },
