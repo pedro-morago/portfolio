@@ -39,19 +39,45 @@ function assertContent(v, at = "$") {
 
 function renderHead(c) {
   const url = SITE_URL + c.path;
-  const jsonLd = JSON.stringify({
-    "@context": "https://schema.org",
+  // ProfilePage + Person es el marcado que Google recomienda para webs
+  // personales; WebSite fija "Pedro Morago" como nombre del sitio en los
+  // resultados. sameAs sale de los enlaces de contacto para que el marcado
+  // y los perfiles visibles no puedan divergir.
+  const person = {
     "@type": "Person",
+    "@id": `${SITE_URL}#person`,
     name: "Pedro Morago López-Vázquez",
     alternateName: "Pedro Morago",
     jobTitle: "Senior QA Engineer",
+    description: c.meta.description,
     url: SITE_URL,
+    email: `mailto:${c.contact.email}`,
     address: { "@type": "PostalAddress", addressLocality: "Santander", addressCountry: "ES" },
     worksFor: { "@type": "Organization", name: "Alvatross by SATEC" },
     alumniOf: { "@type": "CollegeOrUniversity", name: "University of Cantabria" },
-    sameAs: [
-      "https://github.com/pedro-morago",
-      "https://www.linkedin.com/in/pedro-morago-l%C3%B3pez-vazquez",
+    knowsAbout: ["Software Quality Assurance", "Test Automation", "Playwright", "Cypress", "API Testing", "CI/CD"],
+    sameAs: c.contact.links.map((l) => l.href),
+  };
+  const jsonLd = JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": `${SITE_URL}#website`,
+        url: SITE_URL,
+        name: "Pedro Morago",
+        alternateName: ["Pedro Morago López-Vázquez", "pedromorago.com"],
+        inLanguage: c.htmlLang,
+        publisher: { "@id": person["@id"] },
+      },
+      {
+        "@type": "ProfilePage",
+        "@id": `${url}#profilepage`,
+        url,
+        name: c.meta.title,
+        isPartOf: { "@id": `${SITE_URL}#website` },
+        mainEntity: person,
+      },
     ],
   });
   return `<head>
@@ -61,7 +87,9 @@ function renderHead(c) {
   <meta name="description" content="${c.meta.description}" />
   <meta name="theme-color" content="#0b0e0c" />
   <link rel="canonical" href="${url}" />
-  <meta property="og:type" content="website" />
+  <meta name="author" content="Pedro Morago" />
+  <meta property="og:type" content="profile" />
+  <meta property="og:site_name" content="Pedro Morago" />
   <meta property="og:url" content="${url}" />
   <meta property="og:title" content="${c.meta.title}" />
   <meta property="og:description" content="${c.meta.ogDescription}" />
