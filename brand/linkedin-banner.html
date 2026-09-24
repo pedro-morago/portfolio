@@ -130,54 +130,39 @@
 
   h1 {
     font-family: var(--sans);
-    font-size: 64px;
+    font-size: 54px;
     font-weight: 700;
     letter-spacing: -0.025em;
-    line-height: 1.05;
+    line-height: 1.08;
     color: var(--bright);
-    margin: 0 0 8px;
-    display: flex; align-items: center; gap: 14px;
-  }
-  .cursor {
-    display: inline-block;
-    width: 0.42em; height: 0.8em;
-    background: var(--accent);
-    margin-top: 8px;
+    margin: 0 0 18px;
   }
 
-  .role {
-    font-family: var(--mono);
-    font-size: 24px;
-    font-weight: 500;
-    color: var(--accent-muted);
-    letter-spacing: 0.01em;
-    margin-bottom: 16px;
+  /* Dos resultados medibles y el contexto: lo que el perfil no muestra
+     hasta que se abre la experiencia. */
+  .stats {
+    display: flex; gap: 10px;
+    margin-bottom: 22px;
   }
-  .role .sep { color: var(--ink-3); margin: 0 6px; }
-
-  .tags {
-    display: flex; flex-wrap: nowrap; gap: 8px;
-    margin-bottom: 18px;
-  }
-  .tag {
+  .stat {
     font-family: var(--mono);
-    font-size: 19px;
+    font-size: 18px;
     font-weight: 500;
-    letter-spacing: 0.02em;
-    color: var(--fg);
-    padding: 6px 12px;
+    color: var(--ink-2);
+    padding: 7px 13px;
     border: 1px solid var(--edge-strong);
     border-radius: 6px;
     background: rgba(20, 25, 21, 0.75);
+    white-space: nowrap;
   }
-  .tag::before { content: "[ "; color: var(--ink-3); }
-  .tag::after { content: " ]"; color: var(--ink-3); }
+  .stat b { color: var(--accent-strong); font-weight: 700; margin-right: 6px; }
 
   .foot {
-    display: flex; align-items: center; gap: 28px;
+    display: flex; align-items: center; gap: 18px;
     font-family: var(--mono);
-    font-size: 23px;
+    font-size: 20px;
     color: var(--ink-2);
+    white-space: nowrap;
   }
   .foot .url {
     display: inline-flex; align-items: center; gap: 12px;
@@ -189,8 +174,8 @@
     letter-spacing: 0.01em;
   }
   .foot .url .arrow { font-weight: 500; opacity: 0.8; }
-  .foot .loc { color: var(--ink-2); }
-  .foot .loc .sep { color: var(--ink-3); margin: 0 8px; }
+  .foot .link { color: var(--ink-2); font-size: 20px; }
+  .foot .link::before { content: "· "; color: var(--ink-3); }
 </style>
 </head>
 <body>
@@ -214,21 +199,18 @@
 <span class="ok">128 passed</span> <span class="dim">(41s)</span></div>
 
   <div class="content">
-    <div class="ps1"><span class="user">pedro@morago</span>:~$ <span class="cmd">whoami</span></div>
-    <h1>Pedro Morago<span class="cursor"></span></h1>
-    <div class="role">Senior QA Engineer<span class="sep">·</span>Test Automation<span class="sep">·</span>ISTQB CTFL v4.0</div>
-    <div class="tags">
-      <span class="tag">Playwright</span>
-      <span class="tag">Cypress</span>
-      <span class="tag">REST Assured</span>
-      <span class="tag">Karate</span>
-      <span class="tag">CI/CD</span>
+    <div class="ps1"><span class="user">pedro@morago</span>:~$ <span class="cmd">cat why-qa.md</span></div>
+    <h1>I find the bugs before<br>your users do.</h1>
+    <div class="stats">
+      <span class="stat"><b>−40%</b> CI pipeline time</span>
+      <span class="stat"><b>−80%</b> E2E suite runtime</span>
+      <span class="stat"><b>5 yrs</b> SaaS &amp; telecom OSS</span>
     </div>
     <div class="foot">
       <span class="url"><span class="arrow">→</span>www.pedromorago.com</span>
-      <span class="loc">Santander, Spain<span class="sep">·</span>Remote</span>
+      <span class="link">wiki.pedromorago.com</span>
+      <span class="link">github.com/pedro-morago</span>
     </div>
   </div>
-</div>
 </body>
 </html>
