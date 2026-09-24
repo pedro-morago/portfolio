@@ -63,16 +63,15 @@
         <h2><span class="sr-only">About</span><span aria-hidden="true"><span class="accent">$</span> cat about.md</span></h2>
         <div class="about-grid">
           <p>
-            I'm <strong>Pedro Morago</strong>, a Senior QA Engineer with <strong>5 years of experience</strong> in quality assurance and test automation on international SaaS products.
+            I'm <strong>Pedro Morago</strong>, a Senior QA Engineer based in Santander, Spain. Since 2024 I've worked <strong>fully remote</strong> in distributed agile teams.
           </p>
           <ul class="project-features">
-            <li>Degree in <a href="https://web.unican.es/estudios/asignaturas?pi=68&amp;c=2026&amp;ga=N" target="_blank" rel="noopener"><strong>Mathematics</strong></a> from the University of Cantabria (2015 – 2020) — a degree whose <a href="https://warwick.ac.uk/fac/sci/maths/currentstudents/ughandbook/general/overview/transferableskills/" target="_blank" rel="noopener">transferable skills</a> (stating a problem precisely, arguing logically, not skipping details) read a lot like a tester's job.</li>
+            <li>BSc in <a href="https://web.unican.es/estudios/asignaturas?pi=68&amp;c=2026&amp;ga=N" target="_blank" rel="noopener"><strong>Mathematics</strong></a> from the University of Cantabria (2015 – 2020). Its <a href="https://warwick.ac.uk/fac/sci/maths/currentstudents/ughandbook/general/overview/transferableskills/" target="_blank" rel="noopener">transferable skills</a> (stating a problem precisely, arguing logically, not skipping details) read a lot like a tester's job.</li>
             <li><strong>ISTQB® Certified Tester Foundation Level (CTFL) v4.0</strong>.</li>
-            <li>Now on a <strong>telecom OSS/BSS</strong> platform; before that a <strong>cybersecurity</strong> SaaS (threat modelling) and a field service management SaaS.</li>
-            <li>Working <strong>100 % remotely</strong> in agile, distributed teams.</li>
+            <li>Now on a <strong>telecom OSS/BSS</strong> platform; before that a <strong>cybersecurity</strong> SaaS (threat modeling) and a field service management SaaS.</li>
           </ul>
           <p>
-            The details of my day-to-day work are under <a href="#experience">experience</a>. What I learn along the way I write down in my <a href="https://wiki.pedromorago.com/" target="_blank" rel="noopener">QA Wiki</a>: explaining something in your own words is the litmus test that you understand it.
+            The details of my day-to-day work are under <a href="#experience">experience</a>. I write down what I learn along the way in my <a href="https://wiki.pedromorago.com/" target="_blank" rel="noopener">QA Wiki</a>, because explaining something in your own words is the real test of whether you understand it.
           </p>
         </div>
       </div>
@@ -89,13 +88,11 @@
           </div>
           <p class="job-meta">Telecom · TM Forum ODA OSS · Client: EWE (Germany)</p>
           <ul class="project-features">
-            <li>QA on the OSS transformation of <strong>EWE</strong>, a German telecom and energy provider: Alvatross replaces its service and resource catalog, <strong>order management (SOM/ROM)</strong> and service activation on a TM Forum ODA platform.</li>
-            <li>Design and execute tests in <strong>Jira + Xray</strong> for service-order flows (add, modify, delete, suspend/reactivate) of L2/L3 business services, covering TMF-based order orchestration, BPM rules and fallout handling.</li>
-            <li>Run <strong>release regression campaigns</strong> across a staged environment chain (mocked evaluation, integrated test, pre-production), with a verdict scale that separates product defects from environment limits.</li>
-            <li>Building the project's <strong>API test automation with Karate (Gherkin)</strong>: service orders created through TMF APIs and their decomposition asserted per use case, running in a GitLab CI pipeline.</li>
+            <li>QA on the OSS transformation of <strong>EWE</strong>, a German telecom and energy provider. Alvatross is replacing EWE's service and resource catalog, <strong>order management (SOM/ROM)</strong> and service activation with a platform built on TM Forum ODA standards.</li>
+            <li>Design and run tests in <strong>Jira + Xray</strong> for service-order flows (add, modify, delete, suspend/reactivate) of L2/L3 business services: order orchestration through TM Forum APIs, business rules and failed-order (fallout) handling.</li>
+            <li>Building <strong>API test automation with Karate (Gherkin)</strong>: scenarios that create service orders through TM Forum APIs and check how each order is decomposed into the expected services.</li>
             <li>Built a one-click <strong>Postman smoke suite</strong> for production deployments: read-only checks across every service with a baseline/verify mode that flags any response that changed after a release or infrastructure change.</li>
-            <li>Audited test traceability in Xray and proposed the rules that make <strong>release coverage reportable</strong> from Test Plans; contributing to a per-environment test strategy with the QA lead.</li>
-            <li>Level-3 support: reproduce incidents live with backend developers and turn them into bugs traced from the failing test step. Built internal <strong>QA tooling</strong> (Xray export scripts) to analyse the team's test repository.</li>
+            <li>Run <strong>release regression</strong> and pre-production validation: triage each failure as a product defect or a test-data/environment issue, reproduce intermittent ones live with a backend developer, and raise the bug from the failing test step.</li>
           </ul>
         </article>
 
@@ -104,13 +101,14 @@
             <h3>QA Engineer · IriusRisk</h3>
             <span class="job-dates">Apr 2024 – Jul 2026</span>
           </div>
-          <p class="job-meta">Remote · International SaaS · Cybersecurity / Threat Modelling</p>
+          <p class="job-meta">Remote · International SaaS · Cybersecurity / Threat Modeling</p>
           <ul class="project-features">
-            <li>Led the testing strategy for the <strong>Security Content</strong> module, defining the test mix across the pyramid (unit, integration, backend, E2E).</li>
-            <li>Designed and deployed a Python <strong>optimization model (MILP)</strong> for parallel E2E test execution in CI/CD: <strong>40 % less pipeline time</strong> with no extra infrastructure cost, validated in production.</li>
-            <li>Automated the backend API in <strong>Java with REST Assured and JUnit 5</strong>: Given-When-Then pattern, JSON schema validation, negative cases and Qase integration.</li>
-            <li>Took part in the migration from TestCafe to <strong>Playwright with TypeScript</strong>: 80 % less execution time and a more stable suite.</li>
-            <li>Contributed to CI/CD pipelines in Bitbucket and applied <strong>Shift Left</strong>: reviewing requirements and technical designs from early stages.</li>
+            <li>Owned the test strategy for the <strong>Security Content</strong> module, defining the test mix across the pyramid (unit, integration, backend, E2E).</li>
+            <li>Cut CI pipeline time by <strong>40%</strong> at no extra infrastructure cost: designed and deployed a Python <strong>optimization model (MILP)</strong> that splits E2E tests across parallel containers, validated in production.</li>
+            <li>Automated backend API tests in <strong>Java with REST Assured and JUnit 5</strong>: Given-When-Then structure, JSON schema validation, negative cases and Qase integration.</li>
+            <li>Contributed to the migration from TestCafe to <strong>Playwright with TypeScript</strong>, which reduced execution time by 80% and made the suite more stable.</li>
+            <li>Contributed to CI/CD pipelines in Bitbucket and practiced <strong>Shift Left</strong>, reviewing requirements and technical designs early in development.</li>
+            <li>Reviewed pull requests and <strong>mentored peers</strong> on test automation best practices.</li>
           </ul>
         </article>
 
@@ -119,11 +117,11 @@
             <h3>QA Engineer · Fieldeas</h3>
             <span class="job-dates">May 2021 – Apr 2024</span>
           </div>
-          <p class="job-meta">Santander, Spain · Field Service Management SaaS</p>
+          <p class="job-meta">Santander, Spain · Hybrid · Field Service Management SaaS</p>
           <ul class="project-features">
             <li>Designed and executed functional, regression and integration tests across multiple client projects, reporting <strong>500+ bugs</strong> prioritized by product risk and business criticality.</li>
             <li>Built and maintained automated E2E suites with <strong>Cypress and JavaScript</strong>, evolving the team's approach from manual testing to a scalable automation model.</li>
-            <li>Data validation with <strong>SQL</strong> within test cases and issue management in Jira, coordinating releases with development.</li>
+            <li>Validated data with <strong>SQL</strong> as part of test cases and managed issues in Jira, coordinating releases with development.</li>
             <li>Trained and mentored new team members on tools and automation best practices, reducing onboarding time.</li>
           </ul>
         </article>
@@ -171,7 +169,7 @@
           </p>
           <ul class="project-features">
             <li><strong>Try it in the browser</strong>: it opens with a demo run already loaded, and you can drop in your own reports — nothing to install and no account.</li>
-            <li>100 % local, private analysis: reports never leave the browser.</li>
+            <li>100% local, private analysis: reports never leave the browser.</li>
             <li>Three interfaces: interactive web app, CLI with a <em>quality-gate</em> mode, and a local REST API.</li>
             <li>Actionable recommendations: per-container spec lists ready to paste into GitHub Actions or Bitbucket Pipelines.</li>
             <li>Pure core with hexagonal architecture, tested with property-based, metamorphic and invariant tests.</li>
