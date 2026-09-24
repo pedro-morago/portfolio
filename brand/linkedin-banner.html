@@ -128,27 +128,33 @@
   .ps1 .user { color: var(--accent-strong); }
   .ps1 .cmd { color: var(--bright); }
 
-  /* Orientado a cliente: qué resuelvo, en tres líneas llanas, y cómo
-     contactar. Sin eslogan ni cifras. */
+  /* Para reclutadores: en lugar de repetir el titular del perfil, pruebas.
+     Los tres proyectos de la web, como un ls, y el enlace al portfolio. */
   h1 {
     font-family: var(--sans);
-    font-size: 46px;
+    font-size: 44px;
     font-weight: 700;
     letter-spacing: -0.02em;
     line-height: 1.1;
     color: var(--bright);
-    margin: 4px 0 16px;
+    margin: 4px 0 14px;
   }
 
-  .services {
+  .projects {
     font-family: var(--mono);
-    font-size: 22px;
-    line-height: 1.55;
-    color: var(--fg);
-    margin-bottom: 20px;
+    font-size: 21px;
+    line-height: 1.6;
+    color: var(--ink-2);
+    margin-bottom: 18px;
   }
-  .services div { white-space: nowrap; }
-  .services .ok { color: var(--accent-strong); margin-right: 12px; }
+  .projects div { white-space: nowrap; }
+  .projects .dir {
+    display: inline-block;
+    width: 250px;
+    color: var(--bright);
+    font-weight: 500;
+  }
+  .projects .dir::after { content: "/"; color: var(--accent-strong); }
 
   .foot {
     display: flex; align-items: center; gap: 20px;
@@ -166,7 +172,7 @@
     border-radius: 6px;
   }
   .foot .url .arrow { font-weight: 500; opacity: 0.8; }
-  .foot .mail::before { content: "· "; color: var(--ink-3); }
+  .foot .note::before { content: "· "; color: var(--ink-3); }
 
 </style>
 </head>
@@ -191,16 +197,16 @@
 <span class="ok">128 passed</span> <span class="dim">(41s)</span></div>
 
   <div class="content">
-    <div class="ps1"><span class="user">pedro@morago</span>:~$ <span class="cmd">cat services.md</span></div>
-    <h1>Test automation &amp; QA for SaaS teams</h1>
-    <div class="services">
-      <div><span class="ok">✓</span>End-to-end and API test automation</div>
-      <div><span class="ok">✓</span>Tests wired into your CI/CD pipeline</div>
-      <div><span class="ok">✓</span>Test strategy and early requirement reviews</div>
+    <div class="ps1"><span class="user">pedro@morago</span>:~$ <span class="cmd">ls ~/projects</span></div>
+    <h1>Projects and a QA wiki</h1>
+    <div class="projects">
+      <div><span class="dir">qa-wiki</span>50+ articles on test strategy, API testing and CI/CD</div>
+      <div><span class="dir">ci-shard-advisor</span>Optimal sharding of Cypress suites in CI</div>
+      <div><span class="dir">screen-recorder</span>Chrome extension: bug reports with full evidence</div>
     </div>
     <div class="foot">
       <span class="url"><span class="arrow">→</span>www.pedromorago.com</span>
-      <span class="mail">pedro@pedromorago.com</span>
+      <span class="note">live demos · code on GitHub</span>
     </div>
   </div>
 </body>
