@@ -128,24 +128,57 @@
   .ps1 .user { color: var(--accent-strong); }
   .ps1 .cmd { color: var(--bright); }
 
-  /* Solo enlaces: lo que la tarjeta del perfil no muestra. Sin eslogan. */
-  .links {
-    font-family: var(--mono);
-    line-height: 1.5;
-    margin-top: 10px;
+  /* Orientado a cliente: qué resuelvo, en tres líneas llanas, y cómo
+     contactar. Sin eslogan ni cifras. */
+  h1 {
+    font-family: var(--sans);
+    font-size: 46px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: var(--bright);
+    margin: 4px 0 16px;
   }
-  .link {
-    font-size: 30px;
+
+  .services {
+    font-family: var(--mono);
+    font-size: 22px;
+    line-height: 1.55;
+    color: var(--fg);
+    margin-bottom: 20px;
+  }
+  .services div { white-space: nowrap; }
+  .services .ok { color: var(--accent-strong); margin-right: 12px; }
+
+  .foot {
+    display: flex; align-items: center; gap: 20px;
+    font-family: var(--mono);
+    font-size: 21px;
     color: var(--ink-2);
     white-space: nowrap;
   }
-  .link .k {
-    display: inline-block;
-    width: 110px;
-    color: var(--ink-3);
-    font-size: 20px;
+  .foot .url {
+    display: inline-flex; align-items: center; gap: 12px;
+    color: #08130c;
+    background: var(--accent);
+    font-weight: 700;
+    padding: 7px 17px;
+    border-radius: 6px;
   }
-  .link.main { color: var(--accent-strong); font-weight: 700; }
+  .foot .url .arrow { font-weight: 500; opacity: 0.8; }
+  .foot .mail::before { content: "· "; color: var(--ink-3); }
+
+  /* Estado de disponibilidad en la barra de título, como un indicador de chat. */
+  .chrome .status { color: var(--accent-muted); }
+  .chrome .status::before {
+    content: "";
+    display: inline-block;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-right: 9px;
+    vertical-align: 1px;
+  }
 </style>
 </head>
 <body>
@@ -156,7 +189,7 @@
   <div class="chrome">
     <span class="dot"></span><span class="dot"></span><span class="dot g"></span>
     <span class="title"><b>pedro@morago</b>: ~/portfolio — zsh</span>
-    <span class="right">128 passed · 0 failed · 0 flaky</span>
+    <span class="right status">available for freelance projects</span>
   </div>
 
   <div class="log"><span class="p">$</span> npx playwright test
@@ -169,11 +202,16 @@
 <span class="ok">128 passed</span> <span class="dim">(41s)</span></div>
 
   <div class="content">
-    <div class="ps1"><span class="user">pedro@morago</span>:~$ <span class="cmd">cat links.txt</span></div>
-    <div class="links">
-      <div class="link main"><span class="k">web</span>www.pedromorago.com</div>
-      <div class="link"><span class="k">wiki</span>wiki.pedromorago.com</div>
-      <div class="link"><span class="k">code</span>github.com/pedro-morago</div>
+    <div class="ps1"><span class="user">pedro@morago</span>:~$ <span class="cmd">cat services.md</span></div>
+    <h1>Test automation &amp; QA for SaaS teams</h1>
+    <div class="services">
+      <div><span class="ok">✓</span>End-to-end and API test automation</div>
+      <div><span class="ok">✓</span>Tests wired into your CI/CD pipeline</div>
+      <div><span class="ok">✓</span>Test strategy and early requirement reviews</div>
+    </div>
+    <div class="foot">
+      <span class="url"><span class="arrow">→</span>www.pedromorago.com</span>
+      <span class="mail">pedro@pedromorago.com</span>
     </div>
   </div>
 </body>
