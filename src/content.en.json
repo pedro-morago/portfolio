@@ -51,6 +51,8 @@
           "QA on the OSS transformation of <strong>EWE</strong>, a German telecom and energy provider: Alvatross replaces its service and resource catalog, <strong>order management (SOM/ROM)</strong> and service activation on a TM Forum ODA platform.",
           "Design and execute tests in <strong>Jira + Xray</strong> for service-order flows (add, modify, delete, suspend/reactivate) of L2/L3 business services, covering TMF-based order orchestration, BPM rules and fallout handling.",
           "Run <strong>release regression campaigns</strong> across a staged environment chain (mocked evaluation, integrated test, pre-production), with a verdict scale that separates product defects from environment limits.",
+          "Building the project's <strong>API test automation with Karate (Gherkin)</strong>: service orders created through TMF APIs and their decomposition asserted per use case, running in a GitLab CI pipeline.",
+          "Built a one-click <strong>Postman smoke suite</strong> for production deployments: read-only checks across every service with a baseline/verify mode that flags any response that changed after a release or infrastructure change.",
           "Audited test traceability in Xray and proposed the rules that make <strong>release coverage reportable</strong> from Test Plans; contributing to a per-environment test strategy with the QA lead.",
           "Level-3 support: reproduce incidents live with backend developers and turn them into bugs traced from the failing test step. Built internal <strong>QA tooling</strong> (Xray export scripts) to analyse the team's test repository."
         ]
@@ -151,7 +153,8 @@
     "cmd": "cat skills.txt",
     "groups": [
       { "title": "e2e-automation", "items": ["Playwright", "Cypress", "Selenium · TestCafe"] },
-      { "title": "api-backend", "items": ["REST Assured · JUnit 5", "Postman · API Testing", "SQL"] },
+      { "title": "api-backend", "items": ["REST Assured · JUnit 5",
+          "Karate · Gherkin (BDD)", "Postman · API Testing", "SQL"] },
       { "title": "languages", "items": ["Java", "JavaScript / TypeScript", "Python"] },
       { "title": "ci-cd-tools", "items": ["Bitbucket Pipelines · GitHub Actions", "Git · Docker", "Jira · Confluence · Qase"] },
       { "title": "strategy-processes", "items": ["Test Strategy · Shift Left", "Test case design", "Agile / Scrum / Kanban"] },
