@@ -10,6 +10,7 @@
     "qa": "node qa/audit.js",
     "links": "node qa/links.js",
     "og": "node qa/og-image.js",
+    "banner": "node qa/linkedin-banner.js",
     "lint:html": "html-validate index.html en/index.html 404.html"
   },
   "devDependencies": {

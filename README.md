@@ -19,6 +19,8 @@ en/index.html         ← generado: redirección de la URL antigua a la raíz
 styles.css, script.js ← assets compartidos
 qa/audit.js           ← auditoría QA (Playwright)
 qa/og-image.js        ← regenera og-image.png
+qa/linkedin-banner.js ← regenera brand/linkedin-banner.png (banner de LinkedIn)
+brand/                ← banner de LinkedIn: HTML fuente, fuentes y PNG (1x y 2x)
 .github/workflows/qa.yml    ← CI: build + auditoría + despliegue
 .github/workflows/links.yml ← enlaces externos vivos (semanal, no bloquea)
 ```
@@ -44,6 +46,14 @@ Si cambia el hero, regenerar también la imagen para redes sociales:
 ```bash
 npm run og
 ```
+
+El banner de LinkedIn (1584×396) se diseña en `brand/linkedin-banner.html` con la misma paleta que la web y se exporta con:
+
+```bash
+npm run banner
+```
+
+El bloque de texto va en el 60 % derecho porque la foto de perfil de LinkedIn tapa la esquina inferior izquierda, tanto en escritorio como en móvil.
 
 Requisitos para la auditoría en local: `npm install` y un Chromium disponible (Playwright lo instala con `npx playwright install chromium`; si ya tienes uno, `CHROMIUM_PATH=/ruta/a/chromium npm run qa`).
 

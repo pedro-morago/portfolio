@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>LinkedIn banner · Pedro Morago</title>
+<style>
+  /* Misma paleta que styles.css: terminal oscura, verde como acento puntual. */
+  @font-face {
+    font-family: "JetBrains Mono";
+    font-style: normal;
+    font-weight: 100 800;
+    src: url("fonts/jetbrains-mono-latin.woff2") format("woff2");
+  }
+  @font-face {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 100 900;
+    src: url("fonts/inter-latin.woff2") format("woff2");
+  }
+
+  :root {
+    --bg: #0b0e0c;
+    --bg-alt: #0f1310;
+    --panel: #141915;
+    --edge: #1f2621;
+    --edge-strong: #2e3831;
+    --fg: #d3dad4;
+    --bright: #eef3ee;
+    --ink-2: #a3b0a7;
+    --ink-3: #6e7d73;
+    --accent: #45c97a;
+    --accent-strong: #7bdb9e;
+    --accent-muted: #8fc4a4;
+    --mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+    --sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { background: var(--bg); }
+  body {
+    width: 1584px;
+    height: 396px;
+    overflow: hidden;
+    color: var(--fg);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .banner {
+    position: relative;
+    width: 1584px;
+    height: 396px;
+    background: var(--bg);
+    overflow: hidden;
+  }
+
+  /* Rejilla muy tenue: textura de terminal sin robar contraste al texto. */
+  .grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(to right, rgba(211, 218, 212, 0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(211, 218, 212, 0.045) 1px, transparent 1px);
+    background-size: 48px 48px;
+    background-position: 0 44px;
+    mask-image: linear-gradient(to right, rgba(0,0,0,0.35), rgba(0,0,0,1) 55%);
+    -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0.35), rgba(0,0,0,1) 55%);
+  }
+
+  /* Un único foco verde, detrás del bloque de texto. */
+  .glow {
+    position: absolute;
+    width: 1100px; height: 700px;
+    right: -260px; top: -200px;
+    background: radial-gradient(closest-side, rgba(69, 201, 122, 0.16), rgba(69, 201, 122, 0) 70%);
+  }
+
+  /* Barra de título de la ventana de terminal. */
+  .chrome {
+    position: absolute; left: 0; right: 0; top: 0;
+    height: 44px;
+    display: flex; align-items: center;
+    padding: 0 28px;
+    gap: 10px;
+    background: rgba(20, 25, 21, 0.9);
+    border-bottom: 1px solid var(--edge-strong);
+    font-family: var(--mono);
+    font-size: 15px;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+  }
+  .dot { width: 13px; height: 13px; border-radius: 50%; background: var(--edge-strong); }
+  .dot.g { background: var(--accent); }
+  .chrome .title { margin-left: 14px; }
+  .chrome .title b { color: var(--ink-2); font-weight: 500; }
+  .chrome .right { margin-left: auto; color: var(--ink-3); }
+
+  /* Salida de tests a la izquierda: decorativa y tenue. La foto de perfil de
+     LinkedIn tapa la parte inferior izquierda, así que nada esencial va ahí. */
+  .log {
+    position: absolute;
+    left: 56px; top: 72px;
+    font-family: var(--mono);
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--ink-3);
+    opacity: 0.85;
+    white-space: pre;
+  }
+  .log .ok { color: var(--accent-muted); }
+  .log .dim { opacity: 0.6; }
+  .log .p { color: var(--ink-2); }
+
+  /* Bloque principal, en el 60 % derecho: zona segura en escritorio y móvil. */
+  .content {
+    position: absolute;
+    left: 570px; right: 64px;
+    top: 44px; bottom: 0;
+    display: flex; flex-direction: column; justify-content: center;
+    padding-top: 2px;
+  }
+
+  .ps1 {
+    font-family: var(--mono);
+    font-size: 20px;
+    color: var(--ink-2);
+    margin-bottom: 4px;
+  }
+  .ps1 .user { color: var(--accent-strong); }
+  .ps1 .cmd { color: var(--bright); }
+
+  h1 {
+    font-family: var(--sans);
+    font-size: 64px;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.05;
+    color: var(--bright);
+    margin: 0 0 8px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .cursor {
+    display: inline-block;
+    width: 0.42em; height: 0.8em;
+    background: var(--accent);
+    margin-top: 8px;
+  }
+
+  .role {
+    font-family: var(--mono);
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--accent-muted);
+    letter-spacing: 0.01em;
+    margin-bottom: 16px;
+  }
+  .role .sep { color: var(--ink-3); margin: 0 6px; }
+
+  .tags {
+    display: flex; flex-wrap: nowrap; gap: 8px;
+    margin-bottom: 18px;
+  }
+  .tag {
+    font-family: var(--mono);
+    font-size: 19px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--fg);
+    padding: 6px 12px;
+    border: 1px solid var(--edge-strong);
+    border-radius: 6px;
+    background: rgba(20, 25, 21, 0.75);
+  }
+  .tag::before { content: "[ "; color: var(--ink-3); }
+  .tag::after { content: " ]"; color: var(--ink-3); }
+
+  .foot {
+    display: flex; align-items: center; gap: 28px;
+    font-family: var(--mono);
+    font-size: 23px;
+    color: var(--ink-2);
+  }
+  .foot .url {
+    display: inline-flex; align-items: center; gap: 12px;
+    color: #08130c;
+    background: var(--accent);
+    font-weight: 700;
+    padding: 7px 17px;
+    border-radius: 6px;
+    letter-spacing: 0.01em;
+  }
+  .foot .url .arrow { font-weight: 500; opacity: 0.8; }
+  .foot .loc { color: var(--ink-2); }
+  .foot .loc .sep { color: var(--ink-3); margin: 0 8px; }
+</style>
+</head>
+<body>
+<div class="banner">
+  <div class="grid"></div>
+  <div class="glow"></div>
+
+  <div class="chrome">
+    <span class="dot"></span><span class="dot"></span><span class="dot g"></span>
+    <span class="title"><b>pedro@morago</b>: ~/portfolio — zsh</span>
+    <span class="right">128 passed · 0 failed · 0 flaky</span>
+  </div>
+
+  <div class="log"><span class="p">$</span> npx playwright test
+<span class="dim">Running 128 tests using 8 workers</span>
+  <span class="ok">✓</span> e2e/auth/login.spec.ts <span class="dim">(2.1s)</span>
+  <span class="ok">✓</span> e2e/orders/create.spec.ts <span class="dim">(3.4s)</span>
+  <span class="ok">✓</span> api/service-order.feature <span class="dim">(1.2s)</span>
+  <span class="ok">✓</span> e2e/catalog/search.spec.ts <span class="dim">(1.8s)</span>
+  <span class="ok">✓</span> api/schema-validation.spec.ts <span class="dim">(0.9s)</span>
+<span class="ok">128 passed</span> <span class="dim">(41s)</span></div>
+
+  <div class="content">
+    <div class="ps1"><span class="user">pedro@morago</span>:~$ <span class="cmd">whoami</span></div>
+    <h1>Pedro Morago<span class="cursor"></span></h1>
+    <div class="role">Senior QA Engineer<span class="sep">·</span>Test Automation<span class="sep">·</span>ISTQB CTFL v4.0</div>
+    <div class="tags">
+      <span class="tag">Playwright</span>
+      <span class="tag">Cypress</span>
+      <span class="tag">REST Assured</span>
+      <span class="tag">Karate</span>
+      <span class="tag">CI/CD</span>
+    </div>
+    <div class="foot">
+      <span class="url"><span class="arrow">→</span>www.pedromorago.com</span>
+      <span class="loc">Santander, Spain<span class="sep">·</span>Remote</span>
+    </div>
+  </div>
+</div>
+</body>
+</html>
