@@ -33,7 +33,7 @@
     "bullets": [
       "BSc in <a href=\"https://web.unican.es/estudios/asignaturas?pi=68&amp;c=2026&amp;ga=N\" target=\"_blank\" rel=\"noopener\"><strong>Mathematics</strong></a> from the University of Cantabria (2015 – 2020). Its <a href=\"https://warwick.ac.uk/fac/sci/maths/currentstudents/ughandbook/general/overview/transferableskills/\" target=\"_blank\" rel=\"noopener\">transferable skills</a> (stating a problem precisely, arguing logically, not skipping details) read a lot like a tester's job.",
       "<strong>ISTQB® Certified Tester Foundation Level (CTFL) v4.0</strong>.",
-      "Now on a <strong>telecom OSS/BSS</strong> platform; before that a <strong>cybersecurity</strong> SaaS (threat modeling) and a field service management SaaS."
+      "Now on a <strong>telecom OSS</strong> platform; before that a <strong>cybersecurity</strong> SaaS (threat modeling) and a field service management SaaS."
     ],
     "outro": "The details of my day-to-day work are under <a href=\"#experience\">experience</a>. I write down what I learn along the way in my <a href=\"https://wiki.pedromorago.com/\" target=\"_blank\" rel=\"noopener\">QA Wiki</a>, because explaining something in your own words is the real test of whether you understand it."
   },
@@ -154,7 +154,7 @@
       { "title": "api-backend", "items": ["REST Assured · JUnit 5",
           "Karate · Gherkin (BDD)", "Postman · API Testing", "SQL"] },
       { "title": "languages", "items": ["Java", "JavaScript / TypeScript", "Python"] },
-      { "title": "ci-cd-tools", "items": ["Bitbucket Pipelines · GitHub Actions", "Git · Docker", "Jira · Confluence · Qase"] },
+      { "title": "ci-cd-tools", "items": ["Bitbucket Pipelines · GitHub Actions · Jenkins", "Git · Docker", "Jira · Confluence · Qase"] },
       { "title": "strategy-processes", "items": ["Test Strategy · Shift Left", "Test case design", "Agile / Scrum / Kanban"] },
       { "title": "testing-types", "items": ["Functional · Regression", "Integration · API", "E2E"] }
     ],
