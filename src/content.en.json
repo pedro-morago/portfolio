@@ -21,15 +21,18 @@
     "typed": "whoami",
     "name": "Pedro Morago",
     "role": "Senior QA Engineer · Test Automation · ISTQB CTFL v4.0",
-    "tagline": "Senior QA Engineer with <strong>5 years of experience</strong> in quality assurance and test automation for <strong>international SaaS products</strong>. I automate E2E tests with <strong>Playwright and Cypress</strong>, test APIs in Java and integrate testing into <strong>CI/CD pipelines</strong>.",
-    "ctaProjects": "View projects",
-    "ctaGithub": "GitHub ↗"
+    "tagline": "<strong>5 years</strong> in quality assurance and test automation, on international SaaS products and now a <strong>telecom OSS</strong> platform. I automate E2E tests with <strong>Playwright and Cypress</strong> and API tests in <strong>Java</strong>, and I cut CI pipeline time by <strong>40%</strong> with an optimization model I designed.",
+    "ctas": [
+      { "href": "#contact", "label": "Get in touch" },
+      { "href": "https://www.linkedin.com/in/pedro-morago-lopezvazquez/", "label": "LinkedIn ↗" },
+      { "href": "https://github.com/pedromorago", "label": "GitHub ↗" }
+    ]
   },
   "about": {
     "id": "about",
     "aria": "About",
     "cmd": "cat about.md",
-    "intro": "I'm <strong>Pedro Morago</strong>, a Senior QA Engineer based in Santander, Spain. Since 2024 I've worked <strong>fully remote</strong> in distributed agile teams.",
+    "intro": "I'm <strong>Pedro Morago</strong>, based in Santander, Spain. Since 2024 I've worked <strong>fully remote</strong> in distributed agile teams.",
     "bullets": [
       "BSc in <a href=\"https://web.unican.es/estudios/asignaturas?pi=68&amp;c=2026&amp;ga=N\" target=\"_blank\" rel=\"noopener\"><strong>Mathematics</strong></a> from the University of Cantabria (2015 – 2020). Its <a href=\"https://warwick.ac.uk/fac/sci/maths/currentstudents/ughandbook/general/overview/transferableskills/\" target=\"_blank\" rel=\"noopener\">transferable skills</a> (stating a problem precisely, arguing logically, not skipping details) read a lot like a tester's job.",
       "<strong>ISTQB® Certified Tester Foundation Level (CTFL) v4.0</strong>.",
@@ -86,40 +89,20 @@
     "cmd": "ls projects/",
     "items": [
       {
-        "name": "QA Wiki",
-        "badge": "living document",
-        "tagline": "My Quality Assurance knowledge base: 50+ articles, all written by me.",
-        "description": "A training and knowledge wiki where I write about what I practice daily as a QA. It isn't an app: it's the side of the craft that shows <strong>judgment and depth</strong>, not just code. I keep expanding it continuously.",
-        "features": [
-          "Testing strategy: backend and frontend layers, microservices and shift-left with a maturity model.",
-          "API testing with REST Assured and JUnit 5: JSON Schema, negative cases and waits with Awaitility.",
-          "Automation with Playwright and TypeScript, including a real migration case from TestCafe.",
-          "CI/CD for QA: static analysis, parallelization and suite sharding, Docker, Git and AWS.",
-          "Performance with JMeter, QA on telecom OSS/BSS, and the ISTQB fundamentals.",
-          "Semantic search that runs entirely in the browser, plus an <strong>AI answer</strong> button: grounded, cited answers built only from my own articles (RAG on Cloudflare Workers AI)."
-        ],
-        "tech": ["VitePress", "Markdown", "GitHub Actions", "GitHub Pages", "Cloudflare Workers AI"],
-        "links": [
-          { "href": "https://wiki.pedromorago.com/", "label": "Read the wiki ↗" },
-          { "href": "https://github.com/pedro-morago/qa-wiki", "label": "Code on GitHub ↗" }
-        ]
-      },
-      {
         "name": "CI Shard Advisor",
         "badge": "published",
         "tagline": "Optimal parallelization of Cypress suites in CI, without relying on Cypress Cloud.",
-        "description": "A tool that analyzes your Cypress run reports and recommends the <strong>optimal sharding strategy</strong> for your pipeline: it measures current performance, detects imbalances between containers and suggests the exact spec partition that minimizes total execution time, with <strong>optimality certification</strong> via a branch &amp; bound algorithm.",
+        "description": "A tool that analyzes your Cypress run reports and recommends the <strong>optimal sharding strategy</strong> for your pipeline: it detects imbalances between containers and suggests the exact spec partition that minimizes total execution time, with <strong>optimality certification</strong> via a branch &amp; bound algorithm. It's the same kind of optimization problem behind the <strong>40% pipeline cut</strong> I delivered at IriusRisk.",
         "features": [
-          "<strong>Try it in the browser</strong>: it opens with a demo run already loaded, and you can drop in your own reports — nothing to install and no account.",
-          "100% local, private analysis: reports never leave the browser.",
+          "<strong>Try it in the browser</strong>: it opens with a demo run already loaded, and you can drop in your own reports — nothing to install, no account, and reports never leave the browser.",
           "Three interfaces: interactive web app, CLI with a <em>quality-gate</em> mode, and a local REST API.",
           "Actionable recommendations: per-container spec lists ready to paste into GitHub Actions or Bitbucket Pipelines.",
           "Pure core with hexagonal architecture, tested with property-based, metamorphic and invariant tests."
         ],
         "tech": ["TypeScript", "React", "Vite", "Fastify", "Node.js", "pnpm", "Playwright", "k6"],
         "links": [
-          { "href": "https://pedro-morago.github.io/ci-shard-advisor/", "label": "Open the live demo ↗" },
-          { "href": "https://github.com/pedro-morago/ci-shard-advisor", "label": "Code on GitHub ↗" }
+          { "href": "https://pedromorago.github.io/ci-shard-advisor/", "label": "Open the live demo ↗" },
+          { "href": "https://github.com/pedromorago/ci-shard-advisor", "label": "Code on GitHub ↗" }
         ]
       },
       {
@@ -130,17 +113,31 @@
         "features": [
           "<strong>Install it in 30 seconds</strong>: download the zip, <em>Load unpacked</em> in <code>chrome://extensions</code>. No store account, no build step.",
           "<strong>Tested against a bench I built for it</strong>: <a href=\"https://bench.pedromorago.com/\">bench.pedromorago.com</a>, a page that breaks on demand — a 500 on a write, an uncaught exception, a response that says OK and means the opposite — so the capture could be checked against known failures instead of whatever a real site happened to do.",
-          "QA mode: console, errors, 404s and HAR synced to the video by timestamp.",
-          "Live on-video annotations and keyboard-shortcut markers to flag the exact moment of the bug.",
           "Automatic step recording (clicks, forms, SPA navigations) exportable as <code>*.steps.md</code> — each step carries a <strong>paste-ready Cypress or Playwright selector</strong>, so the step list doubles as the skeleton of the regression test. Typed values are never logged.",
-          "Generates the full report and files the issue directly in <strong>Jira Cloud or Linear</strong>.",
-          "Zero external dependencies: native browser APIs only."
+          "Generates the full report and files the issue directly in <strong>Jira Cloud or Linear</strong>."
         ],
         "tech": ["JavaScript", "Manifest V3", "chrome.desktopCapture", "Cypress", "Playwright", "GitHub Actions"],
         "links": [
-          { "href": "https://github.com/pedro-morago/screen-recorder-qa/releases/latest", "label": "Download for Chrome ↗" },
+          { "href": "https://github.com/pedromorago/screen-recorder-qa/releases/latest", "label": "Download for Chrome ↗" },
           { "href": "https://bench.pedromorago.com/", "label": "Try it on the bug bench ↗" },
-          { "href": "https://github.com/pedro-morago/screen-recorder-qa", "label": "Code on GitHub ↗" }
+          { "href": "https://github.com/pedromorago/screen-recorder-qa", "label": "Code on GitHub ↗" }
+        ]
+      },
+      {
+        "name": "QA Wiki",
+        "badge": "living document",
+        "tagline": "My Quality Assurance knowledge base: 50+ articles, all written by me.",
+        "description": "A training and knowledge wiki where I write about what I practice daily as a QA. It isn't an app: it's the side of the craft that shows <strong>judgment and depth</strong>, not just code. I keep expanding it continuously.",
+        "features": [
+          "Testing strategy: backend and frontend layers, microservices and shift-left with a maturity model.",
+          "API testing with REST Assured and JUnit 5, and automation with Playwright and TypeScript, including a real migration from TestCafe.",
+          "CI/CD for QA (sharding, Docker, AWS), performance with JMeter, QA on telecom OSS/BSS and the ISTQB fundamentals.",
+          "Semantic search that runs entirely in the browser, plus an <strong>AI answer</strong> button: grounded, cited answers built only from my own articles (RAG on Cloudflare Workers AI)."
+        ],
+        "tech": ["VitePress", "Markdown", "GitHub Actions", "GitHub Pages", "Cloudflare Workers AI"],
+        "links": [
+          { "href": "https://wiki.pedromorago.com/", "label": "Read the wiki ↗" },
+          { "href": "https://github.com/pedromorago/qa-wiki", "label": "Code on GitHub ↗" }
         ]
       }
     ]
@@ -153,7 +150,7 @@
       { "title": "e2e-automation", "items": ["Playwright", "Cypress", "Selenium · TestCafe"] },
       { "title": "api-backend", "items": ["REST Assured · JUnit 5",
           "Karate · Gherkin (BDD)", "Postman · API Testing", "SQL"] },
-      { "title": "languages", "items": ["Java", "JavaScript / TypeScript", "Python"] },
+      { "title": "programming", "items": ["Java", "JavaScript / TypeScript", "Python"] },
       { "title": "ci-cd-tools", "items": ["Bitbucket Pipelines · GitHub Actions · Jenkins", "Git · Docker", "Jira · Confluence · Qase"] },
       { "title": "strategy-processes", "items": ["Test Strategy · Shift Left", "Test case design", "Agile / Scrum / Kanban"] },
       { "title": "testing-types", "items": ["Functional · Regression", "Integration · API", "E2E"] }
@@ -185,12 +182,12 @@
     "id": "contact",
     "aria": "Contact",
     "cmd": "cat contact.md",
-    "text": "Want to talk software quality? I'm open to new opportunities and collaborations.",
+    "text": "Want to talk software quality? Drop me a line.",
     "location": "Santander, Spain · Remote",
     "email": "pedro@pedromorago.com",
     "links": [
       { "href": "https://www.linkedin.com/in/pedro-morago-lopezvazquez/", "label": "LinkedIn ↗" },
-      { "href": "https://github.com/pedro-morago", "label": "GitHub ↗" }
+      { "href": "https://github.com/pedromorago", "label": "GitHub ↗" }
     ]
   },
   "footer": "exit 0 · © <span id=\"year\">2026</span> Pedro Morago López-Vázquez · HTML, CSS and JS, no frameworks."

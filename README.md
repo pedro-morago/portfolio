@@ -1,7 +1,7 @@
 # Portfolio · Pedro Morago
 
-![QA](https://github.com/pedro-morago/portfolio/actions/workflows/qa.yml/badge.svg)
-![links](https://github.com/pedro-morago/portfolio/actions/workflows/links.yml/badge.svg)
+![QA](https://github.com/pedromorago/portfolio/actions/workflows/qa.yml/badge.svg)
+![links](https://github.com/pedromorago/portfolio/actions/workflows/links.yml/badge.svg)
 
 Web personal de portfolio de QA Engineer, con estética de terminal. Estática, sin frameworks y sin ninguna petición externa en runtime. Solo en inglés (público objetivo: mercado internacional).
 

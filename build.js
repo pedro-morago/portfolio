@@ -130,8 +130,12 @@ function renderHero(c) {
       </p>
       <p class="ps1" aria-hidden="true"><span class="user">pedro@morago</span>:~$ <span class="cursor"></span></p>
       <div class="hero-actions">
-        <a href="#${c.projects.id}" class="btn btn-primary">${c.hero.ctaProjects}</a>
-        <a href="https://github.com/pedro-morago" target="_blank" rel="noopener" class="btn btn-ghost">${c.hero.ctaGithub}</a>
+${c.hero.ctas
+  .map((l, i) => {
+    const ext = l.href.startsWith("http") ? ' target="_blank" rel="noopener"' : "";
+    return `        <a href="${l.href}"${ext} class="btn ${i === 0 ? "btn-primary" : "btn-ghost"}">${l.label}</a>`;
+  })
+  .join("\n")}
       </div>
     </div>
   </header>`;
