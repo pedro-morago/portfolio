@@ -168,17 +168,6 @@
   .foot .url .arrow { font-weight: 500; opacity: 0.8; }
   .foot .mail::before { content: "· "; color: var(--ink-3); }
 
-  /* Estado de disponibilidad en la barra de título, como un indicador de chat. */
-  .chrome .status { color: var(--accent-muted); }
-  .chrome .status::before {
-    content: "";
-    display: inline-block;
-    width: 9px; height: 9px;
-    border-radius: 50%;
-    background: var(--accent);
-    margin-right: 9px;
-    vertical-align: 1px;
-  }
 </style>
 </head>
 <body>
@@ -189,7 +178,7 @@
   <div class="chrome">
     <span class="dot"></span><span class="dot"></span><span class="dot g"></span>
     <span class="title"><b>pedro@morago</b>: ~/portfolio — zsh</span>
-    <span class="right status">available for freelance projects</span>
+    <span class="right">128 passed · 0 failed · 0 flaky</span>
   </div>
 
   <div class="log"><span class="p">$</span> npx playwright test
