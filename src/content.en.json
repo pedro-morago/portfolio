@@ -46,10 +46,13 @@
       {
         "title": "Senior QA Engineer · Alvatross by SATEC",
         "dates": "Jul 2026 – Present",
-        "meta": "Telecom · OSS/BSS platform",
+        "meta": "Telecom · TM Forum ODA OSS · Client: EWE (Germany)",
         "bullets": [
-          "Quality on a <strong>telecom OSS/BSS</strong> platform: the systems an operator runs to provision services, keep network inventory correct and bill what was actually delivered.",
-          "Just joined, so this entry is deliberately short. What I ship here gets added once it exists, not before."
+          "QA on the OSS transformation of <strong>EWE</strong>, a German telecom and energy provider: Alvatross replaces its service and resource catalog, <strong>order management (SOM/ROM)</strong> and service activation on a TM Forum ODA platform.",
+          "Design and execute tests in <strong>Jira + Xray</strong> for service-order flows (add, modify, delete, suspend/reactivate) of L2/L3 business services, covering TMF-based order orchestration, BPM rules and fallout handling.",
+          "Run <strong>release regression campaigns</strong> across a staged environment chain (mocked evaluation, integrated test, pre-production), with a verdict scale that separates product defects from environment limits.",
+          "Audited test traceability in Xray and proposed the rules that make <strong>release coverage reportable</strong> from Test Plans; contributing to a per-environment test strategy with the QA lead.",
+          "Level-3 support: reproduce incidents live with backend developers and turn them into bugs traced from the failing test step. Built internal <strong>QA tooling</strong> (Xray export scripts) to analyse the team's test repository."
         ]
       },
       {
