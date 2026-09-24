@@ -121,61 +121,31 @@
 
   .ps1 {
     font-family: var(--mono);
-    font-size: 20px;
+    font-size: 22px;
     color: var(--ink-2);
     margin-bottom: 4px;
   }
   .ps1 .user { color: var(--accent-strong); }
   .ps1 .cmd { color: var(--bright); }
 
-  h1 {
-    font-family: var(--sans);
-    font-size: 54px;
-    font-weight: 700;
-    letter-spacing: -0.025em;
-    line-height: 1.08;
-    color: var(--bright);
-    margin: 0 0 18px;
-  }
-
-  /* Dos resultados medibles y el contexto: lo que el perfil no muestra
-     hasta que se abre la experiencia. */
-  .stats {
-    display: flex; gap: 10px;
-    margin-bottom: 22px;
-  }
-  .stat {
+  /* Solo enlaces: lo que la tarjeta del perfil no muestra. Sin eslogan. */
+  .links {
     font-family: var(--mono);
-    font-size: 18px;
-    font-weight: 500;
+    line-height: 1.5;
+    margin-top: 10px;
+  }
+  .link {
+    font-size: 30px;
     color: var(--ink-2);
-    padding: 7px 13px;
-    border: 1px solid var(--edge-strong);
-    border-radius: 6px;
-    background: rgba(20, 25, 21, 0.75);
     white-space: nowrap;
   }
-  .stat b { color: var(--accent-strong); font-weight: 700; margin-right: 6px; }
-
-  .foot {
-    display: flex; align-items: center; gap: 18px;
-    font-family: var(--mono);
+  .link .k {
+    display: inline-block;
+    width: 110px;
+    color: var(--ink-3);
     font-size: 20px;
-    color: var(--ink-2);
-    white-space: nowrap;
   }
-  .foot .url {
-    display: inline-flex; align-items: center; gap: 12px;
-    color: #08130c;
-    background: var(--accent);
-    font-weight: 700;
-    padding: 7px 17px;
-    border-radius: 6px;
-    letter-spacing: 0.01em;
-  }
-  .foot .url .arrow { font-weight: 500; opacity: 0.8; }
-  .foot .link { color: var(--ink-2); font-size: 20px; }
-  .foot .link::before { content: "· "; color: var(--ink-3); }
+  .link.main { color: var(--accent-strong); font-weight: 700; }
 </style>
 </head>
 <body>
@@ -199,17 +169,11 @@
 <span class="ok">128 passed</span> <span class="dim">(41s)</span></div>
 
   <div class="content">
-    <div class="ps1"><span class="user">pedro@morago</span>:~$ <span class="cmd">cat why-qa.md</span></div>
-    <h1>I find the bugs before<br>your users do.</h1>
-    <div class="stats">
-      <span class="stat"><b>−40%</b> CI pipeline time</span>
-      <span class="stat"><b>−80%</b> E2E suite runtime</span>
-      <span class="stat"><b>5 yrs</b> SaaS &amp; telecom OSS</span>
-    </div>
-    <div class="foot">
-      <span class="url"><span class="arrow">→</span>www.pedromorago.com</span>
-      <span class="link">wiki.pedromorago.com</span>
-      <span class="link">github.com/pedro-morago</span>
+    <div class="ps1"><span class="user">pedro@morago</span>:~$ <span class="cmd">cat links.txt</span></div>
+    <div class="links">
+      <div class="link main"><span class="k">web</span>www.pedromorago.com</div>
+      <div class="link"><span class="k">wiki</span>wiki.pedromorago.com</div>
+      <div class="link"><span class="k">code</span>github.com/pedro-morago</div>
     </div>
   </div>
 </body>
