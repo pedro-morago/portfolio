@@ -21,7 +21,7 @@ const CSS_VERSION = hashFile("styles.css");
 const JS_VERSION = hashFile("script.js");
 
 const FAVICON =
-  "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230b0e0c'/><text x='14' y='70' font-family='monospace' font-size='46' font-weight='bold' fill='%237bdb9e'>&gt;_</text></svg>";
+  "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%231a7f4b'/><path d='M29 52l14 14 29-31' fill='none' stroke='white' stroke-width='10' stroke-linecap='round' stroke-linejoin='round'/></svg>";
 
 const read = (f) => JSON.parse(fs.readFileSync(path.join(__dirname, "src", f), "utf8"));
 
@@ -85,7 +85,9 @@ function renderHead(c) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>${c.meta.title}</title>
   <meta name="description" content="${c.meta.description}" />
-  <meta name="theme-color" content="#0b0e0c" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#fbfbf9" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0e0f10" media="(prefers-color-scheme: dark)" />
   <link rel="canonical" href="${url}" />
   <meta name="author" content="Pedro Morago" />
   <meta property="og:type" content="profile" />
@@ -111,7 +113,7 @@ function renderNav(c) {
     .join("\n");
   return `  <nav class="nav">
     <div class="nav-inner">
-      <a href="#" class="nav-logo"><span class="accent">&gt;_</span> pedro.morago</a>
+      <a href="#" class="nav-logo">${c.hero.name}</a>
       <div class="nav-links">
 ${links}
       </div>
@@ -120,174 +122,131 @@ ${links}
 }
 
 function renderHero(c) {
+  const ctas = c.hero.ctas
+    .map((l, i) => {
+      const ext = l.href.startsWith("http") ? ' target="_blank" rel="noopener"' : "";
+      return `        <a href="${l.href}"${ext} class="btn ${i === 0 ? "btn-primary" : "btn-ghost"}">${l.label}</a>`;
+    })
+    .join("\n");
   return `  <header class="hero">
     <div class="container">
-      <p class="ps1"><span class="user">pedro@morago</span>:~$ <span class="cmd" id="typed">${c.hero.typed}</span></p>
       <h1>${c.hero.name}</h1>
-      <p class="hero-role">${c.hero.role}</p>
+      <p class="hero-lede">${c.hero.role}</p>
       <p class="hero-tagline">
         ${c.hero.tagline}
       </p>
-      <p class="ps1" aria-hidden="true"><span class="user">pedro@morago</span>:~$ <span class="cursor"></span></p>
       <div class="hero-actions">
-        <a href="#${c.projects.id}" class="btn btn-primary">${c.hero.ctaProjects}</a>
-        <a href="https://github.com/pedro-morago" target="_blank" rel="noopener" class="btn btn-ghost">${c.hero.ctaGithub}</a>
+${ctas}
       </div>
     </div>
   </header>`;
 }
 
-function renderSectionHeading(s) {
-  // El nombre real de la sección va oculto visualmente para lectores de
-  // pantalla; el comando de terminal es presentación y se marca aria-hidden.
-  return `        <h2><span class="sr-only">${s.aria}</span><span aria-hidden="true"><span class="accent">$</span> ${s.cmd}</span></h2>`;
-}
-
-function renderAbout(c) {
-  const bullets = c.about.bullets.map((b) => `            <li>${b}</li>`).join("\n");
-  return `    <section id="${c.about.id}" class="section">
-      <div class="container">
-${renderSectionHeading(c.about)}
-        <div class="about-grid">
-          <p>
-            ${c.about.intro}
-          </p>
-          <ul class="project-features">
-${bullets}
-          </ul>
-          <p>
-            ${c.about.outro}
-          </p>
+/**
+ * Cada sección es una rejilla de dos columnas en escritorio: el título a la
+ * izquierda (fijo al hacer scroll) y el contenido a la derecha. En móvil se
+ * apila.
+ */
+function renderSection(s, body, extraClass = "") {
+  return `    <section id="${s.id}" class="section${extraClass ? " " + extraClass : ""}">
+      <div class="container section-grid">
+        <h2>${s.title}</h2>
+        <div class="section-body">
+${body}
         </div>
       </div>
     </section>`;
 }
 
+const list = (items, indent) =>
+  `${indent}<ul class="list">\n${items.map((i) => `${indent}  <li>${i}</li>`).join("\n")}\n${indent}</ul>`;
+
+function renderAbout(c) {
+  const paragraphs = c.about.paragraphs.map((t) => `          <p>${t}</p>`).join("\n");
+  return renderSection(c.about, `          <div class="about-grid">\n${paragraphs}\n          </div>`);
+}
+
 function renderExperience(c) {
   const jobs = c.experience.jobs
-    .map((j) => {
-      const bullets = j.bullets.map((b) => `            <li>${b}</li>`).join("\n");
-      return `        <article class="job">
-          <div class="job-header">
-            <h3>${j.title}</h3>
-            <span class="job-dates">${j.dates}</span>
-          </div>
-          <p class="job-meta">${j.meta}</p>
-          <ul class="project-features">
-${bullets}
-          </ul>
-        </article>`;
-    })
-    .join("\n\n");
-  return `    <section id="${c.experience.id}" class="section">
-      <div class="container">
-${renderSectionHeading(c.experience)}
-
-${jobs}
-      </div>
-    </section>`;
+    .map(
+      (j) => `          <article class="job">
+            <div class="job-header">
+              <h3>${j.title}</h3>
+              <span class="job-dates">${j.dates}</span>
+            </div>
+            <p class="job-meta">${j.meta}</p>
+${list(j.bullets, "            ")}
+          </article>`
+    )
+    .join("\n");
+  return renderSection(c.experience, jobs);
 }
 
 function renderProjects(c) {
   const items = c.projects.items
     .map((p) => {
-      const features = p.features.length
-        ? `          <ul class="project-features">\n${p.features
-            .map((f) => `            <li>${f}</li>`)
-            .join("\n")}\n          </ul>\n`
-        : "";
+      const features = p.features.length ? list(p.features, "            ") + "\n" : "";
       const tech = p.tech.length
-        ? `          <div class="project-tech">\n            ${p.tech
-            .map((t) => `<span>${t}</span>`)
-            .join("")}\n          </div>\n`
+        ? `            <div class="project-tech">${p.tech.map((t) => `<span>${t}</span>`).join("")}</div>\n`
         : "";
-      // El primer enlace es la acción principal del proyecto (abrir la demo,
-      // descargar); se destaca para que no compita visualmente con el resto.
+      // El primer enlace es la acción principal (abrir la demo, descargar).
       const links = p.links
         .map(
           (l, i) =>
-            `            <a href="${l.href}" target="_blank" rel="noopener" class="btn btn-small${i === 0 ? " btn-small-primary" : ""}">${l.label}</a>`
+            `              <a href="${l.href}" target="_blank" rel="noopener" class="btn btn-small${i === 0 ? " btn-small-primary" : ""}">${l.label}</a>`
         )
         .join("\n");
-      return `        <article class="project">
-          <div class="project-header">
-            <h3>${p.name}</h3>
-            <span class="badge badge-live">${p.badge}</span>
-          </div>
-          <p class="project-tagline">${p.tagline}</p>
-          <p>
-            ${p.description}
-          </p>
-${features}${tech}          <div class="project-links">
+      return `          <article class="project">
+            <div class="project-header">
+              <h3>${p.name}</h3>
+              <span class="status"><span class="status-dot" aria-hidden="true"></span>${p.badge}</span>
+            </div>
+            <p class="project-tagline">${p.tagline}</p>
+            <p>${p.description}</p>
+${features}${tech}            <div class="project-links">
 ${links}
-          </div>
-        </article>`;
+            </div>
+          </article>`;
     })
-    .join("\n\n");
-  return `    <section id="${c.projects.id}" class="section">
-      <div class="container">
-${renderSectionHeading(c.projects)}
-
-${items}
-
-      </div>
-    </section>`;
+    .join("\n");
+  return renderSection(c.projects, items);
 }
 
 function renderSkills(c) {
-  const groups = c.skills.groups
-    .map((g) => {
-      const items = g.items.map((i) => `              <li>${i}</li>`).join("\n");
-      return `          <div class="skill-group">
-            <h3>${g.title}</h3>
-            <ul>
-${items}
-            </ul>
-          </div>`;
-    })
-    .join("\n");
+  const row = (title, html) => `            <div class="skill-row">
+              <dt>${title}</dt>
+              <dd>${html}</dd>
+            </div>`;
+  const groups = c.skills.groups.map((g) => row(g.title, g.items.join(", "))).join("\n");
   const credentials = c.skills.credentials
-    .map((box) => {
-      const blocks = box.blocks
-        .map((b, i) => `            <h3${i > 0 ? ' class="credential-langs"' : ""}>${b.title}</h3>\n            ${b.html}`)
-        .join("\n");
-      return `          <div class="credential">\n${blocks}\n          </div>`;
-    })
+    .flatMap((box) => box.blocks)
+    .map((b) => row(b.title, b.html))
     .join("\n");
-  return `    <section id="${c.skills.id}" class="section">
-      <div class="container">
-${renderSectionHeading(c.skills)}
-        <div class="skills-grid">
+  return renderSection(
+    c.skills,
+    `          <dl class="skill-table">
 ${groups}
-        </div>
-
-        <div class="credentials">
+          </dl>
+          <dl class="skill-table skill-table-credentials">
 ${credentials}
-        </div>
-      </div>
-    </section>`;
+          </dl>`
+  );
 }
 
 function renderContact(c) {
   const links = c.contact.links
-    .map(
-      (l) =>
-        `          <a href="${l.href}" target="_blank" rel="noopener" class="btn btn-ghost">${l.label}</a>`
-    )
+    .map((l) => `            <a href="${l.href}" target="_blank" rel="noopener" class="btn btn-ghost">${l.label}</a>`)
     .join("\n");
-  return `    <section id="${c.contact.id}" class="section section-contact">
-      <div class="container">
-${renderSectionHeading(c.contact)}
-        <p class="contact-text">
-          ${c.contact.text}
-          <span class="contact-location">${c.contact.location}</span>
-        </p>
-        <div class="contact-actions">
-          <a href="mailto:${c.contact.email}" class="btn btn-primary">${c.contact.email}</a>
+  return renderSection(
+    c.contact,
+    `          <p class="contact-text">${c.contact.text}</p>
+          <p class="contact-location">${c.contact.location}</p>
+          <div class="contact-actions">
+            <a href="mailto:${c.contact.email}" class="btn btn-primary">${c.contact.email}</a>
 ${links}
-        </div>
-      </div>
-    </section>`;
+          </div>`,
+    "section-contact"
+  );
 }
 
 function renderPage(c) {
@@ -317,7 +276,7 @@ ${renderContact(c)}
 
   <footer class="footer">
     <div class="container">
-      <p><span class="accent">$</span> ${c.footer}</p>
+      <p>${c.footer}</p>
     </div>
   </footer>
 

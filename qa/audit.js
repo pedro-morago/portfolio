@@ -9,7 +9,7 @@
  *  - Anclas internas válidas y sin IDs duplicados
  *  - Un único h1 y jerarquía de encabezados sin saltos
  *  - Metadatos: title, description, canonical (sin hreflang: sitio monolingüe)
- *  - Contraste de texto >= 4.5:1 (WCAG AA)
+ *  - Contraste de texto >= 4.5:1 (WCAG AA), en modo claro y en modo oscuro
  *  - Áreas táctiles de la navegación >= 24px en móvil
  *  - rel="noopener" en enlaces con target="_blank"
  *  - La antigua URL /en/ existe como redirección a la raíz (noindex + canonical)
@@ -29,10 +29,11 @@ const SITE_URL = "https://pedromorago.com/";
 const PAGES = [{ lang: "en", file: "index.html", canonical: SITE_URL }];
 const VIEWPORTS = [320, 390, 412, 768, 1280, 1920];
 const CONTRAST_SELECTORS = [
-  ".hero-tagline", ".about-grid > p", ".project > p",
-  ".badge-live", ".job-dates", ".job-meta", ".footer p",
-  ".btn-primary", ".btn-small", ".btn-small-primary",
-  ".project-tech span", ".skill-group li", ".nav-links a",
+  ".hero-lede", ".hero-tagline", ".about-grid > p", ".project > p",
+  ".project-tagline", ".status", ".job-dates", ".job-meta", ".list li",
+  ".footer p", ".btn-primary", ".btn-ghost", ".btn-small", ".btn-small-primary",
+  ".project-tech span", ".skill-row dt", ".skill-row dd", ".nav-links a",
+  ".contact-location", ".about-grid a",
 ];
 
 const launchOptions = process.env.CHROMIUM_PATH
@@ -103,7 +104,7 @@ async function auditPage(browser, pageDef) {
   }
 
   // Comprobaciones de documento (una vez, escritorio)
-  const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
+  const page = await browser.newPage({ viewport: { width: 1280, height: 900 }, colorScheme: "light" });
   await page.goto(fileUrl(pageDef.file));
   await page.waitForTimeout(1500);
 
@@ -136,8 +137,9 @@ async function auditPage(browser, pageDef) {
     return out;
   });
 
-  // Contraste WCAG AA
-  const contrast = await page.evaluate((selectors) => {
+  // Contraste WCAG AA, en claro y en oscuro (el sitio sigue la preferencia
+  // del sistema, así que las dos paletas tienen que cumplir).
+  const measureContrast = (p) => p.evaluate((selectors) => {
     function lum(c) {
       const [r, g, b] = c.match(/[\d.]+/g).map(Number).slice(0, 3).map((v) => {
         v /= 255;
@@ -153,7 +155,7 @@ async function auditPage(browser, pageDef) {
         if (c && c !== "rgba(0, 0, 0, 0)" && (alpha === undefined || +alpha === 1)) return c;
         e = e.parentElement;
       }
-      return "rgb(11, 14, 12)";
+      return getComputedStyle(document.body).backgroundColor;
     }
     return selectors.map((sel) => {
       const el = document.querySelector(sel);
@@ -164,12 +166,12 @@ async function auditPage(browser, pageDef) {
     });
   }, CONTRAST_SELECTORS);
 
-  // Comportamiento: el efecto de tecleo debe terminar escribiendo el comando
-  const typedOk = await page
-    .waitForFunction(() => document.getElementById("typed")?.textContent === "whoami", null, { timeout: 5000 })
-    .then(() => true)
-    .catch(() => false);
-  if (!typedOk) fail(`${tag} el efecto de tecleo no completa "whoami"`);
+  const contrast = (await measureContrast(page)).map((c) => ({ ...c, scheme: "claro" }));
+  const dark = await browser.newPage({ viewport: { width: 1280, height: 900 }, colorScheme: "dark" });
+  await dark.goto(fileUrl(pageDef.file));
+  await dark.waitForTimeout(300);
+  contrast.push(...(await measureContrast(dark)).map((c) => ({ ...c, scheme: "oscuro" })));
+  await dark.close();
 
   // Comportamiento: al hacer scroll a una sección, su enlace de nav se activa
   const activeOk = await page.evaluate(async () => {
@@ -202,8 +204,8 @@ async function auditPage(browser, pageDef) {
   if (jsErrors.length) fail(`${tag} errores de JavaScript: ${jsErrors.join(" | ")}`);
   if (consoleErrors.length) fail(`${tag} errores de consola: ${consoleErrors.join(" | ")}`);
   for (const c of contrast) {
-    if (c.missing) fail(`${tag} selector de contraste no encontrado: ${c.sel}`);
-    else if (c.ratio < 4.5) fail(`${tag} contraste ${c.ratio}:1 < 4.5:1 en ${c.sel}`);
+    if (c.missing) fail(`${tag} selector de contraste no encontrado: ${c.sel} (modo ${c.scheme})`);
+    else if (c.ratio < 4.5) fail(`${tag} contraste ${c.ratio}:1 < 4.5:1 en ${c.sel} (modo ${c.scheme})`);
   }
 
   return { doc };

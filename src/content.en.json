@@ -4,77 +4,77 @@
   "root": "",
   "ogLocale": "en_US",
   "meta": {
-    "title": "Pedro Morago · Senior QA Engineer",
+    "title": "Pedro Morago | Senior QA Engineer",
     "description": "Portfolio of Pedro Morago López-Vázquez, Senior QA Engineer with 5 years of experience in test automation, API testing and CI/CD for international SaaS products.",
     "ogDescription": "Senior QA Engineer with 5 years of experience: E2E automation (Playwright, Cypress), API testing (REST Assured) and CI/CD pipeline optimization.",
     "twitterDescription": "Senior QA Engineer with 5 years of experience: E2E automation, API testing and CI/CD pipeline optimization."
   },
   "skipLink": { "target": "content", "label": "Skip to content" },
   "nav": [
-    { "href": "#about", "label": "about" },
-    { "href": "#experience", "label": "experience" },
-    { "href": "#projects", "label": "projects" },
-    { "href": "#skills", "label": "skills" },
-    { "href": "#contact", "label": "contact" }
+    { "href": "#about", "label": "About" },
+    { "href": "#experience", "label": "Experience" },
+    { "href": "#projects", "label": "Projects" },
+    { "href": "#skills", "label": "Skills" },
+    { "href": "#contact", "label": "Contact" }
   ],
   "hero": {
-    "typed": "whoami",
     "name": "Pedro Morago",
-    "role": "Senior QA Engineer · Test Automation · ISTQB CTFL v4.0",
-    "tagline": "Senior QA Engineer with <strong>5 years of experience</strong> in quality assurance and test automation for <strong>international SaaS products</strong>. I automate E2E tests with <strong>Playwright and Cypress</strong>, test APIs in Java and integrate testing into <strong>CI/CD pipelines</strong>.",
-    "ctaProjects": "View projects",
-    "ctaGithub": "GitHub ↗"
+    "role": "Senior QA Engineer, focused on test automation.",
+    "tagline": "5 years in quality assurance and test automation, on international SaaS products and now a telecom OSS platform. I automate E2E tests with Playwright and Cypress and API tests in Java, and I cut CI pipeline time by 40% with an optimization model I designed.",
+    "ctas": [
+      { "href": "#contact", "label": "Get in touch" },
+      { "href": "https://www.linkedin.com/in/pedro-morago-lopezvazquez/", "label": "LinkedIn ↗" },
+      { "href": "https://github.com/pedromorago", "label": "GitHub ↗" }
+    ]
   },
   "about": {
     "id": "about",
-    "aria": "About",
-    "cmd": "cat about.md",
-    "intro": "I'm <strong>Pedro Morago</strong>, a Senior QA Engineer based in Santander, Spain. Since 2024 I've worked <strong>fully remote</strong> in distributed agile teams.",
-    "bullets": [
-      "BSc in <a href=\"https://web.unican.es/estudios/asignaturas?pi=68&amp;c=2026&amp;ga=N\" target=\"_blank\" rel=\"noopener\"><strong>Mathematics</strong></a> from the University of Cantabria (2015 – 2020). Its <a href=\"https://warwick.ac.uk/fac/sci/maths/currentstudents/ughandbook/general/overview/transferableskills/\" target=\"_blank\" rel=\"noopener\">transferable skills</a> (stating a problem precisely, arguing logically, not skipping details) read a lot like a tester's job.",
-      "<strong>ISTQB® Certified Tester Foundation Level (CTFL) v4.0</strong>.",
-      "Now on a <strong>telecom OSS</strong> platform; before that a <strong>cybersecurity</strong> SaaS (threat modeling) and a field service management SaaS."
-    ],
-    "outro": "The details of my day-to-day work are under <a href=\"#experience\">experience</a>. I write down what I learn along the way in my <a href=\"https://wiki.pedromorago.com/\" target=\"_blank\" rel=\"noopener\">QA Wiki</a>, because explaining something in your own words is the real test of whether you understand it."
+    "title": "About",
+    "paragraphs": [
+      "I'm Pedro, a QA engineer from Santander. I studied <a href=\"https://web.unican.es/estudios/asignaturas?pi=68&amp;c=2026&amp;ga=N\" target=\"_blank\" rel=\"noopener\">Mathematics</a> at the University of Cantabria, and I think that's partly why I ended up in QA: I never liked the saying that in software, perfect is the enemy of good. Coming from maths, perfect is just perfect.",
+      "I got into software through a Java development bootcamp in 2021. When it finished, they hired me straight away as a QA engineer, because they saw I was good at it. That was five years ago.",
+      "What I enjoy most is checking that a feature really does what it should, whether by automating the tests or by catching problems early. For me, testing is about verifying functionality more than hunting for errors.",
+      "I'm very detail-oriented and I like to get to the bottom of problems until I really understand them. I use AI tools a lot in my work and I've learned to use them carefully.",
+      "I write down what I learn in my <a href=\"https://wiki.pedromorago.com/\" target=\"_blank\" rel=\"noopener\">QA Wiki</a>. The details of my work are under <a href=\"#experience\">experience</a>."
+    ]
   },
   "experience": {
     "id": "experience",
-    "aria": "Experience",
-    "cmd": "cat experience.log",
+    "title": "Experience",
     "jobs": [
       {
-        "title": "Senior QA Engineer · Alvatross by SATEC",
+        "title": "Senior QA Engineer at Alvatross by SATEC",
         "dates": "Jul 2026 – Present",
-        "meta": "Telecom · TM Forum ODA OSS · Client: EWE (Germany)",
+        "meta": "Telecom OSS project for EWE (Germany)",
         "bullets": [
-          "QA on the OSS transformation of <strong>EWE</strong>, a German telecom and energy provider. Alvatross is replacing EWE's service and resource catalog, <strong>order management (SOM/ROM)</strong> and service activation with a platform built on TM Forum ODA standards.",
-          "Design and run tests in <strong>Jira + Xray</strong> for service-order flows (add, modify, delete, suspend/reactivate) of L2/L3 business services: order orchestration through TM Forum APIs, business rules and failed-order (fallout) handling.",
-          "Building <strong>API test automation with Karate (Gherkin)</strong>: scenarios that create service orders through TM Forum APIs and check how each order is decomposed into the expected services.",
-          "Built a one-click <strong>Postman smoke suite</strong> for production deployments: read-only checks across every service with a baseline/verify mode that flags any response that changed after a release or infrastructure change.",
-          "Run <strong>release regression</strong> and pre-production validation: triage each failure as a product defect or a test-data/environment issue, reproduce intermittent ones live with a backend developer, and raise the bug from the failing test step."
+          "QA on the OSS transformation of EWE, a German telecom and energy provider. Alvatross is replacing EWE's service and resource catalog, order management (SOM/ROM) and service activation with a platform built on TM Forum ODA standards.",
+          "Design and run tests in Jira + Xray for service-order flows (add, modify, delete, suspend/reactivate) of L2/L3 business services: order orchestration through TM Forum APIs, business rules and failed-order (fallout) handling.",
+          "Building API test automation with Karate (Gherkin): scenarios that create service orders through TM Forum APIs and check how each order is decomposed into the expected services.",
+          "Built a one-click Postman smoke suite for production deployments: read-only checks across every service with a baseline/verify mode that flags any response that changed after a release or infrastructure change.",
+          "Run release regression and pre-production validation: triage each failure as a product defect or a test-data/environment issue, reproduce intermittent ones live with a backend developer, and raise the bug from the failing test step."
         ]
       },
       {
-        "title": "QA Engineer · IriusRisk",
+        "title": "QA Engineer at IriusRisk",
         "dates": "May 2024 – Jun 2026",
-        "meta": "Remote · International SaaS · Cybersecurity / Threat Modeling",
+        "meta": "Remote, international cybersecurity SaaS (threat modeling)",
         "bullets": [
-          "Owned the test strategy for the <strong>Security Content</strong> module, defining the test mix across the pyramid (unit, integration, backend, E2E).",
-          "Cut CI pipeline time by <strong>40%</strong> at no extra infrastructure cost: designed and deployed a Python <strong>optimization model (MILP)</strong> that splits E2E tests across parallel containers, validated in production.",
-          "Automated backend API tests in <strong>Java with REST Assured and JUnit 5</strong>: Given-When-Then structure, JSON schema validation, negative cases and Qase integration.",
-          "Contributed to the migration from TestCafe to <strong>Playwright with TypeScript</strong>, which reduced execution time by 80% and made the suite more stable.",
-          "Contributed to CI/CD pipelines in Bitbucket and practiced <strong>Shift Left</strong>, reviewing requirements and technical designs early in development.",
-          "Reviewed pull requests and <strong>mentored peers</strong> on test automation best practices."
+          "Owned the test strategy for the Security Content module, defining the test mix across the pyramid (unit, integration, backend, E2E).",
+          "Cut CI pipeline time by 40% at no extra infrastructure cost: designed and deployed a Python optimization model (MILP, built with PuLP) that splits E2E tests across parallel containers, validated in production.",
+          "Automated backend API tests in Java with REST Assured and JUnit 5: Given-When-Then structure, JSON schema validation, negative cases and Qase integration.",
+          "Contributed to the migration from TestCafe to Playwright with TypeScript, which reduced execution time by 80% and made the suite more stable.",
+          "Contributed to CI/CD pipelines in Bitbucket and practiced Shift Left, reviewing requirements and technical designs early in development.",
+          "Reviewed pull requests and mentored peers on test automation best practices."
         ]
       },
       {
-        "title": "QA Engineer · Fieldeas",
+        "title": "QA Engineer at Fieldeas",
         "dates": "Jun 2021 – May 2024",
-        "meta": "Santander, Spain · Hybrid · Field Service Management SaaS",
+        "meta": "Hybrid, Santander. Field service management SaaS",
         "bullets": [
-          "Designed and executed functional, regression and integration tests across multiple client projects, reporting <strong>500+ bugs</strong> prioritized by product risk and business criticality.",
-          "Built and maintained automated E2E suites with <strong>Cypress and JavaScript</strong>, evolving the team's approach from manual testing to a scalable automation model.",
-          "Validated data with <strong>SQL</strong> as part of test cases and managed issues in Jira, coordinating releases with development.",
+          "Designed and executed functional, regression and integration tests across multiple client projects, reporting 500+ bugs prioritized by product risk and business criticality.",
+          "Built and maintained automated E2E suites with Cypress and JavaScript, evolving the team's approach from manual testing to a scalable automation model.",
+          "Validated data with SQL as part of test cases and managed issues in Jira, coordinating releases with development.",
           "Trained and mentored new team members on tools and automation best practices, reducing onboarding time."
         ]
       }
@@ -82,100 +82,92 @@
   },
   "projects": {
     "id": "projects",
-    "aria": "Projects",
-    "cmd": "ls projects/",
+    "title": "Projects",
     "items": [
       {
-        "name": "QA Wiki",
-        "badge": "living document",
-        "tagline": "My Quality Assurance knowledge base: 50+ articles, all written by me.",
-        "description": "A training and knowledge wiki where I write about what I practice daily as a QA. It isn't an app: it's the side of the craft that shows <strong>judgment and depth</strong>, not just code. I keep expanding it continuously.",
-        "features": [
-          "Testing strategy: backend and frontend layers, microservices and shift-left with a maturity model.",
-          "API testing with REST Assured and JUnit 5: JSON Schema, negative cases and waits with Awaitility.",
-          "Automation with Playwright and TypeScript, including a real migration case from TestCafe.",
-          "CI/CD for QA: static analysis, parallelization and suite sharding, Docker, Git and AWS.",
-          "Performance with JMeter, QA on telecom OSS/BSS, and the ISTQB fundamentals.",
-          "Semantic search that runs entirely in the browser, plus an <strong>AI answer</strong> button: grounded, cited answers built only from my own articles (RAG on Cloudflare Workers AI)."
-        ],
-        "tech": ["VitePress", "Markdown", "GitHub Actions", "GitHub Pages", "Cloudflare Workers AI"],
-        "links": [
-          { "href": "https://wiki.pedromorago.com/", "label": "Read the wiki ↗" },
-          { "href": "https://github.com/pedro-morago/qa-wiki", "label": "Code on GitHub ↗" }
-        ]
-      },
-      {
         "name": "CI Shard Advisor",
-        "badge": "published",
+        "badge": "Published",
         "tagline": "Optimal parallelization of Cypress suites in CI, without relying on Cypress Cloud.",
-        "description": "A tool that analyzes your Cypress run reports and recommends the <strong>optimal sharding strategy</strong> for your pipeline: it measures current performance, detects imbalances between containers and suggests the exact spec partition that minimizes total execution time, with <strong>optimality certification</strong> via a branch &amp; bound algorithm.",
+        "description": "A tool that analyzes your Cypress run reports and recommends the optimal sharding strategy for your pipeline: it detects imbalances between containers and suggests the exact spec partition that minimizes total execution time, with optimality certification via a branch &amp; bound algorithm. It's the same kind of optimization problem behind the 40% pipeline cut I delivered at IriusRisk.",
         "features": [
-          "<strong>Try it in the browser</strong>: it opens with a demo run already loaded, and you can drop in your own reports — nothing to install and no account.",
-          "100% local, private analysis: reports never leave the browser.",
+          "Try it in the browser: it opens with a demo run already loaded, and you can drop in your own reports. Nothing to install, no account, and the reports never leave the browser.",
           "Three interfaces: interactive web app, CLI with a <em>quality-gate</em> mode, and a local REST API.",
           "Actionable recommendations: per-container spec lists ready to paste into GitHub Actions or Bitbucket Pipelines.",
           "Pure core with hexagonal architecture, tested with property-based, metamorphic and invariant tests."
         ],
         "tech": ["TypeScript", "React", "Vite", "Fastify", "Node.js", "pnpm", "Playwright", "k6"],
         "links": [
-          { "href": "https://pedro-morago.github.io/ci-shard-advisor/", "label": "Open the live demo ↗" },
-          { "href": "https://github.com/pedro-morago/ci-shard-advisor", "label": "Code on GitHub ↗" }
+          { "href": "https://pedromorago.github.io/ci-shard-advisor/", "label": "Open the live demo ↗" },
+          { "href": "https://github.com/pedromorago/ci-shard-advisor", "label": "Code on GitHub ↗" }
         ]
       },
       {
-        "name": "Screen Recorder · QA mode",
-        "badge": "published",
+        "name": "Screen Recorder (QA mode)",
+        "badge": "Published",
         "tagline": "Chrome extension for reporting bugs with full evidence in a single recording.",
-        "description": "A browser extension (Manifest V3) that records your screen, window or tab while automatically capturing <strong>everything a developer needs to reproduce the bug</strong>: console logs synced with the video, uncaught exceptions, network requests as HAR, and numbered user steps. No time limits, no watermark, no account.",
+        "description": "A browser extension (Manifest V3) that records your screen, window or tab while automatically capturing everything a developer needs to reproduce the bug: console logs synced with the video, uncaught exceptions, network requests as HAR, and numbered user steps. No time limits, no watermark, no account.",
         "features": [
-          "<strong>Install it in 30 seconds</strong>: download the zip, <em>Load unpacked</em> in <code>chrome://extensions</code>. No store account, no build step.",
-          "<strong>Tested against a bench I built for it</strong>: <a href=\"https://bench.pedromorago.com/\">bench.pedromorago.com</a>, a page that breaks on demand — a 500 on a write, an uncaught exception, a response that says OK and means the opposite — so the capture could be checked against known failures instead of whatever a real site happened to do.",
-          "QA mode: console, errors, 404s and HAR synced to the video by timestamp.",
-          "Live on-video annotations and keyboard-shortcut markers to flag the exact moment of the bug.",
-          "Automatic step recording (clicks, forms, SPA navigations) exportable as <code>*.steps.md</code> — each step carries a <strong>paste-ready Cypress or Playwright selector</strong>, so the step list doubles as the skeleton of the regression test. Typed values are never logged.",
-          "Generates the full report and files the issue directly in <strong>Jira Cloud or Linear</strong>.",
-          "Zero external dependencies: native browser APIs only."
+          "Install it in 30 seconds: download the zip, <em>Load unpacked</em> in <code>chrome://extensions</code>. No store account, no build step.",
+          "Tested against a bench I built for it: <a href=\"https://bench.pedromorago.com/\">bench.pedromorago.com</a>, a page that breaks on demand (a 500 on a write, an uncaught exception, a response that says OK and means the opposite), so the capture could be checked against known failures instead of whatever a real site happened to do.",
+          "Automatic step recording (clicks, forms, SPA navigations) exportable as <code>*.steps.md</code>. Each step carries a paste-ready Cypress or Playwright selector, so the list doubles as the skeleton of the regression test. Typed values are never logged.",
+          "Generates the full report and files the issue directly in Jira Cloud or Linear."
         ],
         "tech": ["JavaScript", "Manifest V3", "chrome.desktopCapture", "Cypress", "Playwright", "GitHub Actions"],
         "links": [
-          { "href": "https://github.com/pedro-morago/screen-recorder-qa/releases/latest", "label": "Download for Chrome ↗" },
+          { "href": "https://github.com/pedromorago/screen-recorder-qa/releases/latest", "label": "Download for Chrome ↗" },
           { "href": "https://bench.pedromorago.com/", "label": "Try it on the bug bench ↗" },
-          { "href": "https://github.com/pedro-morago/screen-recorder-qa", "label": "Code on GitHub ↗" }
+          { "href": "https://github.com/pedromorago/screen-recorder-qa", "label": "Code on GitHub ↗" }
+        ]
+      },
+      {
+        "name": "QA Wiki",
+        "badge": "Living document",
+        "tagline": "My Quality Assurance knowledge base: 50+ articles, all written by me.",
+        "description": "A training and knowledge wiki where I write about what I practice every day as a QA engineer. I keep adding to it.",
+        "features": [
+          "Testing strategy: backend and frontend layers, microservices and shift-left with a maturity model.",
+          "API testing with REST Assured and JUnit 5, and automation with Playwright and TypeScript, including a real migration from TestCafe.",
+          "CI/CD for QA (sharding, Docker, AWS), performance with JMeter, QA on telecom OSS/BSS and the ISTQB fundamentals.",
+          "Semantic search that runs entirely in the browser, plus an AI answer button: grounded, cited answers built only from my own articles (RAG on Cloudflare Workers AI)."
+        ],
+        "tech": ["VitePress", "Markdown", "GitHub Actions", "GitHub Pages", "Cloudflare Workers AI"],
+        "links": [
+          { "href": "https://wiki.pedromorago.com/", "label": "Read the wiki ↗" },
+          { "href": "https://github.com/pedromorago/qa-wiki", "label": "Code on GitHub ↗" }
         ]
       }
     ]
   },
   "skills": {
     "id": "skills",
-    "aria": "Skills",
-    "cmd": "cat skills.txt",
+    "title": "Skills",
     "groups": [
-      { "title": "e2e-automation", "items": ["Playwright", "Cypress", "Selenium · TestCafe"] },
-      { "title": "api-backend", "items": ["REST Assured · JUnit 5",
-          "Karate · Gherkin (BDD)", "Postman · API Testing", "SQL"] },
-      { "title": "languages", "items": ["Java", "JavaScript / TypeScript", "Python"] },
-      { "title": "ci-cd-tools", "items": ["Bitbucket Pipelines · GitHub Actions · Jenkins", "Git · Docker", "Jira · Confluence · Qase"] },
-      { "title": "strategy-processes", "items": ["Test Strategy · Shift Left", "Test case design", "Agile / Scrum / Kanban"] },
-      { "title": "testing-types", "items": ["Functional · Regression", "Integration · API", "E2E"] }
+      { "title": "E2E automation", "items": ["Playwright", "Cypress", "Selenium, TestCafe"] },
+      { "title": "API and backend", "items": ["REST Assured, JUnit 5",
+          "Karate, Gherkin (BDD)", "Postman, API testing", "SQL"] },
+      { "title": "Programming", "items": ["Java", "JavaScript / TypeScript", "Python"] },
+      { "title": "CI/CD and tools", "items": ["Bitbucket Pipelines, GitHub Actions, Jenkins", "Git, Docker", "Jira, Confluence, Qase"] },
+      { "title": "Strategy and process", "items": ["Test strategy, Shift Left", "Test case design", "Agile / Scrum / Kanban"] },
+      { "title": "Testing types", "items": ["Functional, regression", "integration, API", "E2E"] }
     ],
     "credentials": [
       {
         "blocks": [
           {
-            "title": "education",
-            "html": "<p><a href=\"https://web.unican.es/estudios/asignaturas?pi=68&amp;c=2026&amp;ga=N\" target=\"_blank\" rel=\"noopener\"><strong>BSc in Mathematics</strong></a><br />University of Cantabria · 2015 – 2020</p><p><strong>Advanced Web Application Development with Java</strong><br />CIC Bootcamp · 2021</p>"
+            "title": "Education",
+            "html": "<p><a href=\"https://web.unican.es/estudios/asignaturas?pi=68&amp;c=2026&amp;ga=N\" target=\"_blank\" rel=\"noopener\"><strong>BSc in Mathematics</strong></a><br />University of Cantabria, 2015 – 2020</p><p><strong>Advanced Web Application Development with Java</strong><br />CIC Bootcamp, 2021</p>"
           }
         ]
       },
       {
         "blocks": [
           {
-            "title": "certifications",
+            "title": "Certifications",
             "html": "<p><strong>ISTQB® Certified Tester Foundation Level (CTFL) v4.0</strong><br />Dec 2024</p>"
           },
           {
-            "title": "languages",
-            "html": "<p>Spanish (native) · English C1.1, professional proficiency</p>"
+            "title": "Languages",
+            "html": "<p>Spanish (native), English C1.1 (professional proficiency)</p>"
           }
         ]
       }
@@ -183,15 +175,14 @@
   },
   "contact": {
     "id": "contact",
-    "aria": "Contact",
-    "cmd": "cat contact.md",
-    "text": "Want to talk software quality? I'm open to new opportunities and collaborations.",
-    "location": "Santander, Spain · Remote",
+    "title": "Contact",
+    "text": "Want to talk software quality? Drop me a line.",
+    "location": "Based in Santander, Spain, working remotely.",
     "email": "pedro@pedromorago.com",
     "links": [
       { "href": "https://www.linkedin.com/in/pedro-morago-lopezvazquez/", "label": "LinkedIn ↗" },
-      { "href": "https://github.com/pedro-morago", "label": "GitHub ↗" }
+      { "href": "https://github.com/pedromorago", "label": "GitHub ↗" }
     ]
   },
-  "footer": "exit 0 · © <span id=\"year\">2026</span> Pedro Morago López-Vázquez · HTML, CSS and JS, no frameworks."
+  "footer": "© <span id=\"year\">2026</span> Pedro Morago López-Vázquez. Plain HTML, CSS and JS, no frameworks."
 }
