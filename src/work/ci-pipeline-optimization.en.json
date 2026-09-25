@@ -66,7 +66,7 @@
       "id": "time-and-cost",
       "title": "Time against cost",
       "blocks": [
-        { "type": "p", "text": "With the model working, I solved it for every number of containers from 3 to 14. Each answer is a point on the Pareto frontier: the fastest pipeline you can get for that cost. The frontier made the trade-off visible. Doubling the containers cut the pipeline time by only about a quarter and raised the cost by almost half, because every extra container pays the full setup again." },
+        { "type": "p", "text": "With that first model, I solved it for every number of containers from 3 to 14. Each answer is a point on the Pareto frontier: the fastest pipeline you can get for that cost. The frontier made the trade-off visible. Doubling the containers cut the pipeline time by only about a quarter and raised the cost by almost half, because every extra container pays the full setup again." },
         { "type": "p", "text": "To choose a point on the frontier, I used goal programming: set a target for time and a target for cost, weight them, and find the configuration that misses them by the least. I ran it for four scenarios." },
         {
           "type": "list",
@@ -86,6 +86,29 @@
       "blocks": [
         { "type": "p", "text": "I measured the new split on real runs with one worker per container. Pipeline time fell by 42% and the cost stayed the same, within about 1% of what the model had predicted." },
         { "type": "p", "text": "In production, though, each container ran 5 Playwright workers. Estimated from the same logs, the split there was only about 8% faster, and cost 3% more. The model had answered the question it was given, and the question was missing the workers." }
+      ]
+    },
+    {
+      "id": "modelling-the-workers",
+      "title": "Modelling the workers",
+      "blocks": [
+        { "type": "p", "text": "Later I went back to the same logs and asked why so little of the gain survived. Three things ate it." },
+        {
+          "type": "list",
+          "items": [
+            "Setup. With 5 workers, the 16 minutes of setup are more than half of every container's run, and no split changes them.",
+            "Two suites. Each container ran sanity and then regression, and each suite has to finish before the next one starts.",
+            "One long file. Playwright never splits a spec file across workers, and one file took about 9.5 minutes on its own. The container that runs it can't finish before its setup plus that file."
+          ]
+        },
+        { "type": "p", "text": "So I built a second model with the workers and the suites in it. A suite can't end before its file time divided by the workers, nor before its longest file. Then I checked each split against a simulation of how Playwright really hands out files, in file order, and improved it with a local search. With one worker, the simulation reproduces the measured CI jobs to the hundredth of a minute." },
+        { "type": "p", "text": "The answer changed. From 4 containers up, the pipeline sits on a floor set by the setup and that one long file, so extra containers only add cost. Compared with the 7 containers that ran in production, 4 containers would be 8% faster and 41% cheaper, and 3 would take about the same time for 52% less. These are estimates: the test times were measured with one worker, and a few real runs would have to confirm them." },
+        {
+          "type": "buttons",
+          "links": [
+            { "href": "https://github.com/pedromorago/ci-test-split-optimization", "label": "Code and data on GitHub ↗" }
+          ]
+        }
       ]
     },
     {
@@ -118,7 +141,7 @@
       "id": "takeaway",
       "title": "Before you add containers",
       "blocks": [
-        { "type": "p", "text": "Check whether the ones you already have finish at about the same time, and how much of each run is setup. If they don't finish together, fixing the split may be cheaper than adding more, since every new container pays the setup again." }
+        { "type": "p", "text": "Look at how much of each run is setup, and at your longest spec file. If the setup dominates or one file sets the floor, more containers only raise the bill, and a model that ignores your workers will promise gains you won't see." }
       ]
     }
   ],
