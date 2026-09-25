@@ -344,20 +344,6 @@ strong { color: var(--ink); font-weight: 600; }
   padding: 1px 6px;
 }
 
-.project-tech {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-bottom: 24px;
-}
-.project-tech span {
-  font-size: 0.8rem;
-  color: var(--ink-2);
-  background: var(--pill);
-  border-radius: 999px;
-  padding: 3px 11px;
-}
-
 .project-links { display: flex; flex-wrap: wrap; gap: 10px; }
 
 /* ===== Skills, formación y certificaciones ===== */
@@ -383,7 +369,7 @@ strong { color: var(--ink); font-weight: 600; }
   letter-spacing: -0.03em;
   line-height: 1.2;
   color: var(--ink);
-  max-width: 18ch;
+  max-width: 22ch;
 }
 .contact-location { color: var(--ink-3); margin: 14px 0 30px; }
 .contact-actions { display: flex; gap: 12px; flex-wrap: wrap; }

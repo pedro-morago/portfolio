@@ -32,7 +32,7 @@ const CONTRAST_SELECTORS = [
   ".hero-lede", ".hero-tagline", ".about-grid > p", ".project > p",
   ".project-tagline", ".status", ".job-dates", ".job-meta", ".list li",
   ".footer p", ".btn-primary", ".btn-ghost", ".btn-small", ".btn-small-primary",
-  ".project-tech span", ".skill-row dt", ".skill-row dd", ".nav-links a",
+  ".skill-row dt", ".skill-row dd", ".nav-links a",
   ".contact-location", ".about-grid a",
 ];
 

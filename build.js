@@ -186,9 +186,6 @@ function renderProjects(c) {
   const items = c.projects.items
     .map((p) => {
       const features = p.features.length ? list(p.features, "            ") + "\n" : "";
-      const tech = p.tech.length
-        ? `            <div class="project-tech">${p.tech.map((t) => `<span>${t}</span>`).join("")}</div>\n`
-        : "";
       // El primer enlace es la acción principal (abrir la demo, descargar).
       const links = p.links
         .map(
@@ -203,7 +200,7 @@ function renderProjects(c) {
             </div>
             <p class="project-tagline">${p.tagline}</p>
             <p>${p.description}</p>
-${features}${tech}            <div class="project-links">
+${features}            <div class="project-links">
 ${links}
             </div>
           </article>`;
