@@ -9,12 +9,12 @@
   "crumb": "CI pipeline optimization",
   "kicker": "Case study, IriusRisk",
   "title": "Cutting CI pipeline time by 40%",
-  "lede": "At IriusRisk, our end-to-end tests ran across parallel CI containers that finished at very different times. I built an optimization model to split the tests more evenly, and the new split cut pipeline time by 40% with no extra infrastructure.",
+  "lede": "At IriusRisk, our end-to-end tests ran in parallel CI containers split by product module, and the largest module held up every pipeline. I stated the split as an optimization problem, weighed time against cost, and cut pipeline time by 40% at the same cost.",
   "facts": [
     { "label": "Company", "text": "IriusRisk, an international cybersecurity SaaS for threat modeling" },
     { "label": "My role", "text": "QA Engineer. I designed the model and deployed it." },
-    { "label": "Tools", "text": "Python, pandas and PuLP" },
-    { "label": "Result", "text": "40% less pipeline time at no extra infrastructure cost, validated in production", "check": true }
+    { "label": "Tools", "text": "Python, PuLP and the CBC solver" },
+    { "label": "Result", "text": "40% less pipeline time at the same cost, measured on real runs after deployment", "check": true }
   ],
   "sections": [
     {
@@ -79,7 +79,8 @@
       "id": "the-result",
       "title": "The result",
       "blocks": [
-        { "type": "p", "text": "I deployed the model. Pipeline time fell by 40%, at no extra infrastructure cost, and the result was validated in production." },
+        { "type": "p", "text": "I deployed the new split with the same number of containers and measured it on real runs. Pipeline time fell by 40% and the cost stayed the same. The measured time was within about 1% of what the model had predicted, which told me the data and the model described the pipeline well." },
+        { "type": "p", "text": "The data without failing tests gave one more result: fixing the tests that failed and were retried would cut the pipeline by roughly another tenth. That turned a vague feeling about flaky tests into a number the team could weigh against other work." },
         { "type": "p", "text": "The split is only as good as the averages behind it. When specs are added or their durations change, the split has to be recomputed from fresh data. CI Shard Advisor, below, does that from new run reports each time." }
       ]
     },

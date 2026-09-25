@@ -58,7 +58,7 @@
         <header class="case-header">
           <p class="case-kicker">Case study, IriusRisk</p>
           <h1>Cutting CI pipeline time by 40%</h1>
-          <p class="case-lede">At IriusRisk, our end-to-end tests ran across parallel CI containers that finished at very different times. I built an optimization model to split the tests more evenly, and the new split cut pipeline time by 40% with no extra infrastructure.</p>
+          <p class="case-lede">At IriusRisk, our end-to-end tests ran in parallel CI containers split by product module, and the largest module held up every pipeline. I stated the split as an optimization problem, weighed time against cost, and cut pipeline time by 40% at the same cost.</p>
         </header>
         <dl class="case-facts">
           <div class="fact-row">
@@ -71,11 +71,11 @@
           </div>
           <div class="fact-row">
             <dt>Tools</dt>
-            <dd>Python, pandas and PuLP</dd>
+            <dd>Python, PuLP and the CBC solver</dd>
           </div>
           <div class="fact-row">
             <dt>Result</dt>
-            <dd class="has-check"><svg class="check-icon" viewBox="0 0 100 100" width="14" height="14" aria-hidden="true" focusable="false"><path d="M18 54l20 20 44-46" fill="none" stroke="currentColor" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" /></svg>40% less pipeline time at no extra infrastructure cost, validated in production</dd>
+            <dd class="has-check"><svg class="check-icon" viewBox="0 0 100 100" width="14" height="14" aria-hidden="true" focusable="false"><path d="M18 54l20 20 44-46" fill="none" stroke="currentColor" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" /></svg>40% less pipeline time at the same cost, measured on real runs after deployment</dd>
           </div>
         </dl>
 
@@ -133,7 +133,8 @@
 
         <section id="the-result">
           <h2>The result</h2>
-          <p>I deployed the model. Pipeline time fell by 40%, at no extra infrastructure cost, and the result was validated in production.</p>
+          <p>I deployed the new split with the same number of containers and measured it on real runs. Pipeline time fell by 40% and the cost stayed the same. The measured time was within about 1% of what the model had predicted, which told me the data and the model described the pipeline well.</p>
+          <p>The data without failing tests gave one more result: fixing the tests that failed and were retried would cut the pipeline by roughly another tenth. That turned a vague feeling about flaky tests into a number the team could weigh against other work.</p>
           <p>The split is only as good as the averages behind it. When specs are added or their durations change, the split has to be recomputed from fresh data. CI Shard Advisor, below, does that from new run reports each time.</p>
         </section>
 
