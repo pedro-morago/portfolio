@@ -113,9 +113,9 @@
     },
     {
       "id": "what-came-after",
-      "title": "What came after",
+      "title": "A public tool",
       "blocks": [
-        { "type": "p", "text": "Later I turned the idea into CI Shard Advisor, a public tool for Cypress suites. It reads your run reports and shows how evenly your containers finish. Then it recommends the split in which the slowest container finishes earliest, as a list of specs for each container that you can paste into GitHub Actions or Bitbucket Pipelines. It searches with branch and bound, an exact method that can prove no better split exists for the durations in your reports." },
+        { "type": "p", "text": "I also turned the first idea into CI Shard Advisor, a public tool for Cypress suites. It reads your run reports and shows how evenly your containers finish. Then it recommends the split in which the slowest container finishes earliest, as a list of specs for each container that you can paste into GitHub Actions or Bitbucket Pipelines. It searches with branch and bound, an exact method that can prove no better split exists for the durations in your reports." },
         {
           "type": "list",
           "items": [
