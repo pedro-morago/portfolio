@@ -40,7 +40,7 @@
     "name": "Pedro Morago",
     "role": "Senior QA Engineer.",
     "lede": "I test software the way I was taught to do maths.",
-    "text": "I've spent five years in test automation, first on international SaaS products and now on a telecom platform. At IriusRisk I owned the test strategy for a product module and built an optimization model to balance our CI test containers.",
+    "text": "I've spent five years in test automation, first on international SaaS products and now on a telecom platform.",
     "actions": [
       { "href": "mailto:pedro@pedromorago.com", "label": "Email me" },
       { "href": "https://www.linkedin.com/in/pedro-morago-lopezvazquez/", "label": "Experience on LinkedIn ↗" }
