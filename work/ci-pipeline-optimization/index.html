@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cutting CI pipeline time by 40% | Pedro Morago</title>
-  <meta name="description" content="How I split end-to-end tests across CI containers at IriusRisk with a MILP model, weighed time against cost, and cut pipeline time by 40% at the same cost." />
+  <title>How many CI containers a test suite needs | Pedro Morago</title>
+  <meta name="description" content="How I modelled the split of end-to-end tests across CI containers at IriusRisk, why a 42% gain shrank to 8% with 5 workers, and why 4 containers beat 7." />
   <meta name="color-scheme" content="light dark" />
   <meta name="theme-color" content="#fbfbf9" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#0e0f10" media="(prefers-color-scheme: dark)" />
@@ -14,21 +14,21 @@
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Pedro Morago" />
   <meta property="og:url" content="https://pedromorago.com/work/ci-pipeline-optimization/" />
-  <meta property="og:title" content="Cutting CI pipeline time by 40% | Pedro Morago" />
-  <meta property="og:description" content="End-to-end tests at IriusRisk were split by module and the largest module held up every pipeline. A MILP model and a time-cost trade-off cut pipeline time by 40%." />
+  <meta property="og:title" content="How many CI containers a test suite needs | Pedro Morago" />
+  <meta property="og:description" content="A 42% faster CI pipeline in a one-worker test run became 8% with 5 workers. Modelling the workers showed that 4 containers would beat 7 and cost 41% less." />
   <meta property="og:image" content="https://pedromorago.com/work/ci-pipeline-optimization/og.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Case study, IriusRisk. Cutting CI pipeline time by 40%. Pedro Morago, Senior QA Engineer." />
+  <meta property="og:image:alt" content="Case study, IriusRisk. How many CI containers a test suite needs. Pedro Morago, Senior QA Engineer." />
   <meta property="og:locale" content="en_US" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Cutting CI pipeline time by 40% | Pedro Morago" />
-  <meta name="twitter:description" content="End-to-end tests at IriusRisk were split by module and the largest module held up every pipeline. A MILP model and a time-cost trade-off cut pipeline time by 40%." />
+  <meta name="twitter:title" content="How many CI containers a test suite needs | Pedro Morago" />
+  <meta name="twitter:description" content="A 42% faster CI pipeline in a one-worker test run became 8% with 5 workers. Modelling the workers showed that 4 containers would beat 7 and cost 41% less." />
   <meta name="twitter:image" content="https://pedromorago.com/work/ci-pipeline-optimization/og.png" />
-  <meta name="twitter:image:alt" content="Case study, IriusRisk. Cutting CI pipeline time by 40%. Pedro Morago, Senior QA Engineer." />
+  <meta name="twitter:image:alt" content="Case study, IriusRisk. How many CI containers a test suite needs. Pedro Morago, Senior QA Engineer." />
   <link rel="stylesheet" href="../../styles.css?v=de9a0d51" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%231a7f4b'/><path d='M29 52l14 14 29-31' fill='none' stroke='white' stroke-width='10' stroke-linecap='round' stroke-linejoin='round'/></svg>" />
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://pedromorago.com/#website","url":"https://pedromorago.com/","name":"Pedro Morago"},{"@type":"Person","@id":"https://pedromorago.com/#person","name":"Pedro Morago López-Vázquez","url":"https://pedromorago.com/"},{"@type":"TechArticle","@id":"https://pedromorago.com/work/ci-pipeline-optimization/#article","headline":"Cutting CI pipeline time by 40%","description":"How I split end-to-end tests across CI containers at IriusRisk with a MILP model, weighed time against cost, and cut pipeline time by 40% at the same cost.","url":"https://pedromorago.com/work/ci-pipeline-optimization/","mainEntityOfPage":"https://pedromorago.com/work/ci-pipeline-optimization/","image":"https://pedromorago.com/work/ci-pipeline-optimization/og.png","inLanguage":"en","author":{"@id":"https://pedromorago.com/#person"},"publisher":{"@id":"https://pedromorago.com/#person"},"isPartOf":{"@id":"https://pedromorago.com/#website"},"about":[{"@type":"Thing","name":"Continuous integration"},{"@type":"Thing","name":"Mathematical optimization"},{"@type":"Thing","name":"Multi-criteria optimization"},{"@type":"Thing","name":"Test automation"}]},{"@type":"BreadcrumbList","@id":"https://pedromorago.com/work/ci-pipeline-optimization/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Pedro Morago","item":"https://pedromorago.com/"},{"@type":"ListItem","position":2,"name":"Cutting CI pipeline time by 40%","item":"https://pedromorago.com/work/ci-pipeline-optimization/"}]}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://pedromorago.com/#website","url":"https://pedromorago.com/","name":"Pedro Morago"},{"@type":"Person","@id":"https://pedromorago.com/#person","name":"Pedro Morago López-Vázquez","url":"https://pedromorago.com/"},{"@type":"TechArticle","@id":"https://pedromorago.com/work/ci-pipeline-optimization/#article","headline":"How many CI containers a test suite needs","description":"How I modelled the split of end-to-end tests across CI containers at IriusRisk, why a 42% gain shrank to 8% with 5 workers, and why 4 containers beat 7.","url":"https://pedromorago.com/work/ci-pipeline-optimization/","mainEntityOfPage":"https://pedromorago.com/work/ci-pipeline-optimization/","image":"https://pedromorago.com/work/ci-pipeline-optimization/og.png","inLanguage":"en","author":{"@id":"https://pedromorago.com/#person"},"publisher":{"@id":"https://pedromorago.com/#person"},"isPartOf":{"@id":"https://pedromorago.com/#website"},"about":[{"@type":"Thing","name":"Continuous integration"},{"@type":"Thing","name":"Mathematical optimization"},{"@type":"Thing","name":"Multi-criteria optimization"},{"@type":"Thing","name":"Test automation"}]},{"@type":"BreadcrumbList","@id":"https://pedromorago.com/work/ci-pipeline-optimization/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Pedro Morago","item":"https://pedromorago.com/"},{"@type":"ListItem","position":2,"name":"How many CI containers a test suite needs","item":"https://pedromorago.com/work/ci-pipeline-optimization/"}]}]}</script>
 </head>
 <body>
 
@@ -52,13 +52,13 @@
           <ol>
             <li><a href="../../">Pedro Morago</a></li>
             <li><a href="../../#work">Work</a></li>
-            <li><span aria-current="page">CI pipeline optimization</span></li>
+            <li><span aria-current="page">CI containers</span></li>
           </ol>
         </nav>
         <header class="case-header">
           <p class="case-kicker">Case study, IriusRisk</p>
-          <h1>Cutting CI pipeline time by 40%</h1>
-          <p class="case-lede">At IriusRisk, our end-to-end tests ran in parallel CI containers split by product module, and the largest module held up every pipeline. I stated the split as an optimization problem, weighed time against cost, and cut pipeline time by 40% at the same cost.</p>
+          <h1>How many CI containers a test suite needs</h1>
+          <p class="case-lede">At IriusRisk our end-to-end tests ran in 7 CI containers, one per product module. I stated the split as an optimization problem. My first model was 42% faster in a one-worker test run, but only about 8% with the 5 workers production used. A second model, with the workers in it, shows that 4 containers would be faster than 7 and cost 41% less.</p>
         </header>
         <dl class="case-facts">
           <div class="fact-row">
@@ -71,11 +71,11 @@
           </div>
           <div class="fact-row">
             <dt>Tools</dt>
-            <dd>Python, PuLP and the CBC solver</dd>
+            <dd>Python, PuLP, the CBC solver and a simulation of Playwright's scheduling</dd>
           </div>
           <div class="fact-row">
             <dt>Result</dt>
-            <dd class="has-check"><svg class="check-icon" viewBox="0 0 100 100" width="14" height="14" aria-hidden="true" focusable="false"><path d="M18 54l20 20 44-46" fill="none" stroke="currentColor" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" /></svg>40% less pipeline time at the same cost, measured on real runs after deployment</dd>
+            <dd class="has-check"><svg class="check-icon" viewBox="0 0 100 100" width="14" height="14" aria-hidden="true" focusable="false"><path d="M18 54l20 20 44-46" fill="none" stroke="currentColor" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" /></svg>42% faster with one worker. With 5 workers, 4 containers estimated 8% faster and 41% cheaper than production.</dd>
           </div>
         </dl>
 

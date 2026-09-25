@@ -3,9 +3,9 @@
   "ogLocale": "en_US",
   "meta": {
     "title": "Pedro Morago | Senior QA Engineer",
-    "description": "Pedro Morago is a Senior QA Engineer in Santander, Spain, working remotely. He cut CI pipeline time by 40% and automates tests with Playwright, Cypress and Java.",
-    "ogDescription": "Senior QA Engineer. I automate tests with Playwright, Cypress and REST Assured in Java, and I cut a CI pipeline's run time by 40%.",
-    "twitterDescription": "Senior QA Engineer. I automate tests with Playwright, Cypress and Java, and I cut a CI pipeline's run time by 40%."
+    "description": "Pedro Morago is a Senior QA Engineer in Santander, Spain, working remotely. He automates tests with Playwright, Cypress and Java, and balances CI pipelines with maths.",
+    "ogDescription": "Senior QA Engineer. I automate tests with Playwright, Cypress and REST Assured in Java, and I use optimization models to balance CI pipelines.",
+    "twitterDescription": "Senior QA Engineer. I automate tests with Playwright, Cypress and Java, and I use optimization models to balance CI pipelines."
   },
   "person": {
     "name": "Pedro Morago López-Vázquez",
@@ -40,7 +40,7 @@
     "name": "Pedro Morago",
     "role": "Senior QA Engineer.",
     "lede": "I test software the way I was taught to do maths.",
-    "text": "I've spent five years in test automation, first on international SaaS products and now on a telecom platform. At IriusRisk I owned the test strategy for a product module and cut CI pipeline time by 40% with an optimization model I designed.",
+    "text": "I've spent five years in test automation, first on international SaaS products and now on a telecom platform. At IriusRisk I owned the test strategy for a product module and built an optimization model to balance our CI test containers.",
     "actions": [
       { "href": "mailto:pedro@pedromorago.com", "label": "Email me" },
       { "href": "https://www.linkedin.com/in/pedro-morago-lopezvazquez/", "label": "Experience on LinkedIn ↗" }
@@ -71,9 +71,9 @@
     "title": "Work",
     "feature": {
       "kicker": "Case study, IriusRisk",
-      "title": "Cutting CI pipeline time by 40%",
-      "text": "End-to-end tests ran in CI containers split by product module, and the largest module held up every pipeline. I stated the split as an optimization problem, weighed time against cost on a Pareto frontier, and deployed a split that was faster at the same cost, measured on real runs.",
-      "link": { "href": "work/ci-pipeline-optimization/", "label": "Read the case study", "sr": " about cutting CI pipeline time by 40%" }
+      "title": "How many CI containers a test suite needs",
+      "text": "End-to-end tests ran in 7 CI containers, one per product module. My first model balanced them and was 42% faster in a one-worker test run, but only about 8% with the 5 workers production used. Modelling the workers showed that 4 containers would be faster than 7 and cost 41% less.",
+      "link": { "href": "work/ci-pipeline-optimization/", "label": "Read the case study", "sr": " about how many CI containers a test suite needs" }
     },
     "builtLabel": "Things I've built",
     "items": [

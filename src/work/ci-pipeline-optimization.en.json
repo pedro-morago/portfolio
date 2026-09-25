@@ -1,9 +1,9 @@
 {
   "slug": "ci-pipeline-optimization",
   "meta": {
-    "title": "Cutting CI pipeline time by 40% | Pedro Morago",
-    "description": "How I split end-to-end tests across CI containers at IriusRisk with a MILP model, weighed time against cost, and cut pipeline time by 40% at the same cost.",
-    "shareDescription": "End-to-end tests at IriusRisk were split by module and the largest module held up every pipeline. A MILP model and a time-cost trade-off cut pipeline time by 40%.",
+    "title": "How many CI containers a test suite needs | Pedro Morago",
+    "description": "How I modelled the split of end-to-end tests across CI containers at IriusRisk, why a 42% gain shrank to 8% with 5 workers, and why 4 containers beat 7.",
+    "shareDescription": "A 42% faster CI pipeline in a one-worker test run became 8% with 5 workers. Modelling the workers showed that 4 containers would beat 7 and cost 41% less.",
     "about": [
       "Continuous integration",
       "Mathematical optimization",
@@ -11,15 +11,15 @@
       "Test automation"
     ]
   },
-  "crumb": "CI pipeline optimization",
+  "crumb": "CI containers",
   "kicker": "Case study, IriusRisk",
-  "title": "Cutting CI pipeline time by 40%",
-  "lede": "At IriusRisk, our end-to-end tests ran in parallel CI containers split by product module, and the largest module held up every pipeline. I stated the split as an optimization problem, weighed time against cost, and cut pipeline time by 40% at the same cost.",
+  "title": "How many CI containers a test suite needs",
+  "lede": "At IriusRisk our end-to-end tests ran in 7 CI containers, one per product module. I stated the split as an optimization problem. My first model was 42% faster in a one-worker test run, but only about 8% with the 5 workers production used. A second model, with the workers in it, shows that 4 containers would be faster than 7 and cost 41% less.",
   "facts": [
     { "label": "Company", "text": "IriusRisk, an international cybersecurity SaaS for threat modeling" },
     { "label": "My role", "text": "QA Engineer. I designed the model and deployed it." },
-    { "label": "Tools", "text": "Python, PuLP and the CBC solver" },
-    { "label": "Result", "text": "40% less pipeline time at the same cost, measured on real runs after deployment", "check": true }
+    { "label": "Tools", "text": "Python, PuLP, the CBC solver and a simulation of Playwright's scheduling" },
+    { "label": "Result", "text": "42% faster with one worker. With 5 workers, 4 containers estimated 8% faster and 41% cheaper than production.", "check": true }
   ],
   "sections": [
     {
