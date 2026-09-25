@@ -58,6 +58,24 @@
       ]
     },
     {
+      "id": "time-and-cost",
+      "title": "Time against cost",
+      "blocks": [
+        { "type": "p", "text": "With the model working, I solved it for every number of containers from 3 to 14. Each answer is a point on the Pareto frontier: the fastest pipeline you can get for that cost. The frontier made the trade-off visible. Doubling the containers cut the pipeline time by only about a quarter and raised the cost by almost half, because every extra container pays the full setup again." },
+        { "type": "p", "text": "To choose a point on the frontier, I used goal programming: set a target for time and a target for cost, weight them, and find the configuration that misses them by the least. I ran it for four scenarios." },
+        {
+          "type": "list",
+          "items": [
+            "Keep the current cost: the same number of containers we already had came out best.",
+            "Contain the cost: fewer containers, a cheaper run and a clearly longer pipeline.",
+            "Put time first: more containers, a faster pipeline and a higher bill.",
+            "A slower setup than measured: the choice held, so a bad day in CI would not change it."
+          ]
+        },
+        { "type": "p", "text": "The answer was not to buy more containers. It was to keep the ones we had and split the specs well." }
+      ]
+    },
+    {
       "id": "the-result",
       "title": "The result",
       "blocks": [

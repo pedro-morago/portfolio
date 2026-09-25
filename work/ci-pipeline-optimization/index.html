@@ -118,6 +118,19 @@
           <p>It's like loading parcels of different sizes into vans so that the last van to finish its round finishes as early as possible. The CBC solver found splits that are provably optimal, or within a fraction of a second of a lower bound I derived for the pipeline time.</p>
         </section>
 
+        <section id="time-and-cost">
+          <h2>Time against cost</h2>
+          <p>With the model working, I solved it for every number of containers from 3 to 14. Each answer is a point on the Pareto frontier: the fastest pipeline you can get for that cost. The frontier made the trade-off visible. Doubling the containers cut the pipeline time by only about a quarter and raised the cost by almost half, because every extra container pays the full setup again.</p>
+          <p>To choose a point on the frontier, I used goal programming: set a target for time and a target for cost, weight them, and find the configuration that misses them by the least. I ran it for four scenarios.</p>
+          <ul class="list">
+            <li>Keep the current cost: the same number of containers we already had came out best.</li>
+            <li>Contain the cost: fewer containers, a cheaper run and a clearly longer pipeline.</li>
+            <li>Put time first: more containers, a faster pipeline and a higher bill.</li>
+            <li>A slower setup than measured: the choice held, so a bad day in CI would not change it.</li>
+          </ul>
+          <p>The answer was not to buy more containers. It was to keep the ones we had and split the specs well.</p>
+        </section>
+
         <section id="the-result">
           <h2>The result</h2>
           <p>I deployed the model. Pipeline time fell by 40%, at no extra infrastructure cost, and the result was validated in production.</p>
