@@ -106,10 +106,16 @@
           <p>Two goals that pull against each other make it a multi-criteria optimization problem. There is no single best answer, only a set of best trade-offs, and the job is to find that set and then choose from it.</p>
         </section>
 
-        <section id="what-i-did">
-          <h2>What I did</h2>
-          <p>I extracted the run data with Python and pandas and worked out the average duration of each spec.</p>
-          <p>Then I used PuLP, a Python library for optimization, to build a mixed-integer linear programming (MILP) model. From those averages, the model decides which container runs each spec. It's like loading parcels of different sizes into vans so that every van ends up with about the same load.</p>
+        <section id="the-data">
+          <h2>The data</h2>
+          <p>A model is only as good as its numbers, so I started from the CI logs of real runs: every module, both the sanity and the regression suites, over several CI cycles. With Python I parsed each log and worked out the average duration of every spec, and the setup time of every container.</p>
+          <p>Failing tests needed care. A test that fails and is retried adds time that says nothing about how long the spec normally takes. So I separated them, measured how much time each CI cycle lost to failures and retries, and kept two data sets: the pipeline as it really ran, and the same pipeline without those failures.</p>
+        </section>
+
+        <section id="the-model">
+          <h2>The model</h2>
+          <p>Then I used PuLP, a Python library for optimization, to build a mixed-integer linear programming (MILP) model. For each spec and each container there is a yes-or-no variable: does this container run this spec? The constraints say that every spec runs exactly once and that no container, setup included, runs longer than the pipeline time. The model makes that time as short as possible.</p>
+          <p>It's like loading parcels of different sizes into vans so that the last van to finish its round finishes as early as possible. The CBC solver found splits that are provably optimal, or within a fraction of a second of a lower bound I derived for the pipeline time.</p>
         </section>
 
         <section id="the-result">

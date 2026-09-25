@@ -42,11 +42,19 @@
       ]
     },
     {
-      "id": "what-i-did",
-      "title": "What I did",
+      "id": "the-data",
+      "title": "The data",
       "blocks": [
-        { "type": "p", "text": "I extracted the run data with Python and pandas and worked out the average duration of each spec." },
-        { "type": "p", "text": "Then I used PuLP, a Python library for optimization, to build a mixed-integer linear programming (MILP) model. From those averages, the model decides which container runs each spec. It's like loading parcels of different sizes into vans so that every van ends up with about the same load." }
+        { "type": "p", "text": "A model is only as good as its numbers, so I started from the CI logs of real runs: every module, both the sanity and the regression suites, over several CI cycles. With Python I parsed each log and worked out the average duration of every spec, and the setup time of every container." },
+        { "type": "p", "text": "Failing tests needed care. A test that fails and is retried adds time that says nothing about how long the spec normally takes. So I separated them, measured how much time each CI cycle lost to failures and retries, and kept two data sets: the pipeline as it really ran, and the same pipeline without those failures." }
+      ]
+    },
+    {
+      "id": "the-model",
+      "title": "The model",
+      "blocks": [
+        { "type": "p", "text": "Then I used PuLP, a Python library for optimization, to build a mixed-integer linear programming (MILP) model. For each spec and each container there is a yes-or-no variable: does this container run this spec? The constraints say that every spec runs exactly once and that no container, setup included, runs longer than the pipeline time. The model makes that time as short as possible." },
+        { "type": "p", "text": "It's like loading parcels of different sizes into vans so that the last van to finish its round finishes as early as possible. The CBC solver found splits that are provably optimal, or within a fraction of a second of a lower bound I derived for the pipeline time." }
       ]
     },
     {
