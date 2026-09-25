@@ -6,7 +6,10 @@
  *   work/<slug>/og.png       header of each case study (kicker and headline)
  *
  * Run `npm run og` after changing the hero or a case-study header, and commit
- * the PNG files. Share-only styles hide the nav, buttons and other details.
+ * the PNG files and qa/og-sources.json. That file records the text each image
+ * shows; the audit compares it with the live pages, so a headline changed
+ * without new images fails CI. Share-only styles hide the nav, buttons and
+ * other details.
  */
 const fs = require("node:fs");
 const path = require("node:path");
@@ -21,6 +24,9 @@ try {
 const ROOT = path.join(__dirname, "..");
 const launchOptions = process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {};
 const SIZE = { width: 1200, height: 630 };
+// Must match OG_TEXT in qa/audit.js.
+const OG_TEXT = ".hero h1, .hero-lede, .case-kicker, .case h1";
+const sources = {};
 
 const COMMON = `
   .nav, .skip-link, .footer, .copy-btn { display: none !important; }
@@ -56,6 +62,10 @@ const CASE = `${COMMON}
 async function shoot(browser, file, css, out) {
   const page = await browser.newPage({ viewport: SIZE, colorScheme: "light" });
   await page.goto("file://" + path.join(ROOT, file));
+  sources[out] = await page.evaluate(
+    (sel) => [...document.querySelectorAll(sel)].map((e) => e.textContent.trim()).join("\n"),
+    OG_TEXT
+  );
   await page.addStyleTag({ content: css });
   await page.waitForTimeout(300);
   await page.screenshot({ path: path.join(ROOT, out), clip: { x: 0, y: 0, ...SIZE } });
@@ -73,6 +83,8 @@ async function shoot(browser, file, css, out) {
     .sort();
   for (const slug of slugs) await shoot(browser, `work/${slug}/index.html`, CASE, `work/${slug}/og.png`);
   await browser.close();
+  fs.writeFileSync(path.join(__dirname, "og-sources.json"), JSON.stringify(sources, null, 2) + "\n");
+  console.log("✓ qa/og-sources.json");
 })().catch((e) => {
   console.error(e.message);
   process.exit(1);

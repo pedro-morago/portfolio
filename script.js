@@ -67,10 +67,15 @@
     const status = row.querySelector(".copy-status");
     const address = row.querySelector(".glance-address");
     let timer;
+    // Cleared first and set a moment later, so a screen reader announces the
+    // message again on a second click.
     const say = (text, ms) => {
       clearTimeout(timer);
-      status.textContent = text;
-      if (ms) timer = setTimeout(() => (status.textContent = ""), ms);
+      status.textContent = "";
+      timer = setTimeout(() => {
+        status.textContent = text;
+        if (ms) timer = setTimeout(() => (status.textContent = ""), ms);
+      }, 100);
     };
     copyBtn.hidden = false;
     copyBtn.addEventListener("click", async () => {

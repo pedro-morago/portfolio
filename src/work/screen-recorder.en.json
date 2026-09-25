@@ -11,9 +11,10 @@
   "title": "Screen Recorder (QA mode)",
   "lede": "A Chrome extension that records a bug together with what a developer needs to reproduce it. I built it for my own bug reports, and anyone can install it in about 30 seconds.",
   "facts": [
-    { "label": "Type", "text": "Chrome extension (Manifest V3), published on GitHub" },
-    { "label": "Tech", "text": "JavaScript, chrome.desktopCapture, Cypress, Playwright, GitHub Actions" },
-    { "label": "Dependencies", "text": "None" },
+    { "label": "Type", "text": "Chrome extension, published on GitHub" },
+    { "label": "Tech", "text": "JavaScript, Manifest V3 and chrome.desktopCapture" },
+    { "label": "Tested with", "text": "Cypress, Playwright and GitHub Actions" },
+    { "label": "Runtime dependencies", "text": "None" },
     { "label": "Tested against", "text": "[A bug bench I built for it ↗](https://bench.pedromorago.com/)" }
   ],
   "actions": [
@@ -25,15 +26,22 @@
       "title": "Why I built it",
       "blocks": [
         { "type": "p", "text": "I used a tool called Nimbus to record bugs for my reports. When it changed, I rebuilt the features I relied on in my own extension, and then added the ones I wanted." },
+        { "type": "p", "text": "None of the tools I used recorded console logs and network requests along with the video, and I didn't want to repeat a test just to write its steps down." }
+      ]
+    },
+    {
+      "id": "how-i-test-it",
+      "title": "How I test it",
+      "blocks": [
+        { "type": "p", "text": "I didn't want to check the recorder against whatever a real website happened to do that day. So I built a bug bench for it, a page that breaks on demand. It can return a 500 on a write, throw an uncaught exception, or send a response that says OK and means the opposite. Each failure is known in advance, so I can check the recording against it. When the recording and the bench disagree, one of them has a bug. That's how I found several of the recorder's own bugs." },
         {
-          "type": "list",
-          "items": [
-            "Console logs and network requests recorded along with the video. No tool I had did that for me.",
-            "Test steps with Playwright selectors, so I don't have to repeat a test just to write its steps down.",
-            "Marking bugs on the video, which helps a lot with frontend issues.",
-            "Exporting only the audio, for example from a meeting."
+          "type": "buttons",
+          "links": [
+            { "href": "https://bench.pedromorago.com/", "label": "Open the bug bench ↗", "style": "small" }
           ]
-        }
+        },
+        { "type": "h3", "text": "Automated tests" },
+        { "type": "p", "text": "The extension also has automated tests that run on GitHub Actions. Cypress tests the capture scripts on local test pages. Playwright loads the real extension in Chromium, and one test builds the release zip, unpacks it and loads that, so what ships is what gets tested. Starting a capture needs a real click from a person, which no test framework can fake, so that step has a manual checklist." }
       ]
     },
     {
@@ -43,26 +51,14 @@
         {
           "type": "list",
           "items": [
-            "A recording of your screen, a window or a single tab, with no time limit, no watermark and no account.",
+            "A recording of your screen, a window or a single tab, with no time limit, no watermark and no account. The logs, requests, steps and annotations below come with tab recordings.",
             "Console logs synced to the video, including uncaught exceptions.",
-            "Network requests, exported as a HAR file.",
+            "The page's fetch and XHR requests, with status, timing and headers, exported as a HAR file you can open in Chrome DevTools.",
             "Numbered steps, recorded automatically from clicks, forms and page changes, including navigation inside single-page apps. Typed values are never logged.",
             "A `*.steps.md` export in which each step has a paste-ready Cypress or Playwright selector, so the list can become the skeleton of a regression test.",
             "Annotations drawn on the video while you record, and markers added with a keyboard shortcut.",
-            "The full report, filed directly as an issue in Jira Cloud or Linear."
-          ]
-        }
-      ]
-    },
-    {
-      "id": "how-i-tested-it",
-      "title": "How I tested it",
-      "blocks": [
-        { "type": "p", "text": "I didn't want to check the recorder against whatever a real website happened to do that day. So I built a bug bench for it, a page that breaks on demand. It can return a 500 on a write, throw an uncaught exception, or send a response that says OK and means the opposite. Each failure is known in advance, so I can check the recording against it." },
-        {
-          "type": "buttons",
-          "links": [
-            { "href": "https://bench.pedromorago.com/", "label": "Open the bug bench ↗", "style": "small" }
+            "A written report of the recording, which it can file as a new issue in Jira Cloud or Linear when you stop. The video and the log files are saved to your Downloads folder.",
+            "An audio-only export, for example of a meeting."
           ]
         }
       ]
@@ -79,7 +75,7 @@
             "Choose Load unpacked and select the unzipped folder."
           ]
         },
-        { "type": "p", "text": "No store account and no build step." },
+        { "type": "p", "text": "You don't need an account or a build step." },
         {
           "type": "buttons",
           "links": [

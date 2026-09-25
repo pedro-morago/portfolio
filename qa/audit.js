@@ -4,13 +4,17 @@
  * locally with `npm run qa`. Works over file:// with no network, so it is
  * deterministic and cannot fail for reasons outside the repository.
  *
- * Pages are discovered from disk: every HTML file in the repository without
+ * It audits the repository by default. In CI it runs with SITE_ROOT=_site, the
+ * folder that is actually published, so a file left out of the deploy fails.
+ *
+ * Pages are discovered from disk: every HTML file under the site root without
  * a noindex tag is an indexable page and gets the full browser audit.
  *
  * Before the browser opens (static):
- *  - static-files: robots.txt, sitemap.xml listing exactly the indexable pages,
- *    404.html (noindex), and the /en/ and /work/ redirect stubs (noindex,
- *    canonical to the root, meta refresh to the right place)
+ *  - static-files: robots.txt (points to the sitemap, doesn't block the site),
+ *    sitemap.xml listing exactly the indexable pages, 404.html (noindex), and
+ *    the /en/ and /work/ redirect stubs (noindex, canonical to the root, meta
+ *    refresh to the right place)
  *  - pages-match-source: work/<slug>/index.html exists for exactly the slugs
  *    in src/work/*.en.json
  *  - internal-links on 404.html and the redirect stubs
@@ -20,20 +24,25 @@
  *  - errors: no JavaScript errors and no console errors
  *  - no-external-requests: nothing is requested outside file:, data: or blob:
  *  - internal-links: every relative or root-absolute link, and every image,
- *    stylesheet and script, resolves to a file in the repository; fragments
+ *    stylesheet and script, resolves to a file under the site root; fragments
  *    must match an id on the target page
  *  - unique-ids, headings (one h1, no skipped levels)
  *  - metadata: title, description length, canonical, html lang, no hreflang,
  *    exactly one valid JSON-LD block
  *  - share-preview: og:type for the kind of page, og:url, og:image file exists,
- *    twitter:card summary_large_image
- *  - contrast: >= 4.5:1 (WCAG AA) in light and in dark mode
+ *    is 1200x630 and shows the page's current headline (qa/og-sources.json,
+ *    written by npm run og), twitter:card summary_large_image
+ *  - contrast: >= 4.5:1 (WCAG AA) in light and in dark mode, for a list of
+ *    text styles plus a sweep of every visible text node
  *  - tap-targets: nav links, buttons, breadcrumb links and the next-case link
  *    >= 24px tall at 320, 390 and 412 px
  *  - new-tab-links: target=_blank links have rel=noopener and screen reader
  *    text; mailto links never open a new tab
  *  - skip-link: first focusable element, lands on <main>
  *  - nav-active: home highlights the section in view; case pages mark Work
+ *
+ * In a real browser, on 404.html: overflow, errors, no-external-requests and
+ * contrast (light and dark).
  */
 const path = require("node:path");
 const fs = require("node:fs");
@@ -45,7 +54,8 @@ try {
   ({ chromium } = require("playwright-core"));
 }
 
-const ROOT = path.join(__dirname, "..");
+const REPO = path.join(__dirname, "..");
+const ROOT = process.env.SITE_ROOT ? path.resolve(REPO, process.env.SITE_ROOT) : REPO;
 const SITE_URL = "https://pedromorago.com/";
 const VIEWPORTS = [320, 390, 412, 768, 1280, 1920];
 const TAP_WIDTHS = [320, 390, 412];
@@ -67,8 +77,9 @@ const CONTRAST = {
     required: [
       ".hero-lede", ".hero-role", ".hero-tagline", ".glance h2", ".glance dt", ".glance dd",
       ".glance-email", ".copy-status", ".section h2", ".feature-kicker", ".feature h3", ".feature-text",
-      ".built-label", ".built h3", ".built p", ".status", ".notes-lede", ".note h3", ".note p", ".note a",
+      ".built-label", ".built h4", ".built p", ".status", ".notes-lede", ".note h3", ".note p", ".note a",
       ".contact-text", ".contact-email", ".contact-note", ".btn-small", ".btn-small-primary",
+      ".built .btn-small-primary",
     ],
     optional: [],
   },
@@ -84,6 +95,12 @@ const CONTRAST = {
     ],
   },
 };
+
+// The text a share image shows. npm run og records it in qa/og-sources.json
+// when it takes the screenshots; a later copy change without a new image fails.
+const OG_TEXT = ".hero h1, .hero-lede, .case-kicker, .case h1";
+const OG_SOURCES_FILE = path.join(__dirname, "og-sources.json");
+const OG_SOURCES = fs.existsSync(OG_SOURCES_FILE) ? JSON.parse(fs.readFileSync(OG_SOURCES_FILE, "utf8")) : {};
 
 const launchOptions = process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {};
 
@@ -170,8 +187,12 @@ function checkStaticFiles() {
   const C = "static-files";
   const robots = read("robots.txt");
   if (!robots) fail(C, "robots.txt is missing");
-  else if (!robots.split(/\r?\n/).some((l) => l.trim() === `Sitemap: ${SITE_URL}sitemap.xml`))
-    fail(C, "robots.txt does not point to the sitemap");
+  else {
+    if (!robots.split(/\r?\n/).some((l) => l.trim() === `Sitemap: ${SITE_URL}sitemap.xml`))
+      fail(C, "robots.txt does not point to the sitemap");
+    const everyone = robots.split(/\r?\n\s*\r?\n/).find((g) => /^\s*User-agent:\s*\*\s*$/im.test(g));
+    if (everyone && /^\s*Disallow:\s*\/\s*$/im.test(everyone)) fail(C, "robots.txt blocks the whole site for all crawlers");
+  }
 
   // The sitemap must list exactly the indexable pages found on disk.
   const sitemap = read("sitemap.xml");
@@ -209,7 +230,7 @@ function checkStaticFiles() {
 function checkPagesMatchSource() {
   const C = "pages-match-source";
   const slugs = fs
-    .readdirSync(path.join(ROOT, "src", "work"))
+    .readdirSync(path.join(REPO, "src", "work"))
     .filter((f) => f.endsWith(".en.json"))
     .map((f) => f.slice(0, -".en.json".length))
     .sort();
@@ -260,8 +281,8 @@ function measureContrast(page, selectors) {
       if (str.startsWith("color(")) return [nums[0] * 255, nums[1] * 255, nums[2] * 255, nums[3] ?? 1];
       return [nums[0], nums[1], nums[2], nums[3] ?? 1];
     }
-    function lum(c) {
-      const [r, g, b] = rgba(c).slice(0, 3).map((v) => {
+    function lum([r, g, b]) {
+      [r, g, b] = [r, g, b].map((v) => {
         v /= 255;
         return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4;
       });
@@ -274,12 +295,32 @@ function measureContrast(page, selectors) {
       }
       return getComputedStyle(document.body).backgroundColor;
     }
-    return sels.map((sel) => {
+    // Semi-transparent text is blended with its background first.
+    function ratio(el) {
+      const bg = rgba(bgOf(el));
+      const fg = rgba(getComputedStyle(el).color);
+      const blended = fg.slice(0, 3).map((v, i) => v * fg[3] + bg[i] * (1 - fg[3]));
+      const [a, b] = [lum(blended), lum(bg)].sort((x, y) => y - x);
+      return +((a + 0.05) / (b + 0.05)).toFixed(2);
+    }
+    const results = sels.map((sel) => {
       const el = document.querySelector(sel);
-      if (!el) return { sel, missing: true };
-      const [a, b] = [lum(getComputedStyle(el).color), lum(bgOf(el))].sort((x, y) => y - x);
-      return { sel, ratio: +((a + 0.05) / (b + 0.05)).toFixed(2) };
+      return el ? { sel, ratio: ratio(el) } : { sel, missing: true };
     });
+    // Sweep: every visible text node, once per colour pair, so a text style
+    // missing from the list above is still measured.
+    const seen = new Set();
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    while (walker.nextNode()) {
+      const el = walker.currentNode.parentElement;
+      if (!walker.currentNode.textContent.trim() || !el.getClientRects().length || el.closest(".sr-only, [hidden]")) continue;
+      const key = getComputedStyle(el).color + "|" + bgOf(el);
+      if (seen.has(key)) continue;
+      seen.add(key);
+      const name = el.tagName.toLowerCase() + [...el.classList].map((c) => "." + c).join("");
+      results.push({ sel: `${name} (text sweep)`, ratio: ratio(el), sweep: true });
+    }
+    return results;
   }, selectors);
 }
 
@@ -306,7 +347,7 @@ async function auditPage(browser, pageDef, seenOptional) {
 
   // Document checks, once, on desktop in light mode.
   const page = await open(browser, pageDef, { viewport: { width: 1280, height: 900 }, colorScheme: "light" });
-  const doc = await page.evaluate(() => {
+  const doc = await page.evaluate((OG_TEXT) => {
     const meta = (sel) => document.querySelector(sel)?.getAttribute("content") || "";
     const hs = [...document.querySelectorAll("h1,h2,h3,h4,h5,h6")].map((h) => +h.tagName[1]);
     const ids = [...document.querySelectorAll("[id]")].map((e) => e.id);
@@ -325,6 +366,7 @@ async function auditPage(browser, pageDef, seenOptional) {
       ogTitle: meta('meta[property="og:title"]'),
       ogDescription: meta('meta[property="og:description"]'),
       ogImage: meta('meta[property="og:image"]'),
+      ogText: [...document.querySelectorAll(OG_TEXT)].map((e) => e.textContent.trim()).join("\n"),
       twitterCard: meta('meta[name="twitter:card"]'),
       twitterImage: meta('meta[name="twitter:image"]'),
       h1Count: hs.filter((h) => h === 1).length,
@@ -346,7 +388,7 @@ async function auditPage(browser, pageDef, seenOptional) {
       skipIsFirst: !!skip && focusable === skip,
       skipLandsOnMain: !!skipTarget && skipTarget.tagName === "MAIN",
     };
-  });
+  }, OG_TEXT);
 
   // unique-ids, headings
   if (doc.duplicateIds.length) fail("unique-ids", `${tag}: duplicate ids: ${doc.duplicateIds.join(", ")}`);
@@ -379,8 +421,17 @@ async function auditPage(browser, pageDef, seenOptional) {
   if (doc.ogDescription.length > 200) fail(S, `${tag}: og:description is ${doc.ogDescription.length} characters`);
   if (doc.twitterCard !== "summary_large_image") fail(S, `${tag}: twitter:card is "${doc.twitterCard}"`);
   if (!doc.ogImage.startsWith(SITE_URL)) fail(S, `${tag}: og:image "${doc.ogImage}" is not on ${SITE_URL}`);
-  else if (!exists(doc.ogImage.slice(SITE_URL.length)))
-    fail(S, `${tag}: og:image file ${doc.ogImage.slice(SITE_URL.length)} does not exist (run npm run og)`);
+  else {
+    const ogFile = doc.ogImage.slice(SITE_URL.length);
+    if (!exists(ogFile)) fail(S, `${tag}: og:image file ${ogFile} does not exist (run npm run og)`);
+    else {
+      // PNG header: width and height are the big-endian integers at bytes 16 and 20.
+      const png = fs.readFileSync(path.join(ROOT, ogFile));
+      if (png.readUInt32BE(16) !== 1200 || png.readUInt32BE(20) !== 630) fail(S, `${tag}: ${ogFile} is not 1200x630`);
+    }
+    if (OG_SOURCES[ogFile] !== doc.ogText)
+      fail(S, `${tag}: ${ogFile} shows different text from the page (run npm run og and commit the result)`);
+  }
   if (doc.twitterImage !== doc.ogImage) fail(S, `${tag}: twitter:image differs from og:image`);
 
   // internal-links
@@ -448,6 +499,29 @@ async function auditPage(browser, pageDef, seenOptional) {
   await page.close();
 }
 
+/** 404.html has its own inline palette, so it gets its own browser pass. */
+async function auditErrorPage(browser) {
+  const def = { file: "404.html" };
+  if (!exists(def.file)) return;
+  for (const width of VIEWPORTS) {
+    const page = await open(browser, def, { viewport: { width, height: 900 } });
+    const r = await page.evaluate(() => ({
+      overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+      scrollWidth: document.documentElement.scrollWidth,
+    }));
+    if (r.overflow) fail("overflow", `404.html: horizontal scroll at ${width}px (content is ${r.scrollWidth}px wide)`);
+    await page.close();
+  }
+  for (const scheme of ["light", "dark"]) {
+    const page = await open(browser, def, { viewport: { width: 1280, height: 900 }, colorScheme: scheme });
+    for (const c of await measureContrast(page, ["h1", ".code", "p:not(.code)", ".btn", ".btn-ghost"])) {
+      if (c.missing) fail("contrast", `404.html: selector not found: ${c.sel}`);
+      else if (c.ratio < 4.5) fail("contrast", `404.html: ${c.ratio}:1 < 4.5:1 for ${c.sel} (${scheme} mode)`);
+    }
+    await page.close();
+  }
+}
+
 (async () => {
   checkStaticFiles();
   checkPagesMatchSource();
@@ -459,6 +533,8 @@ async function auditPage(browser, pageDef, seenOptional) {
     await auditPage(browser, pageDef, seenOptional);
     console.log(`✓ audited ${pageDef.file}`);
   }
+  await auditErrorPage(browser);
+  console.log("✓ audited 404.html");
   await browser.close();
 
   for (const kind of ["home", "case"]) {
@@ -474,7 +550,8 @@ async function auditPage(browser, pageDef, seenOptional) {
     problems.forEach((f) => console.error(`  - ${f}`));
     process.exit(1);
   }
-  console.log(`✓ QA audit passed: ${PAGES.length} pages, ${STUBS.length} redirects and 404.html.`);
+  const where = ROOT === REPO ? "" : ` in ${path.relative(REPO, ROOT)}/`;
+  console.log(`✓ QA audit passed${where}: ${PAGES.length} pages, ${STUBS.length} redirects and 404.html.`);
 })().catch((e) => {
   console.error("The audit could not run:", e.message);
   process.exit(1);

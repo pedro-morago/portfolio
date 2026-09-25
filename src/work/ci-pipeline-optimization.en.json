@@ -22,7 +22,7 @@
       "title": "The problem",
       "blocks": [
         { "type": "p", "text": "Our end-to-end test files, or specs, were divided between containers that ran in parallel in CI, and the division was uneven. Some containers finished early while others were still running, and a pipeline is only done when its slowest container is." },
-        { "type": "p", "text": "The longer the pipeline ran, the more it cost, so the imbalance wasted money as well as time." }
+        { "type": "p", "text": "The longer the pipeline ran, the more it cost, so the imbalance meant a higher bill as well as a longer wait." }
       ]
     },
     {
@@ -38,7 +38,7 @@
             { "label": "Goal", "text": "Make the containers finish at about the same time, to get the lowest cost for the pipeline time we wanted." }
           ]
         },
-        { "type": "p", "text": "Both time and cost mattered, which made it a multi-criteria optimization problem. Maths has well-known methods for problems like that." }
+        { "type": "p", "text": "Both time and cost mattered, which made it a multi-criteria optimization problem." }
       ]
     },
     {
@@ -53,24 +53,26 @@
       "id": "the-result",
       "title": "The result",
       "blocks": [
-        { "type": "p", "text": "I deployed the model. Pipeline time fell by 40%, at no extra infrastructure cost, and the result was validated in production." }
+        { "type": "p", "text": "I deployed the model. Pipeline time fell by 40%, at no extra infrastructure cost, and the result was validated in production." },
+        { "type": "p", "text": "The split is only as good as the averages behind it. When specs are added or their durations change, the split has to be recomputed from fresh data. CI Shard Advisor, below, does that from new run reports each time." }
       ]
     },
     {
       "id": "what-came-after",
       "title": "What came after",
       "blocks": [
-        { "type": "p", "text": "Later I turned the idea into CI Shard Advisor, a public tool for Cypress suites. It reads your run reports and shows how evenly your containers finish. Then it recommends the spec split with the shortest total run time, as a list of specs for each container that you can paste into GitHub Actions or Bitbucket Pipelines. It uses branch and bound, an exact method, to prove that no better split exists." },
+        { "type": "p", "text": "Later I turned the idea into CI Shard Advisor, a public tool for Cypress suites. It reads your run reports and shows how evenly your containers finish. Then it recommends the split in which the slowest container finishes earliest, as a list of specs for each container that you can paste into GitHub Actions or Bitbucket Pipelines. It searches with branch and bound, an exact method that can prove no better split exists for the durations in your reports." },
         {
           "type": "list",
           "items": [
-            "It opens in the browser with a demo run loaded. You can drop in your own reports, and they never leave the browser. There's nothing to install and no account.",
+            "It opens in the browser with a demo run loaded. You can drop in your own reports, and they never leave the browser. There's nothing to install and no account to create.",
             "It also runs as a command-line tool with a quality-gate mode, and as a local REST API."
           ]
         },
         { "type": "h3", "text": "How it's tested" },
-        { "type": "p", "text": "All the optimization logic sits in a pure core with a hexagonal architecture, so it can be tested on its own, apart from the web app, the command-line tool and the API." },
-        { "type": "p", "text": "An optimizer is hard to test with fixed examples, because for most inputs nobody knows the right answer in advance. So the core is tested with property-based, metamorphic and invariant tests, which check rules that any correct answer has to follow." },
+        { "type": "p", "text": "All the optimization logic sits in a pure core with a hexagonal architecture, so it can be tested separately from the web app, the command-line tool and the API." },
+        { "type": "p", "text": "An optimizer is hard to test with fixed examples, because for most inputs nobody knows the right answer in advance. For small inputs you can find it by trying every possible split. So property-based tests generate hundreds of random small cases and check that branch and bound finds the same answer as that brute-force search, and that whenever it claims a split is optimal, it really is, even when the search is cut short. Metamorphic and invariant tests check other rules that any correct answer has to follow." },
+        { "type": "p", "text": "The local API also has its own Java suite in REST Assured and JUnit 5, including a check of the response against a JSON Schema." },
         { "type": "tech", "text": "Tech: TypeScript, React, Vite, Fastify, Node.js, pnpm, Playwright and k6." },
         {
           "type": "buttons",

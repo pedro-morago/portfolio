@@ -19,12 +19,14 @@
   <meta property="og:image" content="https://pedromorago.com/work/this-site/og.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Case study, this site. How this site is tested. Pedro Morago, Senior QA Engineer." />
   <meta property="og:locale" content="en_US" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="How this site is tested | Pedro Morago" />
   <meta name="twitter:description" content="Every check that runs before pedromorago.com deploys, and why the external link check runs on its own schedule instead." />
   <meta name="twitter:image" content="https://pedromorago.com/work/this-site/og.png" />
-  <link rel="stylesheet" href="../../styles.css?v=467fffce" />
+  <meta name="twitter:image:alt" content="Case study, this site. How this site is tested. Pedro Morago, Senior QA Engineer." />
+  <link rel="stylesheet" href="../../styles.css?v=de9a0d51" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%231a7f4b'/><path d='M29 52l14 14 29-31' fill='none' stroke='white' stroke-width='10' stroke-linecap='round' stroke-linejoin='round'/></svg>" />
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://pedromorago.com/#website","url":"https://pedromorago.com/","name":"Pedro Morago"},{"@type":"Person","@id":"https://pedromorago.com/#person","name":"Pedro Morago López-Vázquez","url":"https://pedromorago.com/"},{"@type":"TechArticle","@id":"https://pedromorago.com/work/this-site/#article","headline":"How this site is tested","description":"Every push to this site is tested in a real browser at six screen widths, with contrast measured in light and dark mode. It deploys only when every check passes.","url":"https://pedromorago.com/work/this-site/","mainEntityOfPage":"https://pedromorago.com/work/this-site/","image":"https://pedromorago.com/work/this-site/og.png","inLanguage":"en","author":{"@id":"https://pedromorago.com/#person"},"publisher":{"@id":"https://pedromorago.com/#person"},"isPartOf":{"@id":"https://pedromorago.com/#website"},"about":[{"@type":"Thing","name":"Software testing"},{"@type":"Thing","name":"Web accessibility"},{"@type":"Thing","name":"Continuous integration"}]},{"@type":"BreadcrumbList","@id":"https://pedromorago.com/work/this-site/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Pedro Morago","item":"https://pedromorago.com/"},{"@type":"ListItem","position":2,"name":"How this site is tested","item":"https://pedromorago.com/work/this-site/"}]}]}</script>
 </head>
@@ -36,7 +38,7 @@
     <div class="nav-inner">
       <a href="../../" class="nav-logo">Pedro Morago</a>
       <div class="nav-links">
-        <a href="../../#work" class="active">Work</a>
+        <a href="../../#work" class="active" aria-current="true">Work</a>
         <a href="../../#how-i-test">How I test</a>
         <a href="#contact">Contact</a>
       </div>
@@ -47,7 +49,11 @@
     <div class="container">
       <article class="case">
         <nav class="breadcrumb" aria-label="Breadcrumb">
-          <a href="../../">Pedro Morago</a> <span aria-hidden="true">/</span> <a href="../../#work">Work</a> <span aria-hidden="true">/</span> <span aria-current="page">How this site is tested</span>
+          <ol>
+            <li><a href="../../">Pedro Morago</a></li>
+            <li><a href="../../#work">Work</a></li>
+            <li><span aria-current="page">How this site is tested</span></li>
+          </ol>
         </nav>
         <header class="case-header">
           <p class="case-kicker">Case study, this site</p>
@@ -79,32 +85,38 @@
         <div class="case-body">
         <section id="the-checks">
           <h2>The checks</h2>
-          <p>They run on every push and pull request, grouped here by when they run.</p>
+          <p>Here they are, grouped by when they run.</p>
           <h3>Before the browser opens</h3>
           <ul class="check-list">
-            <li>The build stops if a text field in the source is empty, and names the field.</li>
+            <li>The build stops if a text field in the source is empty or missing.</li>
             <li>The pages are rebuilt from the source and compared with what's committed, so a hand edit to a generated page or a forgotten rebuild fails the pipeline.</li>
             <li>Every generated page and the 404 page pass HTML validation with html-validate.</li>
-            <li>robots.txt, the sitemap, the 404 page and the redirects from old addresses are in place, and the sitemap lists exactly the pages of the site.</li>
+            <li>The robots.txt file, the sitemap, the 404 page and the redirects at <code>/en/</code> and <code>/work/</code> are in place, robots.txt doesn't block the site, and the sitemap lists exactly the pages of the site.</li>
             <li>The case-study pages on disk match the ones in the source, so a renamed page can't be left behind.</li>
           </ul>
-          <h3>In a real browser, on every page</h3>
+          <h3>In a real browser, on the home page and every case study</h3>
           <ul class="check-list">
             <li>No sideways scrolling at six screen widths, from 320 to 1920 pixels.</li>
             <li>No JavaScript errors and no console errors.</li>
             <li>No requests to other servers.</li>
-            <li>Every link to a section or to another page of this site points to something that exists, and so does every file the page loads.</li>
+            <li>Every link to a section or to another page of this site points to something that exists, and so does every file the page loads. The check runs on the folder that gets published, so a file left out of the deploy fails it.</li>
             <li>No ID is used twice on a page.</li>
             <li>One h1 per page, and no skipped heading levels.</li>
             <li>A title, a description of the right length, the correct canonical URL, the page language and one block of structured data, with no other language versions claimed.</li>
-            <li>A share preview of the right type, with an image file that exists.</li>
-            <li>Contrast of at least 4.5:1 (WCAG AA) for each style of text on the page, in light mode and again in dark mode.</li>
+            <li>A share preview of the right type, with an image file that exists, is 1200 by 630 pixels and shows the page's current headline.</li>
+            <li>Contrast of at least 4.5:1 (WCAG AA) for every piece of visible text, in light mode and again in dark mode.</li>
             <li>Menu links, buttons, breadcrumb links and the next-case link at least 24 pixels tall on phone screens.</li>
             <li>Every link that opens a new tab has <code>rel=&quot;noopener&quot;</code> and tells screen readers that it opens a new tab.</li>
             <li>The Skip to content link lands on the main content.</li>
             <li>The menu highlights the section you're reading on the home page, and marks Work on the case studies.</li>
           </ul>
+          <p>The 404 page is opened in the browser too, and gets the same checks for screen width, errors, requests to other servers and contrast.</p>
           <p>When every check passes on the main branch, the site is deployed to GitHub Pages. A version that fails never goes live, so the Audit passed label on the home page holds for every published version.</p>
+        </section>
+
+        <section id="what-they-miss">
+          <h2>What the checks don't cover</h2>
+          <p>The browser checks run in Chromium only, so a layout bug that appears only in Safari or Firefox would get through. None of it replaces trying the pages with a screen reader.</p>
         </section>
 
         <section id="outside-the-gate">
@@ -115,7 +127,7 @@
 
         <section id="contact" class="case-contact">
           <h2>Contact</h2>
-          <p>If you'd like to talk about test automation or quality gates in CI, email me at <a href="mailto:pedro@pedromorago.com">pedro@pedromorago.com</a>.</p>
+          <p>I'm Pedro Morago, a Senior QA Engineer working fully remote from Santander, Spain. If you'd like to talk about test automation or quality gates in CI, email me at <a href="mailto:pedro@pedromorago.com">pedro@pedromorago.com</a>.</p>
           <div class="contact-actions">
             <a href="mailto:pedro@pedromorago.com" class="btn btn-primary">Email me</a>
             <a href="https://www.linkedin.com/in/pedro-morago-lopezvazquez/" class="btn btn-ghost" target="_blank" rel="noopener">Experience on LinkedIn <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
@@ -134,10 +146,10 @@
 
   <footer class="footer">
     <div class="container">
-      <p>© <span id="year">2026</span> Pedro Morago López-Vázquez. No frameworks and no trackers. <a href="../../work/this-site/">How this site is tested <span aria-hidden="true">→</span></a></p>
+      <p>© <span id="year">2026</span> Pedro Morago López-Vázquez. No frameworks and no trackers. <a aria-current="page" href="../../work/this-site/">How this site is tested <span aria-hidden="true">→</span></a></p>
     </div>
   </footer>
 
-  <script src="../../script.js?v=b5a07d71"></script>
+  <script src="../../script.js?v=47a43926"></script>
 </body>
 </html>

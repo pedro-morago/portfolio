@@ -19,12 +19,14 @@
   <meta property="og:image" content="https://pedromorago.com/work/ci-pipeline-optimization/og.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Case study, IriusRisk. Cutting CI pipeline time by 40%. Pedro Morago, Senior QA Engineer." />
   <meta property="og:locale" content="en_US" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Cutting CI pipeline time by 40% | Pedro Morago" />
   <meta name="twitter:description" content="At IriusRisk, end-to-end tests were split unevenly across parallel CI containers. An optimization model I built fixed the split and cut pipeline time by 40%." />
   <meta name="twitter:image" content="https://pedromorago.com/work/ci-pipeline-optimization/og.png" />
-  <link rel="stylesheet" href="../../styles.css?v=467fffce" />
+  <meta name="twitter:image:alt" content="Case study, IriusRisk. Cutting CI pipeline time by 40%. Pedro Morago, Senior QA Engineer." />
+  <link rel="stylesheet" href="../../styles.css?v=de9a0d51" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%231a7f4b'/><path d='M29 52l14 14 29-31' fill='none' stroke='white' stroke-width='10' stroke-linecap='round' stroke-linejoin='round'/></svg>" />
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://pedromorago.com/#website","url":"https://pedromorago.com/","name":"Pedro Morago"},{"@type":"Person","@id":"https://pedromorago.com/#person","name":"Pedro Morago López-Vázquez","url":"https://pedromorago.com/"},{"@type":"TechArticle","@id":"https://pedromorago.com/work/ci-pipeline-optimization/#article","headline":"Cutting CI pipeline time by 40%","description":"How I balanced end-to-end tests across parallel CI containers at IriusRisk with a MILP model in Python, and cut pipeline time by 40% with no extra infrastructure.","url":"https://pedromorago.com/work/ci-pipeline-optimization/","mainEntityOfPage":"https://pedromorago.com/work/ci-pipeline-optimization/","image":"https://pedromorago.com/work/ci-pipeline-optimization/og.png","inLanguage":"en","author":{"@id":"https://pedromorago.com/#person"},"publisher":{"@id":"https://pedromorago.com/#person"},"isPartOf":{"@id":"https://pedromorago.com/#website"},"about":[{"@type":"Thing","name":"Continuous integration"},{"@type":"Thing","name":"Mathematical optimization"},{"@type":"Thing","name":"Test automation"}]},{"@type":"BreadcrumbList","@id":"https://pedromorago.com/work/ci-pipeline-optimization/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Pedro Morago","item":"https://pedromorago.com/"},{"@type":"ListItem","position":2,"name":"Cutting CI pipeline time by 40%","item":"https://pedromorago.com/work/ci-pipeline-optimization/"}]}]}</script>
 </head>
@@ -36,7 +38,7 @@
     <div class="nav-inner">
       <a href="../../" class="nav-logo">Pedro Morago</a>
       <div class="nav-links">
-        <a href="../../#work" class="active">Work</a>
+        <a href="../../#work" class="active" aria-current="true">Work</a>
         <a href="../../#how-i-test">How I test</a>
         <a href="#contact">Contact</a>
       </div>
@@ -47,7 +49,11 @@
     <div class="container">
       <article class="case">
         <nav class="breadcrumb" aria-label="Breadcrumb">
-          <a href="../../">Pedro Morago</a> <span aria-hidden="true">/</span> <a href="../../#work">Work</a> <span aria-hidden="true">/</span> <span aria-current="page">CI pipeline optimization</span>
+          <ol>
+            <li><a href="../../">Pedro Morago</a></li>
+            <li><a href="../../#work">Work</a></li>
+            <li><span aria-current="page">CI pipeline optimization</span></li>
+          </ol>
         </nav>
         <header class="case-header">
           <p class="case-kicker">Case study, IriusRisk</p>
@@ -69,7 +75,7 @@
           </div>
           <div class="fact-row">
             <dt>Result</dt>
-            <dd><svg class="check-icon" viewBox="0 0 100 100" width="14" height="14" aria-hidden="true" focusable="false"><path d="M18 54l20 20 44-46" fill="none" stroke="currentColor" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" /></svg>40% less pipeline time at no extra infrastructure cost, validated in production</dd>
+            <dd class="has-check"><svg class="check-icon" viewBox="0 0 100 100" width="14" height="14" aria-hidden="true" focusable="false"><path d="M18 54l20 20 44-46" fill="none" stroke="currentColor" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" /></svg>40% less pipeline time at no extra infrastructure cost, validated in production</dd>
           </div>
         </dl>
 
@@ -77,7 +83,7 @@
         <section id="the-problem">
           <h2>The problem</h2>
           <p>Our end-to-end test files, or specs, were divided between containers that ran in parallel in CI, and the division was uneven. Some containers finished early while others were still running, and a pipeline is only done when its slowest container is.</p>
-          <p>The longer the pipeline ran, the more it cost, so the imbalance wasted money as well as time.</p>
+          <p>The longer the pipeline ran, the more it cost, so the imbalance meant a higher bill as well as a longer wait.</p>
         </section>
 
         <section id="writing-it-down">
@@ -97,7 +103,7 @@
               <dd>Make the containers finish at about the same time, to get the lowest cost for the pipeline time we wanted.</dd>
             </div>
           </dl>
-          <p>Both time and cost mattered, which made it a multi-criteria optimization problem. Maths has well-known methods for problems like that.</p>
+          <p>Both time and cost mattered, which made it a multi-criteria optimization problem.</p>
         </section>
 
         <section id="what-i-did">
@@ -109,18 +115,20 @@
         <section id="the-result">
           <h2>The result</h2>
           <p>I deployed the model. Pipeline time fell by 40%, at no extra infrastructure cost, and the result was validated in production.</p>
+          <p>The split is only as good as the averages behind it. When specs are added or their durations change, the split has to be recomputed from fresh data. CI Shard Advisor, below, does that from new run reports each time.</p>
         </section>
 
         <section id="what-came-after">
           <h2>What came after</h2>
-          <p>Later I turned the idea into CI Shard Advisor, a public tool for Cypress suites. It reads your run reports and shows how evenly your containers finish. Then it recommends the spec split with the shortest total run time, as a list of specs for each container that you can paste into GitHub Actions or Bitbucket Pipelines. It uses branch and bound, an exact method, to prove that no better split exists.</p>
+          <p>Later I turned the idea into CI Shard Advisor, a public tool for Cypress suites. It reads your run reports and shows how evenly your containers finish. Then it recommends the split in which the slowest container finishes earliest, as a list of specs for each container that you can paste into GitHub Actions or Bitbucket Pipelines. It searches with branch and bound, an exact method that can prove no better split exists for the durations in your reports.</p>
           <ul class="list">
-            <li>It opens in the browser with a demo run loaded. You can drop in your own reports, and they never leave the browser. There's nothing to install and no account.</li>
+            <li>It opens in the browser with a demo run loaded. You can drop in your own reports, and they never leave the browser. There's nothing to install and no account to create.</li>
             <li>It also runs as a command-line tool with a quality-gate mode, and as a local REST API.</li>
           </ul>
           <h3>How it's tested</h3>
-          <p>All the optimization logic sits in a pure core with a hexagonal architecture, so it can be tested on its own, apart from the web app, the command-line tool and the API.</p>
-          <p>An optimizer is hard to test with fixed examples, because for most inputs nobody knows the right answer in advance. So the core is tested with property-based, metamorphic and invariant tests, which check rules that any correct answer has to follow.</p>
+          <p>All the optimization logic sits in a pure core with a hexagonal architecture, so it can be tested separately from the web app, the command-line tool and the API.</p>
+          <p>An optimizer is hard to test with fixed examples, because for most inputs nobody knows the right answer in advance. For small inputs you can find it by trying every possible split. So property-based tests generate hundreds of random small cases and check that branch and bound finds the same answer as that brute-force search, and that whenever it claims a split is optimal, it really is, even when the search is cut short. Metamorphic and invariant tests check other rules that any correct answer has to follow.</p>
+          <p>The local API also has its own Java suite in REST Assured and JUnit 5, including a check of the response against a JSON Schema.</p>
           <p class="case-tech">Tech: TypeScript, React, Vite, Fastify, Node.js, pnpm, Playwright and k6.</p>
           <div class="case-actions">
             <a href="https://pedromorago.github.io/ci-shard-advisor/" class="btn btn-small btn-small-primary" target="_blank" rel="noopener">Open the live demo <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
@@ -136,7 +144,7 @@
 
         <section id="contact" class="case-contact">
           <h2>Contact</h2>
-          <p>If you'd like to talk about CI pipelines or test automation, email me at <a href="mailto:pedro@pedromorago.com">pedro@pedromorago.com</a>.</p>
+          <p>I'm Pedro Morago, a Senior QA Engineer working fully remote from Santander, Spain. If you'd like to talk about CI pipelines or test automation, email me at <a href="mailto:pedro@pedromorago.com">pedro@pedromorago.com</a>.</p>
           <div class="contact-actions">
             <a href="mailto:pedro@pedromorago.com" class="btn btn-primary">Email me</a>
             <a href="https://www.linkedin.com/in/pedro-morago-lopezvazquez/" class="btn btn-ghost" target="_blank" rel="noopener">Experience on LinkedIn <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
@@ -159,6 +167,6 @@
     </div>
   </footer>
 
-  <script src="../../script.js?v=b5a07d71"></script>
+  <script src="../../script.js?v=47a43926"></script>
 </body>
 </html>

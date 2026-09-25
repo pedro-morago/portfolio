@@ -3,7 +3,7 @@
   "ogLocale": "en_US",
   "meta": {
     "title": "Pedro Morago | Senior QA Engineer",
-    "description": "Pedro Morago is a Senior QA Engineer in Santander, Spain, working remotely. He automates tests with Playwright, Cypress and Java, and cut CI pipeline time by 40%.",
+    "description": "Pedro Morago is a Senior QA Engineer in Santander, Spain, working remotely. He cut CI pipeline time by 40% and automates tests with Playwright, Cypress and Java.",
     "ogDescription": "Senior QA Engineer. I automate tests with Playwright, Cypress and REST Assured in Java, and I cut a CI pipeline's run time by 40%.",
     "twitterDescription": "Senior QA Engineer. I automate tests with Playwright, Cypress and Java, and I cut a CI pipeline's run time by 40%."
   },
@@ -40,7 +40,7 @@
     "name": "Pedro Morago",
     "role": "Senior QA Engineer.",
     "lede": "I test software the way I was taught to do maths.",
-    "text": "I've spent five years in test automation, first on international SaaS products and now on a telecom platform. At IriusRisk I cut CI pipeline time by 40% with an optimization model I designed.",
+    "text": "I've spent five years in test automation, first on international SaaS products and now on a telecom platform. At IriusRisk I owned the test strategy for a product module and cut CI pipeline time by 40% with an optimization model I designed.",
     "actions": [
       { "href": "mailto:pedro@pedromorago.com", "label": "Email me" },
       { "href": "https://www.linkedin.com/in/pedro-morago-lopezvazquez/", "label": "Experience on LinkedIn ↗" }
@@ -52,10 +52,11 @@
     "rows": [
       { "label": "Current role", "text": "Senior QA Engineer at Alvatross by SATEC" },
       { "label": "Automation", "text": "Playwright (TypeScript) and Cypress for end-to-end tests. REST Assured (Java) and Karate for API tests." },
+      { "label": "Code", "text": "[github.com/pedromorago ↗](https://github.com/pedromorago)" },
       { "label": "Certification", "text": "ISTQB CTFL v4.0" },
       { "label": "Degree", "text": "BSc in Mathematics, University of Cantabria" },
-      { "label": "Based in", "text": "Santander, Spain. Fully remote since 2024." },
-      { "label": "Languages", "text": "Professional working proficiency in English, which I use every day at work. Native Spanish." }
+      { "label": "Based in", "text": "Santander, Spain (Central European Time). Fully remote since 2024." },
+      { "label": "Languages", "text": "English at a professional working level, used every day at work. Native Spanish." }
     ],
     "emailLabel": "Email",
     "copy": {
@@ -71,22 +72,22 @@
     "feature": {
       "kicker": "Case study, IriusRisk",
       "title": "Cutting CI pipeline time by 40%",
-      "text": "End-to-end tests were split unevenly across parallel CI containers, and the longer the pipeline ran, the more it cost. I built an optimization model in Python that decides which container runs each test file. Pipeline time fell by 40%, with no extra infrastructure.",
+      "text": "End-to-end tests were split unevenly across parallel CI containers, and the longer the pipeline ran, the more it cost. I built an optimization model in Python that decides which container runs each test file. It needed no extra infrastructure, and the result was validated in production.",
       "link": { "href": "work/ci-pipeline-optimization/", "label": "Read the case study", "sr": " about cutting CI pipeline time by 40%" }
     },
     "builtLabel": "Things I've built",
     "items": [
       {
         "title": "CI Shard Advisor",
-        "text": "I turned the pipeline idea into a public tool. It reads Cypress run reports and recommends the split of test files across containers with the shortest total run time, and it proves that no better split exists. The demo opens with a sample run loaded, and your own reports never leave the browser.",
+        "text": "I turned the pipeline idea into a public tool. It reads Cypress run reports and recommends how to split the test files across containers so that the slowest one finishes as early as possible. For most inputs nobody knows the right answer in advance, so I test its core with property-based, metamorphic and invariant tests.",
         "links": [
           { "href": "https://pedromorago.github.io/ci-shard-advisor/", "label": "Open the live demo ↗" },
-          { "href": "https://github.com/pedromorago/ci-shard-advisor", "label": "Code on GitHub ↗" }
+          { "href": "https://github.com/pedromorago/ci-shard-advisor", "label": "Code on GitHub ↗", "sr": " for CI Shard Advisor" }
         ]
       },
       {
         "title": "Screen Recorder (QA mode)",
-        "text": "I built this Chrome extension for my own bug reports. It records console logs and network requests along with the video, and saves each step with a Cypress or Playwright selector ready to paste into a test. I test it against my own bug bench, a page that breaks on demand.",
+        "text": "I built this Chrome extension for my own bug reports. It records console logs and network requests along with the video, and saves each step with a Cypress or Playwright selector ready to paste into a test. I test it against a bug bench I built, a page that breaks on demand.",
         "links": [
           { "href": "work/screen-recorder/", "label": "Read the case study", "sr": " about Screen Recorder (QA mode)" },
           { "href": "https://github.com/pedromorago/screen-recorder-qa/releases/latest", "label": "Download for Chrome ↗" }
@@ -97,7 +98,7 @@
         "text": "I've written more than 50 articles for my public wiki, on test strategy, API testing, Playwright, CI/CD for QA, performance testing and QA for telecom OSS/BSS. I keep adding to it.",
         "links": [
           { "href": "https://wiki.pedromorago.com/", "label": "Read the QA Wiki ↗" },
-          { "href": "https://github.com/pedromorago/qa-wiki", "label": "Code on GitHub ↗" }
+          { "href": "https://github.com/pedromorago/qa-wiki", "label": "Code on GitHub ↗", "sr": " for the QA Wiki" }
         ]
       },
       {
@@ -106,7 +107,7 @@
         "text": "It has its own test suite. On every push, the suite checks each page at six screen widths and measures text contrast in light and dark mode. The site deploys only when every check passes.",
         "links": [
           { "href": "work/this-site/", "label": "Read the case study", "sr": " about how this site is tested" },
-          { "href": "https://github.com/pedromorago/portfolio", "label": "Code on GitHub ↗" }
+          { "href": "https://github.com/pedromorago/portfolio", "label": "Code on GitHub ↗", "sr": " for this site" }
         ]
       }
     ]
@@ -118,7 +119,7 @@
     "items": [
       {
         "title": "I check that it does what it should",
-        "text": "Nobody can prove that software has no bugs. I check each feature against what it's meant to do, and I automate those checks so problems show up early.",
+        "text": "Nobody can prove that software has no bugs. I check each feature against what it's meant to do and automate those checks so problems show up early. At Fieldeas I moved the team from manual testing to automation.",
         "link": { "href": "work/this-site/", "label": "How this site is tested →" }
       },
       {
@@ -128,13 +129,10 @@
       },
       {
         "title": "My bug reports come with the evidence",
-        "text": "A bug report should give the developer what they need to reproduce the bug. I used a screen recorder for mine, and when it changed, I built my own Chrome extension. Along with the video, it records console logs and network requests, something no tool I had did for me.",
+        "text": "A bug report should give the developer what they need to reproduce the bug. When the screen recorder I used for mine changed, I built my own Chrome extension to capture that evidence.",
         "link": { "href": "work/screen-recorder/", "label": "How I built the recorder →" }
       },
-      {
-        "title": "AI answers with sources",
-        "text": "I use AI tools a lot in my work, and I've learned to use them carefully. The AI answer button on my wiki answers only from articles I wrote, and it cites the ones it used."
-      }
+      { "title": "I check what AI tells me", "text": "AI tools are part of my work, and I use them carefully. On my wiki, the AI answer button replies only from articles I wrote, and it cites the ones it used." }
     ]
   },
   "contact": {
@@ -150,6 +148,7 @@
   },
   "caseContact": {
     "title": "Contact",
+    "intro": "I'm Pedro Morago, a Senior QA Engineer working fully remote from Santander, Spain.",
     "before": "If you'd like to talk about",
     "after": "email me at",
     "actions": [

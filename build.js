@@ -54,8 +54,11 @@ function assertContent(v, at = "$", file = "") {
 
 // ---------------------------------------------------------------- helpers
 
-const esc = (s) =>
-  String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+// A missing field is an error too: it would otherwise print "undefined" on the page.
+const esc = (s) => {
+  if (s === undefined || s === null) throw new Error("A text field is missing from the JSON (the stack trace shows where it was used)");
+  return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+};
 
 const isExternal = (href) => /^https?:\/\//.test(href);
 
@@ -128,6 +131,8 @@ const caseFiles = fs
 const cases = caseFiles.map((f) => {
   const c = readJson(path.join(ROOT, "src", "work", f));
   assertContent(c, "$", `src/work/${f}`);
+  for (const k of ["slug", "meta", "crumb", "kicker", "title", "lede", "facts", "sections", "contactTopic"])
+    if (c[k] === undefined) throw new Error(`src/work/${f}: missing "${k}"`);
   if (`${c.slug}.en.json` !== f) throw new Error(`src/work/${f}: slug "${c.slug}" does not match the file name`);
   return c;
 });
@@ -141,6 +146,7 @@ const PAGES = [
     url: SITE_URL,
     ogType: "profile",
     ogImage: "og-image.png",
+    ogImageAlt: `${content.hero.name}. ${content.hero.role} ${content.hero.lede}`,
     title: content.meta.title,
     description: content.meta.description,
     ogDescription: content.meta.ogDescription,
@@ -154,6 +160,7 @@ const PAGES = [
     url: `${SITE_URL}work/${c.slug}/`,
     ogType: "article",
     ogImage: `work/${c.slug}/og.png`,
+    ogImageAlt: `${c.kicker}. ${c.title}. ${content.hero.name}, ${content.person.jobTitle}.`,
     title: c.meta.title,
     description: c.meta.description,
     ogDescription: c.meta.shareDescription,
@@ -271,11 +278,13 @@ function renderHead(page) {
   <meta property="og:image" content="${img}" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="${esc(page.ogImageAlt)}" />
   <meta property="og:locale" content="${content.ogLocale}" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="${esc(page.title)}" />
   <meta name="twitter:description" content="${esc(page.twitterDescription)}" />
   <meta name="twitter:image" content="${img}" />
+  <meta name="twitter:image:alt" content="${esc(page.ogImageAlt)}" />
   <link rel="stylesheet" href="${page.root}styles.css?v=${CSS_VERSION}" />
   <link rel="icon" href="${FAVICON}" />
   <script type="application/ld+json">${jsonLd(page)}</script>
@@ -287,13 +296,13 @@ function renderHead(page) {
 /**
  * On the home page every item links to its section. On a case page, "home"
  * items link back to the home page section and "page" items (Contact) to the
- * case page's own section. Work is marked active on case pages.
+ * case page's own section. Work is marked active (and aria-current) on case pages.
  */
 function renderNav(page) {
   const links = content.nav
     .map((item) => {
       const href = page.kind === "home" || item.scope === "page" ? `#${item.id}` : `${page.root}#${item.id}`;
-      const active = page.kind === "case" && item.id === "work" ? ' class="active"' : "";
+      const active = page.kind === "case" && item.id === "work" ? ' class="active" aria-current="true"' : "";
       return `        <a href="${href}"${active}>${esc(item.label)}</a>`;
     })
     .join("\n");
@@ -309,9 +318,12 @@ ${links}
 
 function renderFooter(page) {
   const f = content.footer;
+  let link = renderLink(f.link, "", page.root);
+  // On the page the link points to, say so to assistive tech.
+  if (page.url === SITE_URL + f.link.href) link = link.replace("<a ", '<a aria-current="page" ');
   return `  <footer class="footer">
     <div class="container">
-      <p>© <span id="year">${f.year}</span> ${esc(f.name)}. ${esc(f.text)} ${renderLink(f.link, "", page.root)}</p>
+      <p>© <span id="year">${f.year}</span> ${esc(f.name)}. ${esc(f.text)} ${link}</p>
     </div>
   </footer>`;
 }
@@ -403,7 +415,7 @@ function renderWork() {
         : "";
       return `            <li>
               <div class="built-head">
-                <h3>${esc(item.title)}</h3>${status}
+                <h4>${esc(item.title)}</h4>${status}
               </div>
               <p>${inline(item.text)}</p>
               <div class="built-links">
@@ -420,7 +432,7 @@ ${renderButtons(item.links, "small-primary", "small", "", "                ")}
             <p class="feature-text">${inline(f.text)}</p>
             ${renderLink(f.link, BUTTON_CLASSES["small-primary"])}
           </article>
-          <p class="built-label">${esc(w.builtLabel)}</p>
+          <h3 class="built-label">${esc(w.builtLabel)}</h3>
           <ul class="built">
 ${items}
           </ul>`
@@ -514,7 +526,7 @@ function renderCaseContact(c, root) {
   const text = `${esc(cc.before)} ${esc(c.contactTopic)}, ${esc(cc.after)} ${renderLink({ href: `mailto:${email}`, label: email })}.`;
   return `        <section id="contact" class="case-contact">
           <h2>${esc(cc.title)}</h2>
-          <p>${text}</p>
+          <p>${esc(cc.intro)} ${text}</p>
           <div class="contact-actions">
 ${renderButtons(cc.actions, "primary", "ghost", root, "            ")}
           </div>
@@ -528,7 +540,7 @@ function renderCase(page, next) {
     .map(
       (f) => `          <div class="fact-row">
             <dt>${esc(f.label)}</dt>
-            <dd>${f.check ? CHECK_ICON : ""}${inline(f.text, root)}</dd>
+            <dd${f.check ? ' class="has-check"' : ""}>${f.check ? CHECK_ICON : ""}${inline(f.text, root)}</dd>
           </div>`
     )
     .join("\n");
@@ -550,7 +562,11 @@ ${s.blocks.map((b) => renderBlock(b, root)).join("\n")}
     <div class="container">
       <article class="case">
         <nav class="breadcrumb" aria-label="Breadcrumb">
-          <a href="${root}">${esc(content.hero.name)}</a> <span aria-hidden="true">/</span> <a href="${root}#work">${esc(content.breadcrumb.work)}</a> <span aria-hidden="true">/</span> <span aria-current="page">${esc(c.crumb)}</span>
+          <ol>
+            <li><a href="${root}">${esc(content.hero.name)}</a></li>
+            <li><a href="${root}#work">${esc(content.breadcrumb.work)}</a></li>
+            <li><span aria-current="page">${esc(c.crumb)}</span></li>
+          </ol>
         </nav>
         <header class="case-header">
           <p class="case-kicker">${esc(c.kicker)}</p>
@@ -581,8 +597,13 @@ ${renderCaseContact(c, root)}
 
 // ------------------------------------------------------------ redirects
 
-/** A noindex stub that sends an old or index-less address to the right place. */
+/**
+ * A noindex stub that sends an old or index-less address to the right place.
+ * The script keeps the #fragment (the meta refresh drops it), so old links
+ * such as /en/#projects still reach the section script.js maps them to.
+ */
 function renderRedirect(r, comment) {
+  const keepHash = r.to.includes("#") ? "" : " + location.hash";
   return `<!DOCTYPE html>
 <!-- Generated by build.js: ${comment} -->
 <html lang="${content.htmlLang}">
@@ -591,6 +612,7 @@ function renderRedirect(r, comment) {
   <title>${esc(r.title)}</title>
   <meta name="robots" content="noindex" />
   <link rel="canonical" href="${SITE_URL}" />
+  <script>location.replace(${JSON.stringify(r.to)}${keepHash});</script>
   <meta http-equiv="refresh" content="0; url=${r.to}" />
 </head>
 <body>

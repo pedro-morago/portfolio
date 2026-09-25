@@ -13,6 +13,9 @@ on:
       - "qa/links.js"
       - ".github/workflows/links.yml"
 
+permissions:
+  contents: read
+
 jobs:
   links:
     runs-on: ubuntu-latest

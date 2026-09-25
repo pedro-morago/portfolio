@@ -19,12 +19,14 @@
   <meta property="og:image" content="https://pedromorago.com/work/screen-recorder/og.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Case study, Chrome extension. Screen Recorder (QA mode). Pedro Morago, Senior QA Engineer." />
   <meta property="og:locale" content="en_US" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Screen Recorder (QA mode) | Pedro Morago" />
   <meta name="twitter:description" content="A Chrome extension for bug reports that records console logs, network requests and your steps with the video. I test it against a page that breaks on demand." />
   <meta name="twitter:image" content="https://pedromorago.com/work/screen-recorder/og.png" />
-  <link rel="stylesheet" href="../../styles.css?v=467fffce" />
+  <meta name="twitter:image:alt" content="Case study, Chrome extension. Screen Recorder (QA mode). Pedro Morago, Senior QA Engineer." />
+  <link rel="stylesheet" href="../../styles.css?v=de9a0d51" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%231a7f4b'/><path d='M29 52l14 14 29-31' fill='none' stroke='white' stroke-width='10' stroke-linecap='round' stroke-linejoin='round'/></svg>" />
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://pedromorago.com/#website","url":"https://pedromorago.com/","name":"Pedro Morago"},{"@type":"Person","@id":"https://pedromorago.com/#person","name":"Pedro Morago López-Vázquez","url":"https://pedromorago.com/"},{"@type":"TechArticle","@id":"https://pedromorago.com/work/screen-recorder/#article","headline":"Screen Recorder (QA mode)","description":"A Chrome extension I built for bug reports. It records console logs and network requests with the video, and each step with a Cypress or Playwright selector.","url":"https://pedromorago.com/work/screen-recorder/","mainEntityOfPage":"https://pedromorago.com/work/screen-recorder/","image":"https://pedromorago.com/work/screen-recorder/og.png","inLanguage":"en","author":{"@id":"https://pedromorago.com/#person"},"publisher":{"@id":"https://pedromorago.com/#person"},"isPartOf":{"@id":"https://pedromorago.com/#website"},"about":[{"@type":"Thing","name":"Bug reporting"},{"@type":"Thing","name":"Browser extensions"},{"@type":"Thing","name":"Software testing"}]},{"@type":"BreadcrumbList","@id":"https://pedromorago.com/work/screen-recorder/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Pedro Morago","item":"https://pedromorago.com/"},{"@type":"ListItem","position":2,"name":"Screen Recorder (QA mode)","item":"https://pedromorago.com/work/screen-recorder/"}]}]}</script>
 </head>
@@ -36,7 +38,7 @@
     <div class="nav-inner">
       <a href="../../" class="nav-logo">Pedro Morago</a>
       <div class="nav-links">
-        <a href="../../#work" class="active">Work</a>
+        <a href="../../#work" class="active" aria-current="true">Work</a>
         <a href="../../#how-i-test">How I test</a>
         <a href="#contact">Contact</a>
       </div>
@@ -47,7 +49,11 @@
     <div class="container">
       <article class="case">
         <nav class="breadcrumb" aria-label="Breadcrumb">
-          <a href="../../">Pedro Morago</a> <span aria-hidden="true">/</span> <a href="../../#work">Work</a> <span aria-hidden="true">/</span> <span aria-current="page">Screen Recorder (QA mode)</span>
+          <ol>
+            <li><a href="../../">Pedro Morago</a></li>
+            <li><a href="../../#work">Work</a></li>
+            <li><span aria-current="page">Screen Recorder (QA mode)</span></li>
+          </ol>
         </nav>
         <header class="case-header">
           <p class="case-kicker">Case study, Chrome extension</p>
@@ -57,14 +63,18 @@
         <dl class="case-facts">
           <div class="fact-row">
             <dt>Type</dt>
-            <dd>Chrome extension (Manifest V3), published on GitHub</dd>
+            <dd>Chrome extension, published on GitHub</dd>
           </div>
           <div class="fact-row">
             <dt>Tech</dt>
-            <dd>JavaScript, chrome.desktopCapture, Cypress, Playwright, GitHub Actions</dd>
+            <dd>JavaScript, Manifest V3 and chrome.desktopCapture</dd>
           </div>
           <div class="fact-row">
-            <dt>Dependencies</dt>
+            <dt>Tested with</dt>
+            <dd>Cypress, Playwright and GitHub Actions</dd>
+          </div>
+          <div class="fact-row">
+            <dt>Runtime dependencies</dt>
             <dd>None</dd>
           </div>
           <div class="fact-row">
@@ -80,33 +90,31 @@
         <section id="why">
           <h2>Why I built it</h2>
           <p>I used a tool called Nimbus to record bugs for my reports. When it changed, I rebuilt the features I relied on in my own extension, and then added the ones I wanted.</p>
-          <ul class="list">
-            <li>Console logs and network requests recorded along with the video. No tool I had did that for me.</li>
-            <li>Test steps with Playwright selectors, so I don't have to repeat a test just to write its steps down.</li>
-            <li>Marking bugs on the video, which helps a lot with frontend issues.</li>
-            <li>Exporting only the audio, for example from a meeting.</li>
-          </ul>
+          <p>None of the tools I used recorded console logs and network requests along with the video, and I didn't want to repeat a test just to write its steps down.</p>
+        </section>
+
+        <section id="how-i-test-it">
+          <h2>How I test it</h2>
+          <p>I didn't want to check the recorder against whatever a real website happened to do that day. So I built a bug bench for it, a page that breaks on demand. It can return a 500 on a write, throw an uncaught exception, or send a response that says OK and means the opposite. Each failure is known in advance, so I can check the recording against it. When the recording and the bench disagree, one of them has a bug. That's how I found several of the recorder's own bugs.</p>
+          <div class="case-actions">
+            <a href="https://bench.pedromorago.com/" class="btn btn-small" target="_blank" rel="noopener">Open the bug bench <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
+          </div>
+          <h3>Automated tests</h3>
+          <p>The extension also has automated tests that run on GitHub Actions. Cypress tests the capture scripts on local test pages. Playwright loads the real extension in Chromium, and one test builds the release zip, unpacks it and loads that, so what ships is what gets tested. Starting a capture needs a real click from a person, which no test framework can fake, so that step has a manual checklist.</p>
         </section>
 
         <section id="what-you-get">
           <h2>What you get from one recording</h2>
           <ul class="list">
-            <li>A recording of your screen, a window or a single tab, with no time limit, no watermark and no account.</li>
+            <li>A recording of your screen, a window or a single tab, with no time limit, no watermark and no account. The logs, requests, steps and annotations below come with tab recordings.</li>
             <li>Console logs synced to the video, including uncaught exceptions.</li>
-            <li>Network requests, exported as a HAR file.</li>
+            <li>The page's fetch and XHR requests, with status, timing and headers, exported as a HAR file you can open in Chrome DevTools.</li>
             <li>Numbered steps, recorded automatically from clicks, forms and page changes, including navigation inside single-page apps. Typed values are never logged.</li>
             <li>A <code>*.steps.md</code> export in which each step has a paste-ready Cypress or Playwright selector, so the list can become the skeleton of a regression test.</li>
             <li>Annotations drawn on the video while you record, and markers added with a keyboard shortcut.</li>
-            <li>The full report, filed directly as an issue in Jira Cloud or Linear.</li>
+            <li>A written report of the recording, which it can file as a new issue in Jira Cloud or Linear when you stop. The video and the log files are saved to your Downloads folder.</li>
+            <li>An audio-only export, for example of a meeting.</li>
           </ul>
-        </section>
-
-        <section id="how-i-tested-it">
-          <h2>How I tested it</h2>
-          <p>I didn't want to check the recorder against whatever a real website happened to do that day. So I built a bug bench for it, a page that breaks on demand. It can return a 500 on a write, throw an uncaught exception, or send a response that says OK and means the opposite. Each failure is known in advance, so I can check the recording against it.</p>
-          <div class="case-actions">
-            <a href="https://bench.pedromorago.com/" class="btn btn-small" target="_blank" rel="noopener">Open the bug bench <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
-          </div>
         </section>
 
         <section id="install">
@@ -116,7 +124,7 @@
             <li>Open <code>chrome://extensions</code> and turn on Developer mode.</li>
             <li>Choose Load unpacked and select the unzipped folder.</li>
           </ol>
-          <p>No store account and no build step.</p>
+          <p>You don't need an account or a build step.</p>
           <div class="case-actions">
             <a href="https://github.com/pedromorago/screen-recorder-qa/releases/latest" class="btn btn-small btn-small-primary" target="_blank" rel="noopener">Download for Chrome <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
             <a href="https://github.com/pedromorago/screen-recorder-qa" class="btn btn-small" target="_blank" rel="noopener">Code on GitHub <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
@@ -126,7 +134,7 @@
 
         <section id="contact" class="case-contact">
           <h2>Contact</h2>
-          <p>If you'd like to talk about bug reporting or test tooling, email me at <a href="mailto:pedro@pedromorago.com">pedro@pedromorago.com</a>.</p>
+          <p>I'm Pedro Morago, a Senior QA Engineer working fully remote from Santander, Spain. If you'd like to talk about bug reporting or test tooling, email me at <a href="mailto:pedro@pedromorago.com">pedro@pedromorago.com</a>.</p>
           <div class="contact-actions">
             <a href="mailto:pedro@pedromorago.com" class="btn btn-primary">Email me</a>
             <a href="https://www.linkedin.com/in/pedro-morago-lopezvazquez/" class="btn btn-ghost" target="_blank" rel="noopener">Experience on LinkedIn <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
@@ -149,6 +157,6 @@
     </div>
   </footer>
 
-  <script src="../../script.js?v=b5a07d71"></script>
+  <script src="../../script.js?v=47a43926"></script>
 </body>
 </html>
