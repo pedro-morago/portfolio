@@ -4,13 +4,9 @@
 <meta charset="utf-8" />
 <title>LinkedIn banner · Pedro Morago</title>
 <style>
-  /* Misma paleta que styles.css: terminal oscura, verde como acento puntual. */
-  @font-face {
-    font-family: "JetBrains Mono";
-    font-style: normal;
-    font-weight: 100 800;
-    src: url("fonts/jetbrains-mono-latin.woff2") format("woff2");
-  }
+  /* Misma paleta que styles.css (modo claro): fondo cálido, tinta casi negra
+     y el verde de "test pasado" solo como estado. Inter hace de tipografía
+     del sistema para que el render sea el mismo en cualquier máquina. */
   @font-face {
     font-family: "Inter";
     font-style: normal;
@@ -19,20 +15,17 @@
   }
 
   :root {
-    --bg: #0b0e0c;
-    --bg-alt: #0f1310;
-    --panel: #141915;
-    --edge: #1f2621;
-    --edge-strong: #2e3831;
-    --fg: #d3dad4;
-    --bright: #eef3ee;
-    --ink-2: #a3b0a7;
-    --ink-3: #6e7d73;
-    --accent: #45c97a;
-    --accent-strong: #7bdb9e;
-    --accent-muted: #8fc4a4;
-    --mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
-    --sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --bg: #fbfbf9;
+    --surface: #ffffff;
+    --ink: #141414;
+    --ink-2: #4f5256;
+    --ink-3: #676a6f;
+    --line: #e7e7e2;
+    --line-strong: #d3d3cd;
+    --accent: #17693f;
+    --accent-dot: #2fbf71;
+    --accent-wash: #eaf5ee;
+    --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -41,9 +34,10 @@
     width: 1584px;
     height: 396px;
     overflow: hidden;
-    color: var(--fg);
+    color: var(--ink);
     font-family: var(--sans);
     -webkit-font-smoothing: antialiased;
+    letter-spacing: -0.01em;
   }
 
   .banner {
@@ -54,160 +48,91 @@
     overflow: hidden;
   }
 
-  /* Rejilla muy tenue: textura de terminal sin robar contraste al texto. */
-  .grid {
-    position: absolute; inset: 0;
-    background-image:
-      linear-gradient(to right, rgba(211, 218, 212, 0.045) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(211, 218, 212, 0.045) 1px, transparent 1px);
-    background-size: 48px 48px;
-    background-position: 0 44px;
-    mask-image: linear-gradient(to right, rgba(0,0,0,0.35), rgba(0,0,0,1) 55%);
-    -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0.35), rgba(0,0,0,1) 55%);
-  }
-
-  /* Un único foco verde, detrás del bloque de texto. */
-  .glow {
+  /* Marca: el favicon de la web (cuadrado verde con check), arriba a la
+     izquierda, fuera de la zona que tapa la foto de perfil. */
+  .mark {
     position: absolute;
-    width: 1100px; height: 700px;
-    right: -260px; top: -200px;
-    background: radial-gradient(closest-side, rgba(69, 201, 122, 0.16), rgba(69, 201, 122, 0) 70%);
+    left: 64px; top: 56px;
+    width: 56px; height: 56px;
   }
-
-  /* Barra de título de la ventana de terminal. */
-  .chrome {
-    position: absolute; left: 0; right: 0; top: 0;
-    height: 44px;
-    display: flex; align-items: center;
-    padding: 0 28px;
-    gap: 10px;
-    background: rgba(20, 25, 21, 0.9);
-    border-bottom: 1px solid var(--edge-strong);
-    font-family: var(--mono);
-    font-size: 15px;
-    color: var(--ink-3);
-    letter-spacing: 0.02em;
-  }
-  .dot { width: 13px; height: 13px; border-radius: 50%; background: var(--edge-strong); }
-  .dot.g { background: var(--accent); }
-  .chrome .title { margin-left: 14px; }
-  .chrome .title b { color: var(--ink-2); font-weight: 500; }
-  .chrome .right { margin-left: auto; color: var(--ink-3); }
-
-  /* Salida de tests a la izquierda: decorativa y tenue. La foto de perfil de
-     LinkedIn tapa la parte inferior izquierda, así que nada esencial va ahí. */
-  .log {
-    position: absolute;
-    left: 56px; top: 72px;
-    font-family: var(--mono);
-    font-size: 17px;
-    line-height: 1.6;
-    color: var(--ink-3);
-    opacity: 0.85;
-    white-space: pre;
-  }
-  .log .ok { color: var(--accent-muted); }
-  .log .dim { opacity: 0.6; }
-  .log .p { color: var(--ink-2); }
 
   /* Bloque principal, en el 60 % derecho: zona segura en escritorio y móvil. */
   .content {
     position: absolute;
     left: 570px; right: 64px;
-    top: 44px; bottom: 0;
+    top: 0; bottom: 0;
     display: flex; flex-direction: column; justify-content: center;
-    padding-top: 2px;
   }
 
-  .ps1 {
-    font-family: var(--mono);
-    font-size: 22px;
-    color: var(--ink-2);
-    margin-bottom: 4px;
-  }
-  .ps1 .user { color: var(--accent-strong); }
-  .ps1 .cmd { color: var(--bright); }
-
-  /* Para reclutadores: en lugar de repetir el titular del perfil, pruebas.
-     Los tres proyectos de la web, como un ls, y el enlace al portfolio. */
   h1 {
-    font-family: var(--sans);
-    font-size: 44px;
+    font-size: 46px;
     font-weight: 700;
-    letter-spacing: -0.02em;
-    line-height: 1.1;
-    color: var(--bright);
-    margin: 4px 0 14px;
+    letter-spacing: -0.035em;
+    line-height: 1.05;
+    color: var(--ink);
+    margin-bottom: 22px;
   }
 
-  .projects {
-    font-family: var(--mono);
+  .projects { margin-bottom: 26px; }
+  .row {
+    display: flex; align-items: baseline;
     font-size: 21px;
-    line-height: 1.6;
-    color: var(--ink-2);
-    margin-bottom: 18px;
-  }
-  .projects div { white-space: nowrap; }
-  .projects .dir {
-    display: inline-block;
-    width: 250px;
-    color: var(--bright);
-    font-weight: 500;
-  }
-  .projects .dir::after { content: "/"; color: var(--accent-strong); }
-
-  .foot {
-    display: flex; align-items: center; gap: 20px;
-    font-family: var(--mono);
-    font-size: 21px;
+    line-height: 1.5;
     color: var(--ink-2);
     white-space: nowrap;
   }
-  .foot .url {
-    display: inline-flex; align-items: center; gap: 12px;
-    color: #08130c;
-    background: var(--accent);
-    font-weight: 700;
-    padding: 7px 17px;
-    border-radius: 6px;
+  .row .name {
+    width: 250px;
+    font-weight: 600;
+    color: var(--ink);
   }
-  .foot .url .arrow { font-weight: 500; opacity: 0.8; }
-  .foot .note::before { content: "· "; color: var(--ink-3); }
+  .row .name::before {
+    content: "";
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent-dot);
+    margin-right: 12px;
+    vertical-align: 2px;
+  }
 
+  .foot {
+    display: flex; align-items: center; gap: 18px;
+    font-size: 19px;
+    color: var(--ink-3);
+    white-space: nowrap;
+  }
+  .foot .url {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--ink);
+    color: var(--bg);
+    font-weight: 600;
+    font-size: 20px;
+    padding: 10px 22px;
+    border-radius: 999px;
+  }
+  .foot .url .arrow { font-weight: 500; opacity: 0.85; }
 </style>
 </head>
 <body>
 <div class="banner">
-  <div class="grid"></div>
-  <div class="glow"></div>
-
-  <div class="chrome">
-    <span class="dot"></span><span class="dot"></span><span class="dot g"></span>
-    <span class="title"><b>pedro@morago</b>: ~/portfolio — zsh</span>
-    <span class="right">128 passed · 0 failed · 0 flaky</span>
-  </div>
-
-  <div class="log"><span class="p">$</span> npx playwright test
-<span class="dim">Running 128 tests using 8 workers</span>
-  <span class="ok">✓</span> e2e/auth/login.spec.ts <span class="dim">(2.1s)</span>
-  <span class="ok">✓</span> e2e/orders/create.spec.ts <span class="dim">(3.4s)</span>
-  <span class="ok">✓</span> api/service-order.feature <span class="dim">(1.2s)</span>
-  <span class="ok">✓</span> e2e/catalog/search.spec.ts <span class="dim">(1.8s)</span>
-  <span class="ok">✓</span> api/schema-validation.spec.ts <span class="dim">(0.9s)</span>
-<span class="ok">128 passed</span> <span class="dim">(41s)</span></div>
+  <svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
+    <rect width="100" height="100" rx="24" fill="#1a7f4b"/>
+    <path d="M29 52l14 14 29-31" fill="none" stroke="white" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
 
   <div class="content">
-    <div class="ps1"><span class="user">pedro@morago</span>:~$ <span class="cmd">ls ~/projects</span></div>
     <h1>Projects and a QA wiki</h1>
     <div class="projects">
-      <div><span class="dir">qa-wiki</span>50+ articles on test strategy, API testing and CI/CD</div>
-      <div><span class="dir">ci-shard-advisor</span>Optimal sharding of Cypress suites in CI</div>
-      <div><span class="dir">screen-recorder</span>Chrome extension: bug reports with full evidence</div>
+      <div class="row"><span class="name">CI Shard Advisor</span>Optimal sharding of Cypress suites in CI</div>
+      <div class="row"><span class="name">Screen Recorder</span>Chrome extension: bug reports with full evidence</div>
+      <div class="row"><span class="name">QA Wiki</span>50+ articles on test strategy, API testing and CI/CD</div>
     </div>
     <div class="foot">
-      <span class="url"><span class="arrow">→</span>www.pedromorago.com</span>
-      <span class="note">live demos · code on GitHub</span>
+      <span class="url">pedromorago.com<span class="arrow">→</span></span>
+      <span>Live demos and code on GitHub</span>
     </div>
   </div>
+</div>
 </body>
 </html>
