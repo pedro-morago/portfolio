@@ -34,9 +34,9 @@ const CSS_VERSION = hashFile("styles.css");
 const JS_VERSION = hashFile("script.js");
 
 const FAVICON =
-  "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%231a7f4b'/><path d='M29 52l14 14 29-31' fill='none' stroke='white' stroke-width='10' stroke-linecap='round' stroke-linejoin='round'/></svg>";
+  "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%23141414'/><text x='50' y='66' text-anchor='middle' font-family='Helvetica,Arial,sans-serif' font-weight='700' font-size='46' letter-spacing='-3' fill='%23fbfbf9'>PM</text></svg>";
 
-// The same check mark as the favicon, drawn in the current text colour.
+// A check mark, drawn in the current text colour.
 const CHECK_ICON =
   '<svg class="check-icon" viewBox="0 0 100 100" width="14" height="14" aria-hidden="true" focusable="false"><path d="M18 54l20 20 44-46" fill="none" stroke="currentColor" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" /></svg>';
 
