@@ -2,9 +2,14 @@
   "slug": "ci-pipeline-optimization",
   "meta": {
     "title": "Cutting CI pipeline time by 40% | Pedro Morago",
-    "description": "How I balanced end-to-end tests across parallel CI containers at IriusRisk with a MILP model in Python, and cut pipeline time by 40% with no extra infrastructure.",
-    "shareDescription": "At IriusRisk, end-to-end tests were split unevenly across parallel CI containers. An optimization model I built fixed the split and cut pipeline time by 40%.",
-    "about": ["Continuous integration", "Mathematical optimization", "Test automation"]
+    "description": "How I split end-to-end tests across CI containers at IriusRisk with a MILP model, weighed time against cost, and cut pipeline time by 40% at the same cost.",
+    "shareDescription": "End-to-end tests at IriusRisk were split by module and the largest module held up every pipeline. A MILP model and a time-cost trade-off cut pipeline time by 40%.",
+    "about": [
+      "Continuous integration",
+      "Mathematical optimization",
+      "Multi-criteria optimization",
+      "Test automation"
+    ]
   },
   "crumb": "CI pipeline optimization",
   "kicker": "Case study, IriusRisk",
@@ -114,7 +119,7 @@
       "id": "takeaway",
       "title": "Before you add containers",
       "blocks": [
-        { "type": "p", "text": "Check whether the ones you already have finish at about the same time. If they don't, fixing the split may be cheaper than adding more." }
+        { "type": "p", "text": "Check whether the ones you already have finish at about the same time, and how much of each run is setup. If they don't finish together, fixing the split may be cheaper than adding more, since every new container pays the setup again." }
       ]
     }
   ],

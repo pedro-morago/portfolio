@@ -108,7 +108,7 @@
           <article class="feature">
             <p class="feature-kicker">Case study, IriusRisk</p>
             <h3>Cutting CI pipeline time by 40%</h3>
-            <p class="feature-text">End-to-end tests were split unevenly across parallel CI containers, and the longer the pipeline ran, the more it cost. I built an optimization model in Python that decides which container runs each test file. It needed no extra infrastructure, and the result was validated in production.</p>
+            <p class="feature-text">End-to-end tests ran in CI containers split by product module, and the largest module held up every pipeline. I stated the split as an optimization problem, weighed time against cost on a Pareto frontier, and deployed a split that was faster at the same cost, measured on real runs.</p>
             <a href="work/ci-pipeline-optimization/" class="btn btn-small btn-small-primary">Read the case study<span class="sr-only"> about cutting CI pipeline time by 40%</span></a>
           </article>
           <h3 class="built-label">Things I've built</h3>

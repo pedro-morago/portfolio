@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cutting CI pipeline time by 40% | Pedro Morago</title>
-  <meta name="description" content="How I balanced end-to-end tests across parallel CI containers at IriusRisk with a MILP model in Python, and cut pipeline time by 40% with no extra infrastructure." />
+  <meta name="description" content="How I split end-to-end tests across CI containers at IriusRisk with a MILP model, weighed time against cost, and cut pipeline time by 40% at the same cost." />
   <meta name="color-scheme" content="light dark" />
   <meta name="theme-color" content="#fbfbf9" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#0e0f10" media="(prefers-color-scheme: dark)" />
@@ -15,7 +15,7 @@
   <meta property="og:site_name" content="Pedro Morago" />
   <meta property="og:url" content="https://pedromorago.com/work/ci-pipeline-optimization/" />
   <meta property="og:title" content="Cutting CI pipeline time by 40% | Pedro Morago" />
-  <meta property="og:description" content="At IriusRisk, end-to-end tests were split unevenly across parallel CI containers. An optimization model I built fixed the split and cut pipeline time by 40%." />
+  <meta property="og:description" content="End-to-end tests at IriusRisk were split by module and the largest module held up every pipeline. A MILP model and a time-cost trade-off cut pipeline time by 40%." />
   <meta property="og:image" content="https://pedromorago.com/work/ci-pipeline-optimization/og.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -23,12 +23,12 @@
   <meta property="og:locale" content="en_US" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Cutting CI pipeline time by 40% | Pedro Morago" />
-  <meta name="twitter:description" content="At IriusRisk, end-to-end tests were split unevenly across parallel CI containers. An optimization model I built fixed the split and cut pipeline time by 40%." />
+  <meta name="twitter:description" content="End-to-end tests at IriusRisk were split by module and the largest module held up every pipeline. A MILP model and a time-cost trade-off cut pipeline time by 40%." />
   <meta name="twitter:image" content="https://pedromorago.com/work/ci-pipeline-optimization/og.png" />
   <meta name="twitter:image:alt" content="Case study, IriusRisk. Cutting CI pipeline time by 40%. Pedro Morago, Senior QA Engineer." />
   <link rel="stylesheet" href="../../styles.css?v=de9a0d51" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%231a7f4b'/><path d='M29 52l14 14 29-31' fill='none' stroke='white' stroke-width='10' stroke-linecap='round' stroke-linejoin='round'/></svg>" />
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://pedromorago.com/#website","url":"https://pedromorago.com/","name":"Pedro Morago"},{"@type":"Person","@id":"https://pedromorago.com/#person","name":"Pedro Morago López-Vázquez","url":"https://pedromorago.com/"},{"@type":"TechArticle","@id":"https://pedromorago.com/work/ci-pipeline-optimization/#article","headline":"Cutting CI pipeline time by 40%","description":"How I balanced end-to-end tests across parallel CI containers at IriusRisk with a MILP model in Python, and cut pipeline time by 40% with no extra infrastructure.","url":"https://pedromorago.com/work/ci-pipeline-optimization/","mainEntityOfPage":"https://pedromorago.com/work/ci-pipeline-optimization/","image":"https://pedromorago.com/work/ci-pipeline-optimization/og.png","inLanguage":"en","author":{"@id":"https://pedromorago.com/#person"},"publisher":{"@id":"https://pedromorago.com/#person"},"isPartOf":{"@id":"https://pedromorago.com/#website"},"about":[{"@type":"Thing","name":"Continuous integration"},{"@type":"Thing","name":"Mathematical optimization"},{"@type":"Thing","name":"Test automation"}]},{"@type":"BreadcrumbList","@id":"https://pedromorago.com/work/ci-pipeline-optimization/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Pedro Morago","item":"https://pedromorago.com/"},{"@type":"ListItem","position":2,"name":"Cutting CI pipeline time by 40%","item":"https://pedromorago.com/work/ci-pipeline-optimization/"}]}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://pedromorago.com/#website","url":"https://pedromorago.com/","name":"Pedro Morago"},{"@type":"Person","@id":"https://pedromorago.com/#person","name":"Pedro Morago López-Vázquez","url":"https://pedromorago.com/"},{"@type":"TechArticle","@id":"https://pedromorago.com/work/ci-pipeline-optimization/#article","headline":"Cutting CI pipeline time by 40%","description":"How I split end-to-end tests across CI containers at IriusRisk with a MILP model, weighed time against cost, and cut pipeline time by 40% at the same cost.","url":"https://pedromorago.com/work/ci-pipeline-optimization/","mainEntityOfPage":"https://pedromorago.com/work/ci-pipeline-optimization/","image":"https://pedromorago.com/work/ci-pipeline-optimization/og.png","inLanguage":"en","author":{"@id":"https://pedromorago.com/#person"},"publisher":{"@id":"https://pedromorago.com/#person"},"isPartOf":{"@id":"https://pedromorago.com/#website"},"about":[{"@type":"Thing","name":"Continuous integration"},{"@type":"Thing","name":"Mathematical optimization"},{"@type":"Thing","name":"Multi-criteria optimization"},{"@type":"Thing","name":"Test automation"}]},{"@type":"BreadcrumbList","@id":"https://pedromorago.com/work/ci-pipeline-optimization/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Pedro Morago","item":"https://pedromorago.com/"},{"@type":"ListItem","position":2,"name":"Cutting CI pipeline time by 40%","item":"https://pedromorago.com/work/ci-pipeline-optimization/"}]}]}</script>
 </head>
 <body>
 
@@ -158,7 +158,7 @@
 
         <section id="takeaway">
           <h2>Before you add containers</h2>
-          <p>Check whether the ones you already have finish at about the same time. If they don't, fixing the split may be cheaper than adding more.</p>
+          <p>Check whether the ones you already have finish at about the same time, and how much of each run is setup. If they don't finish together, fixing the split may be cheaper than adding more, since every new container pays the setup again.</p>
         </section>
         </div>
 
