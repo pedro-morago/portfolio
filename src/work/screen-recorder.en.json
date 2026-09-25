@@ -1,0 +1,94 @@
+{
+  "slug": "screen-recorder",
+  "meta": {
+    "title": "Screen Recorder (QA mode) | Pedro Morago",
+    "description": "A Chrome extension I built for bug reports. It records console logs and network requests with the video, and each step with a Cypress or Playwright selector.",
+    "shareDescription": "A Chrome extension for bug reports that records console logs, network requests and your steps with the video. I test it against a page that breaks on demand.",
+    "about": ["Bug reporting", "Browser extensions", "Software testing"]
+  },
+  "crumb": "Screen Recorder (QA mode)",
+  "kicker": "Case study, Chrome extension",
+  "title": "Screen Recorder (QA mode)",
+  "lede": "A Chrome extension that records a bug together with what a developer needs to reproduce it. I built it for my own bug reports, and anyone can install it in about 30 seconds.",
+  "facts": [
+    { "label": "Type", "text": "Chrome extension (Manifest V3), published on GitHub" },
+    { "label": "Tech", "text": "JavaScript, chrome.desktopCapture, Cypress, Playwright, GitHub Actions" },
+    { "label": "Dependencies", "text": "None" },
+    { "label": "Tested against", "text": "[A bug bench I built for it ↗](https://bench.pedromorago.com/)" }
+  ],
+  "actions": [
+    { "href": "https://github.com/pedromorago/screen-recorder-qa/releases/latest", "label": "Download for Chrome ↗" }
+  ],
+  "sections": [
+    {
+      "id": "why",
+      "title": "Why I built it",
+      "blocks": [
+        { "type": "p", "text": "I used a tool called Nimbus to record bugs for my reports. When it changed, I rebuilt the features I relied on in my own extension, and then added the ones I wanted." },
+        {
+          "type": "list",
+          "items": [
+            "Console logs and network requests recorded along with the video. No tool I had did that for me.",
+            "Test steps with Playwright selectors, so I don't have to repeat a test just to write its steps down.",
+            "Marking bugs on the video, which helps a lot with frontend issues.",
+            "Exporting only the audio, for example from a meeting."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "what-you-get",
+      "title": "What you get from one recording",
+      "blocks": [
+        {
+          "type": "list",
+          "items": [
+            "A recording of your screen, a window or a single tab, with no time limit, no watermark and no account.",
+            "Console logs synced to the video, including uncaught exceptions.",
+            "Network requests, exported as a HAR file.",
+            "Numbered steps, recorded automatically from clicks, forms and page changes, including navigation inside single-page apps. Typed values are never logged.",
+            "A `*.steps.md` export in which each step has a paste-ready Cypress or Playwright selector, so the list can become the skeleton of a regression test.",
+            "Annotations drawn on the video while you record, and markers added with a keyboard shortcut.",
+            "The full report, filed directly as an issue in Jira Cloud or Linear."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "how-i-tested-it",
+      "title": "How I tested it",
+      "blocks": [
+        { "type": "p", "text": "I didn't want to check the recorder against whatever a real website happened to do that day. So I built a bug bench for it, a page that breaks on demand. It can return a 500 on a write, throw an uncaught exception, or send a response that says OK and means the opposite. Each failure is known in advance, so I can check the recording against it." },
+        {
+          "type": "buttons",
+          "links": [
+            { "href": "https://bench.pedromorago.com/", "label": "Open the bug bench ↗", "style": "small" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "install",
+      "title": "Install it",
+      "blocks": [
+        {
+          "type": "steps",
+          "items": [
+            "Download the zip from the latest release and unzip it.",
+            "Open `chrome://extensions` and turn on Developer mode.",
+            "Choose Load unpacked and select the unzipped folder."
+          ]
+        },
+        { "type": "p", "text": "No store account and no build step." },
+        {
+          "type": "buttons",
+          "links": [
+            { "href": "https://github.com/pedromorago/screen-recorder-qa/releases/latest", "label": "Download for Chrome ↗" },
+            { "href": "https://github.com/pedromorago/screen-recorder-qa", "label": "Code on GitHub ↗" }
+          ]
+        }
+      ]
+    }
+  ],
+  "contactTopic": "bug reporting or test tooling"
+}

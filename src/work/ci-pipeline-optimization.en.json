@@ -1,0 +1,93 @@
+{
+  "slug": "ci-pipeline-optimization",
+  "meta": {
+    "title": "Cutting CI pipeline time by 40% | Pedro Morago",
+    "description": "How I balanced end-to-end tests across parallel CI containers at IriusRisk with a MILP model in Python, and cut pipeline time by 40% with no extra infrastructure.",
+    "shareDescription": "At IriusRisk, end-to-end tests were split unevenly across parallel CI containers. An optimization model I built fixed the split and cut pipeline time by 40%.",
+    "about": ["Continuous integration", "Mathematical optimization", "Test automation"]
+  },
+  "crumb": "CI pipeline optimization",
+  "kicker": "Case study, IriusRisk",
+  "title": "Cutting CI pipeline time by 40%",
+  "lede": "At IriusRisk, our end-to-end tests ran across parallel CI containers that finished at very different times. I built an optimization model to split the tests more evenly, and the new split cut pipeline time by 40% with no extra infrastructure.",
+  "facts": [
+    { "label": "Company", "text": "IriusRisk, an international cybersecurity SaaS for threat modeling" },
+    { "label": "My role", "text": "QA Engineer. I designed the model and deployed it." },
+    { "label": "Tools", "text": "Python, pandas and PuLP" },
+    { "label": "Result", "text": "40% less pipeline time at no extra infrastructure cost, validated in production", "check": true }
+  ],
+  "sections": [
+    {
+      "id": "the-problem",
+      "title": "The problem",
+      "blocks": [
+        { "type": "p", "text": "Our end-to-end test files, or specs, were divided between containers that ran in parallel in CI, and the division was uneven. Some containers finished early while others were still running, and a pipeline is only done when its slowest container is." },
+        { "type": "p", "text": "The longer the pipeline ran, the more it cost, so the imbalance wasted money as well as time." }
+      ]
+    },
+    {
+      "id": "writing-it-down",
+      "title": "Writing it down",
+      "blocks": [
+        { "type": "p", "text": "In maths you state a problem precisely before you try to solve it. This is the pipeline problem, stated that way." },
+        {
+          "type": "problem",
+          "rows": [
+            { "label": "Given", "text": "The end-to-end specs, each with its average duration from past runs, and the parallel CI containers." },
+            { "label": "Rules", "text": "Every spec runs in exactly one container. A container is done when its last spec is done." },
+            { "label": "Goal", "text": "Make the containers finish at about the same time, to get the lowest cost for the pipeline time we wanted." }
+          ]
+        },
+        { "type": "p", "text": "Both time and cost mattered, which made it a multi-criteria optimization problem. Maths has well-known methods for problems like that." }
+      ]
+    },
+    {
+      "id": "what-i-did",
+      "title": "What I did",
+      "blocks": [
+        { "type": "p", "text": "I extracted the run data with Python and pandas and worked out the average duration of each spec." },
+        { "type": "p", "text": "Then I used PuLP, a Python library for optimization, to build a mixed-integer linear programming (MILP) model. From those averages, the model decides which container runs each spec. It's like loading parcels of different sizes into vans so that every van ends up with about the same load." }
+      ]
+    },
+    {
+      "id": "the-result",
+      "title": "The result",
+      "blocks": [
+        { "type": "p", "text": "I deployed the model. Pipeline time fell by 40%, at no extra infrastructure cost, and the result was validated in production." }
+      ]
+    },
+    {
+      "id": "what-came-after",
+      "title": "What came after",
+      "blocks": [
+        { "type": "p", "text": "Later I turned the idea into CI Shard Advisor, a public tool for Cypress suites. It reads your run reports and shows how evenly your containers finish. Then it recommends the spec split with the shortest total run time, as a list of specs for each container that you can paste into GitHub Actions or Bitbucket Pipelines. It uses branch and bound, an exact method, to prove that no better split exists." },
+        {
+          "type": "list",
+          "items": [
+            "It opens in the browser with a demo run loaded. You can drop in your own reports, and they never leave the browser. There's nothing to install and no account.",
+            "It also runs as a command-line tool with a quality-gate mode, and as a local REST API."
+          ]
+        },
+        { "type": "h3", "text": "How it's tested" },
+        { "type": "p", "text": "All the optimization logic sits in a pure core with a hexagonal architecture, so it can be tested on its own, apart from the web app, the command-line tool and the API." },
+        { "type": "p", "text": "An optimizer is hard to test with fixed examples, because for most inputs nobody knows the right answer in advance. So the core is tested with property-based, metamorphic and invariant tests, which check rules that any correct answer has to follow." },
+        { "type": "tech", "text": "Tech: TypeScript, React, Vite, Fastify, Node.js, pnpm, Playwright and k6." },
+        {
+          "type": "buttons",
+          "links": [
+            { "href": "https://pedromorago.github.io/ci-shard-advisor/", "label": "Open the live demo ↗" },
+            { "href": "https://github.com/pedromorago/ci-shard-advisor", "label": "Code on GitHub ↗" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "takeaway",
+      "title": "Before you add containers",
+      "blocks": [
+        { "type": "p", "text": "Check whether the ones you already have finish at about the same time. If they don't, fixing the split may be cheaper than adding more." }
+      ]
+    }
+  ],
+  "contactTopic": "CI pipelines or test automation"
+}

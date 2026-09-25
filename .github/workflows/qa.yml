@@ -19,38 +19,45 @@ jobs:
           node-version: 22
           cache: npm
 
-      - name: Build y comprobación de drift
+      # Every generated file is rebuilt from src/ and compared with what is
+      # committed: a hand edit or a forgotten rebuild fails here.
+      - name: Build and drift check
         run: |
           node build.js
-          git diff --exit-code -- index.html en/index.html || {
-            echo "::error::Los HTML generados no coinciden con src/. Ejecuta 'node build.js' y commitea el resultado."
+          git diff --exit-code -- index.html en work sitemap.xml || {
+            echo "::error::Generated files do not match src/. Run 'node build.js' and commit the result."
             exit 1
           }
+          untracked="$(git status --porcelain -- index.html en work sitemap.xml)"
+          if [ -n "$untracked" ]; then
+            echo "$untracked"
+            echo "::error::build.js generated files that are not committed. Run 'node build.js' and commit them."
+            exit 1
+          fi
 
-      - name: Instalar dependencias de QA
+      - name: Install QA dependencies
         run: npm ci
 
-      - name: Validar HTML
+      - name: Validate HTML
         run: npm run lint:html
 
-      - name: Versión de Playwright (para la caché del navegador)
+      - name: Playwright version
         id: pw
         run: echo "version=$(node -e "console.log(require('./package-lock.json').packages['node_modules/playwright'].version)")" >> "$GITHUB_OUTPUT"
 
-      - name: Caché de Chromium
+      - name: Cache Chromium
         uses: actions/cache@v4
         with:
           path: ~/.cache/ms-playwright
           key: playwright-chromium-${{ steps.pw.outputs.version }}
 
-      - name: Instalar Chromium
+      - name: Install Chromium
         run: npx playwright install --with-deps chromium
 
-      - name: Auditoría QA (responsive, accesibilidad, contraste, comportamiento)
+      - name: QA audit
         run: npm run qa
 
-  # El despliegue solo ocurre en main y solo si la auditoría ha pasado:
-  # el CI es un quality gate real, no un semáforo decorativo.
+  # Deploys only from main and only when the audit has passed.
   deploy:
     if: github.ref == 'refs/heads/main'
     needs: qa
@@ -69,9 +76,19 @@ jobs:
         with:
           enablement: true
 
+      # Only the public files are published. build.js, src/, qa/, the package
+      # files and the README stay in the repository.
+      - name: Collect the public files
+        run: |
+          mkdir _site
+          cp index.html 404.html styles.css script.js og-image.png robots.txt sitemap.xml CNAME _site/
+          cp --parents en/index.html _site/
+          find work -type f \( -name index.html -o -name og.png \) -exec cp --parents {} _site/ \;
+          find _site -type f | sort
+
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: _site
 
       - id: deployment
         uses: actions/deploy-pages@v4

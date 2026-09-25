@@ -1,9 +1,14 @@
 #!/usr/bin/env node
 /**
- * Regenera og-image.png (1200x630) recortando el hero de la propia página, así
- * que la tarjeta de redes nunca puede desincronizarse del sitio.
- * Ejecutar con `npm run og` tras cambiar el hero, y commitear el PNG.
+ * Regenerates the share images (1200x630) from the pages themselves, so a
+ * share card can never drift from the site:
+ *   og-image.png             home page hero (name, role and the one idea)
+ *   work/<slug>/og.png       header of each case study (kicker and headline)
+ *
+ * Run `npm run og` after changing the hero or a case-study header, and commit
+ * the PNG files. Share-only styles hide the nav, buttons and other details.
  */
+const fs = require("node:fs");
 const path = require("node:path");
 
 let chromium;
@@ -14,25 +19,60 @@ try {
 }
 
 const ROOT = path.join(__dirname, "..");
-const launchOptions = process.env.CHROMIUM_PATH
-  ? { executablePath: process.env.CHROMIUM_PATH }
-  : {};
+const launchOptions = process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {};
+const SIZE = { width: 1200, height: 630 };
+
+const COMMON = `
+  .nav, .skip-link, .footer, .copy-btn { display: none !important; }
+  html { scroll-behavior: auto; }
+  body { min-height: 630px; }
+`;
+
+const HOME = `${COMMON}
+  .glance, .hero-tagline, .hero-actions, main > section { display: none !important; }
+  .hero { padding: 0 !important; height: 630px; display: flex; align-items: center; }
+  .hero-grid { display: block !important; width: 100%; }
+  .hero-main { padding: 0 20px; }
+  .hero h1 { font-size: 6.4rem; }
+  .hero-lede { font-size: 3.1rem; max-width: 20ch; margin-top: 22px; }
+  .hero-main::after {
+    content: "pedromorago.com"; display: block; margin-top: 48px;
+    font-size: 1.5rem; font-weight: 600; color: var(--accent);
+  }
+`;
+
+const CASE = `${COMMON}
+  .breadcrumb, .case-facts, .case-actions, .case-body, .case-contact, .case-next { display: none !important; }
+  .case { max-width: none; height: 630px; padding: 0 20px !important; display: flex; flex-direction: column; justify-content: center; }
+  .case-kicker { font-size: 1.75rem; margin-top: 0; }
+  .case h1 { font-size: 5.2rem; max-width: 15ch; margin-top: 14px; }
+  .case-lede { display: none; }
+  .case-header::after {
+    content: "Pedro Morago, Senior QA Engineer"; display: block; margin-top: 40px;
+    font-size: 1.5rem; font-weight: 600; color: var(--accent);
+  }
+`;
+
+async function shoot(browser, file, css, out) {
+  const page = await browser.newPage({ viewport: SIZE, colorScheme: "light" });
+  await page.goto("file://" + path.join(ROOT, file));
+  await page.addStyleTag({ content: css });
+  await page.waitForTimeout(300);
+  await page.screenshot({ path: path.join(ROOT, out), clip: { x: 0, y: 0, ...SIZE } });
+  await page.close();
+  console.log(`✓ ${out}`);
+}
 
 (async () => {
   const browser = await chromium.launch(launchOptions);
-  const page = await browser.newPage({ viewport: { width: 1200, height: 630 } });
-  await page.goto("file://" + path.join(ROOT, "index.html"));
-  await page.waitForTimeout(2500);
-  await page.addStyleTag({
-    content:
-      ".nav, .skip-link { display: none !important; } .hero { padding: 90px 0 !important; min-height: 630px; border: none !important; }",
-  });
-  await page.screenshot({
-    path: path.join(ROOT, "og-image.png"),
-    clip: { x: 0, y: 0, width: 1200, height: 630 },
-  });
+  await shoot(browser, "index.html", HOME, "og-image.png");
+  const slugs = fs
+    .readdirSync(path.join(ROOT, "work"), { withFileTypes: true })
+    .filter((d) => d.isDirectory() && fs.existsSync(path.join(ROOT, "work", d.name, "index.html")))
+    .map((d) => d.name)
+    .sort();
+  for (const slug of slugs) await shoot(browser, `work/${slug}/index.html`, CASE, `work/${slug}/og.png`);
   await browser.close();
-  console.log("✓ og-image.png regenerada");
 })().catch((e) => {
   console.error(e.message);
   process.exit(1);

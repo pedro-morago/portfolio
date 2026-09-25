@@ -1,0 +1,70 @@
+{
+  "slug": "this-site",
+  "meta": {
+    "title": "How this site is tested | Pedro Morago",
+    "description": "Every push to this site is tested in a real browser at six screen widths, with contrast measured in light and dark mode. It deploys only when every check passes.",
+    "shareDescription": "Every check that runs before pedromorago.com deploys, and why the external link check runs on its own schedule instead.",
+    "about": ["Software testing", "Web accessibility", "Continuous integration"]
+  },
+  "crumb": "How this site is tested",
+  "kicker": "Case study, this site",
+  "title": "How this site is tested",
+  "lede": "This is a small static site with its own test suite. Nothing is published unless every check passes, and that includes this page.",
+  "facts": [
+    { "label": "Built with", "text": "HTML, CSS and a little JavaScript, generated from JSON files by a Node.js script with no dependencies" },
+    { "label": "Tested with", "text": "Playwright, html-validate and GitHub Actions" },
+    { "label": "Runs", "text": "On every push and pull request" },
+    { "label": "Requests to other servers", "text": "None. No web fonts and no analytics." }
+  ],
+  "actions": [
+    { "href": "https://github.com/pedromorago/portfolio", "label": "Code on GitHub ↗" }
+  ],
+  "sections": [
+    {
+      "id": "the-checks",
+      "title": "The checks",
+      "blocks": [
+        { "type": "p", "text": "They run on every push and pull request, grouped here by when they run." },
+        { "type": "h3", "text": "Before the browser opens" },
+        {
+          "type": "checks",
+          "items": [
+            "The build stops if a text field in the source is empty, and names the field.",
+            "The pages are rebuilt from the source and compared with what's committed, so a hand edit to a generated page or a forgotten rebuild fails the pipeline.",
+            "Every generated page and the 404 page pass HTML validation with html-validate.",
+            "robots.txt, the sitemap, the 404 page and the redirects from old addresses are in place, and the sitemap lists exactly the pages of the site.",
+            "The case-study pages on disk match the ones in the source, so a renamed page can't be left behind."
+          ]
+        },
+        { "type": "h3", "text": "In a real browser, on every page" },
+        {
+          "type": "checks",
+          "items": [
+            "No sideways scrolling at six screen widths, from 320 to 1920 pixels.",
+            "No JavaScript errors and no console errors.",
+            "No requests to other servers.",
+            "Every link to a section or to another page of this site points to something that exists, and so does every file the page loads.",
+            "No ID is used twice on a page.",
+            "One h1 per page, and no skipped heading levels.",
+            "A title, a description of the right length, the correct canonical URL, the page language and one block of structured data, with no other language versions claimed.",
+            "A share preview of the right type, with an image file that exists.",
+            "Contrast of at least 4.5:1 (WCAG AA) for each style of text on the page, in light mode and again in dark mode.",
+            "Menu links, buttons, breadcrumb links and the next-case link at least 24 pixels tall on phone screens.",
+            "Every link that opens a new tab has `rel=\"noopener\"` and tells screen readers that it opens a new tab.",
+            "The Skip to content link lands on the main content.",
+            "The menu highlights the section you're reading on the home page, and marks Work on the case studies."
+          ]
+        },
+        { "type": "p", "text": "When every check passes on the main branch, the site is deployed to GitHub Pages. A version that fails never goes live, so the Audit passed label on the home page holds for every published version." }
+      ]
+    },
+    {
+      "id": "outside-the-gate",
+      "title": "Outside the gate",
+      "blocks": [
+        { "type": "p", "text": "External links are checked every Monday, and whenever the copy changes, in a separate workflow that never blocks a deploy. A bad minute at GitHub or LinkedIn shouldn't stop a small text fix from going out, but I still want to find a broken link before anyone else does." }
+      ]
+    }
+  ],
+  "contactTopic": "test automation or quality gates in CI"
+}
