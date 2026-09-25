@@ -58,7 +58,7 @@
       "id": "the-model",
       "title": "The model",
       "blocks": [
-        { "type": "p", "text": "Then I used PuLP, a Python library for optimization, to build a mixed-integer linear programming (MILP) model. For each spec and each container there is a yes-or-no variable: does this container run this spec? The constraints say that every spec runs exactly once and that no container, setup included, runs longer than the pipeline time. The model makes that time as short as possible." },
+        { "type": "p", "text": "Then I used PuLP, a Python library for optimization, to build a mixed-integer linear programming (MILP) model. For each spec and each container there is a yes-or-no variable: does this container run this spec? The constraints say that every spec runs exactly once and that no container, setup included, runs longer than the pipeline time. The model makes that time as short as possible. This first model treated each container as running one test at a time, so it balanced the total test time of the containers." },
         { "type": "p", "text": "It's like loading parcels of different sizes into vans so that the last van to finish its round finishes as early as possible. The CBC solver found splits that are provably optimal, or within a fraction of a second of a lower bound I derived for the pipeline time." }
       ]
     },
@@ -82,11 +82,10 @@
     },
     {
       "id": "the-result",
-      "title": "The result",
+      "title": "The first result",
       "blocks": [
-        { "type": "p", "text": "I deployed the new split with the same number of containers and measured it on real runs. Pipeline time fell by 40% and the cost stayed the same. The measured time was within about 1% of what the model had predicted, which told me the data and the model described the pipeline well." },
-        { "type": "p", "text": "The data without failing tests gave one more result: fixing the tests that failed and were retried would cut the pipeline by roughly another tenth. That turned a vague feeling about flaky tests into a number the team could weigh against other work." },
-        { "type": "p", "text": "The split is only as good as the averages behind it. When specs are added or their durations change, the split has to be recomputed from fresh data. CI Shard Advisor, below, does that from new run reports each time." }
+        { "type": "p", "text": "I measured the new split on real runs with one worker per container. Pipeline time fell by 42% and the cost stayed the same, within about 1% of what the model had predicted." },
+        { "type": "p", "text": "In production, though, each container ran 5 Playwright workers. Estimated from the same logs, the split there was only about 8% faster, and cost 3% more. The model had answered the question it was given, and the question was missing the workers." }
       ]
     },
     {
