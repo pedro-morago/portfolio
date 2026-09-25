@@ -82,8 +82,8 @@
         <div class="case-body">
         <section id="the-problem">
           <h2>The problem</h2>
-          <p>Our end-to-end test files, or specs, were divided between containers that ran in parallel in CI, and the division was uneven. Some containers finished early while others were still running, and a pipeline is only done when its slowest container is.</p>
-          <p>The longer the pipeline ran, the more it cost, so the imbalance meant a higher bill as well as a longer wait.</p>
+          <p>Our end-to-end test files, or specs, ran in parallel CI containers, one container per product module. Modules are not the same size, so neither were the containers. The container of the largest module ran for more than twice as long as the shortest one, and a pipeline is only done when its slowest container is.</p>
+          <p>Every container also spent the same fixed time on setup before its first spec ran, close to half of a balanced container's run. So adding containers was not free: each new one paid the full setup again, and we paid for every minute each container ran.</p>
         </section>
 
         <section id="writing-it-down">
@@ -92,18 +92,18 @@
           <dl class="problem">
             <div class="problem-row">
               <dt>Given</dt>
-              <dd>The end-to-end specs, each with its average duration from past runs, and the parallel CI containers.</dd>
+              <dd>The end-to-end specs, each with its average duration from real runs, the fixed setup time of a container, and the cost of a container per minute.</dd>
             </div>
             <div class="problem-row">
               <dt>Rules</dt>
-              <dd>Every spec runs in exactly one container. A container is done when its last spec is done.</dd>
+              <dd>Every spec runs in exactly one container. A container is done when its setup and all its specs are done. The pipeline is done when its last container is.</dd>
             </div>
             <div class="problem-row">
-              <dt>Goal</dt>
-              <dd>Make the containers finish at about the same time, to get the lowest cost for the pipeline time we wanted.</dd>
+              <dt>Goals</dt>
+              <dd>A short pipeline and a low cost. More containers make the pipeline shorter but cost more, so the two goals pull against each other.</dd>
             </div>
           </dl>
-          <p>Both time and cost mattered, which made it a multi-criteria optimization problem.</p>
+          <p>Two goals that pull against each other make it a multi-criteria optimization problem. There is no single best answer, only a set of best trade-offs, and the job is to find that set and then choose from it.</p>
         </section>
 
         <section id="what-i-did">
