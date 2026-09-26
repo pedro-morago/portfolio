@@ -422,7 +422,7 @@ async function auditPage(browser, pageDef, seenOptional) {
   if (doc.twitterCard !== "summary_large_image") fail(S, `${tag}: twitter:card is "${doc.twitterCard}"`);
   if (!doc.ogImage.startsWith(SITE_URL)) fail(S, `${tag}: og:image "${doc.ogImage}" is not on ${SITE_URL}`);
   else {
-    const ogFile = doc.ogImage.slice(SITE_URL.length);
+    const ogFile = doc.ogImage.slice(SITE_URL.length).split("?")[0];
     if (!exists(ogFile)) fail(S, `${tag}: og:image file ${ogFile} does not exist (run npm run og)`);
     else {
       // PNG header: width and height are the big-endian integers at bytes 16 and 20.

@@ -259,7 +259,9 @@ function jsonLd(page) {
 }
 
 function renderHead(page) {
-  const img = SITE_URL + page.ogImage;
+  // The version query changes whenever the image does, so LinkedIn and other
+  // sites that cache share previews by URL fetch the new one.
+  const img = `${SITE_URL}${page.ogImage}?v=${hashFile(page.ogImage)}`;
   return `<head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
