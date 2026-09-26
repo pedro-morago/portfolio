@@ -81,6 +81,7 @@
         "title": "CI Shard Advisor",
         "text": "I turned the pipeline idea into a public tool. It reads Cypress run reports and recommends how to split the test files across containers so that the slowest one finishes as early as possible. For most inputs nobody knows the right answer in advance, so I test its core with property-based, metamorphic and invariant tests.",
         "links": [
+          { "href": "https://pedromorago.github.io/ci-shard-advisor/", "label": "Open the live demo ↗" },
           { "href": "https://github.com/pedromorago/ci-shard-advisor", "label": "Code on GitHub ↗", "sr": " for CI Shard Advisor" }
         ]
       },

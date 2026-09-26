@@ -116,7 +116,13 @@
       "title": "A public tool",
       "blocks": [
         { "type": "p", "text": "I also turned the first idea into CI Shard Advisor, a public tool for Cypress suites. It reads your run reports and shows how evenly your containers finish. Then it recommends the split in which the slowest container finishes earliest, as a list of specs for each container that you can paste into GitHub Actions or Bitbucket Pipelines. It searches with branch and bound, an exact method that can prove no better split exists for the durations in your reports." },
-        { "type": "p", "text": "It runs in the browser, as a command-line tool with a quality-gate mode, and as a local REST API." },
+        {
+          "type": "list",
+          "items": [
+            "It opens in the browser with a demo run loaded. You can drop in your own reports, and they never leave the browser. There's nothing to install and no account to create.",
+            "It also runs as a command-line tool with a quality-gate mode, and as a local REST API."
+          ]
+        },
         { "type": "h3", "text": "How it's tested" },
         { "type": "p", "text": "All the optimization logic sits in a pure core with a hexagonal architecture, so it can be tested separately from the web app, the command-line tool and the API." },
         { "type": "p", "text": "An optimizer is hard to test with fixed examples, because for most inputs nobody knows the right answer in advance. For small inputs you can find it by trying every possible split. So property-based tests generate hundreds of random small cases and check that branch and bound finds the same answer as that brute-force search, and that whenever it claims a split is optimal, it really is, even when the search is cut short. Metamorphic and invariant tests check other rules that any correct answer has to follow." },
@@ -125,6 +131,7 @@
         {
           "type": "buttons",
           "links": [
+            { "href": "https://pedromorago.github.io/ci-shard-advisor/", "label": "Open the live demo ↗" },
             { "href": "https://github.com/pedromorago/ci-shard-advisor", "label": "Code on GitHub ↗" }
           ]
         }
