@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Regenerates the share images (1200x630) from the pages themselves, so a
+ * Regenerates the share images (1200x630, dark mode) from the pages themselves, so a
  * share card can never drift from the site:
  *   og-image.png             home page hero (name, role and the one idea)
  *   work/<slug>/og.png       header of each case study (kicker and headline)
@@ -60,7 +60,7 @@ const CASE = `${COMMON}
 `;
 
 async function shoot(browser, file, css, out) {
-  const page = await browser.newPage({ viewport: SIZE, colorScheme: "light" });
+  const page = await browser.newPage({ viewport: SIZE, colorScheme: "dark" });
   await page.goto("file://" + path.join(ROOT, file));
   sources[out] = await page.evaluate(
     (sel) => [...document.querySelectorAll(sel)].map((e) => e.textContent.trim()).join("\n"),
