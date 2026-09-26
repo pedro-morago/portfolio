@@ -131,7 +131,7 @@
         {
           "type": "buttons",
           "links": [
-            { "href": "https://pedromorago.github.io/ci-shard-advisor/", "label": "Open the live demo ↗" },
+            { "href": "https://shard.pedromorago.com/", "label": "Open the live demo ↗" },
             { "href": "https://github.com/pedromorago/ci-shard-advisor", "label": "Code on GitHub ↗" }
           ]
         }
