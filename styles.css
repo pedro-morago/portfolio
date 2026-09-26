@@ -442,6 +442,9 @@ h1, h2, h3, .contact-text, .case-next a { text-wrap: balance; }
 
 @media (min-width: 860px) {
   .notes { grid-template-columns: 1fr 1fr; }
+  /* An odd last note takes the full row instead of leaving a gap beside it. */
+  .note:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .note:last-child:nth-child(odd) p { max-width: 38em; }
 }
 
 /* ===== Contact ===== */

@@ -81,7 +81,6 @@
         "title": "CI Shard Advisor",
         "text": "I turned the pipeline idea into a public tool. It reads Cypress run reports and recommends how to split the test files across containers so that the slowest one finishes as early as possible. For most inputs nobody knows the right answer in advance, so I test its core with property-based, metamorphic and invariant tests.",
         "links": [
-          { "href": "https://pedromorago.github.io/ci-shard-advisor/", "label": "Open the live demo ↗" },
           { "href": "https://github.com/pedromorago/ci-shard-advisor", "label": "Code on GitHub ↗", "sr": " for CI Shard Advisor" }
         ]
       },
@@ -131,8 +130,7 @@
         "title": "My bug reports come with the evidence",
         "text": "A bug report should give the developer what they need to reproduce the bug. When the screen recorder I used for mine changed, I built my own Chrome extension to capture that evidence.",
         "link": { "href": "work/screen-recorder/", "label": "How I built the recorder →" }
-      },
-      { "title": "I check what AI tells me", "text": "AI tools are part of my work, and I use them carefully. On my wiki, the AI answer button replies only from articles I wrote, and it cites the ones it used." }
+      }
     ]
   },
   "contact": {

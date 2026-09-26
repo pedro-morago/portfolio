@@ -26,7 +26,7 @@
   <meta name="twitter:description" content="A 42% faster CI pipeline in a one-worker test run became 8% with 5 workers. Modelling the workers showed that 4 containers would beat 7 and cost 41% less." />
   <meta name="twitter:image" content="https://pedromorago.com/work/ci-pipeline-optimization/og.png" />
   <meta name="twitter:image:alt" content="Case study, IriusRisk. How many CI containers a test suite needs. Pedro Morago, Senior QA Engineer." />
-  <link rel="stylesheet" href="../../styles.css?v=de9a0d51" />
+  <link rel="stylesheet" href="../../styles.css?v=64e2b120" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%23141414'/><text x='50' y='66' text-anchor='middle' font-family='Helvetica,Arial,sans-serif' font-weight='700' font-size='46' letter-spacing='-3' fill='%23fbfbf9'>PM</text></svg>" />
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://pedromorago.com/#website","url":"https://pedromorago.com/","name":"Pedro Morago"},{"@type":"Person","@id":"https://pedromorago.com/#person","name":"Pedro Morago López-Vázquez","url":"https://pedromorago.com/"},{"@type":"TechArticle","@id":"https://pedromorago.com/work/ci-pipeline-optimization/#article","headline":"How many CI containers a test suite needs","description":"How I modelled the split of end-to-end tests across CI containers at IriusRisk, why a 42% gain shrank to 8% with 5 workers, and why 4 containers beat 7.","url":"https://pedromorago.com/work/ci-pipeline-optimization/","mainEntityOfPage":"https://pedromorago.com/work/ci-pipeline-optimization/","image":"https://pedromorago.com/work/ci-pipeline-optimization/og.png","inLanguage":"en","author":{"@id":"https://pedromorago.com/#person"},"publisher":{"@id":"https://pedromorago.com/#person"},"isPartOf":{"@id":"https://pedromorago.com/#website"},"about":[{"@type":"Thing","name":"Continuous integration"},{"@type":"Thing","name":"Mathematical optimization"},{"@type":"Thing","name":"Multi-criteria optimization"},{"@type":"Thing","name":"Test automation"}]},{"@type":"BreadcrumbList","@id":"https://pedromorago.com/work/ci-pipeline-optimization/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Pedro Morago","item":"https://pedromorago.com/"},{"@type":"ListItem","position":2,"name":"How many CI containers a test suite needs","item":"https://pedromorago.com/work/ci-pipeline-optimization/"}]}]}</script>
 </head>
@@ -155,18 +155,14 @@
         <section id="what-came-after">
           <h2>A public tool</h2>
           <p>I also turned the first idea into CI Shard Advisor, a public tool for Cypress suites. It reads your run reports and shows how evenly your containers finish. Then it recommends the split in which the slowest container finishes earliest, as a list of specs for each container that you can paste into GitHub Actions or Bitbucket Pipelines. It searches with branch and bound, an exact method that can prove no better split exists for the durations in your reports.</p>
-          <ul class="list">
-            <li>It opens in the browser with a demo run loaded. You can drop in your own reports, and they never leave the browser. There's nothing to install and no account to create.</li>
-            <li>It also runs as a command-line tool with a quality-gate mode, and as a local REST API.</li>
-          </ul>
+          <p>It runs in the browser, as a command-line tool with a quality-gate mode, and as a local REST API.</p>
           <h3>How it's tested</h3>
           <p>All the optimization logic sits in a pure core with a hexagonal architecture, so it can be tested separately from the web app, the command-line tool and the API.</p>
           <p>An optimizer is hard to test with fixed examples, because for most inputs nobody knows the right answer in advance. For small inputs you can find it by trying every possible split. So property-based tests generate hundreds of random small cases and check that branch and bound finds the same answer as that brute-force search, and that whenever it claims a split is optimal, it really is, even when the search is cut short. Metamorphic and invariant tests check other rules that any correct answer has to follow.</p>
           <p>The local API also has its own Java suite in REST Assured and JUnit 5, including a check of the response against a JSON Schema.</p>
           <p class="case-tech">Tech: TypeScript, React, Vite, Fastify, Node.js, pnpm, Playwright and k6.</p>
           <div class="case-actions">
-            <a href="https://pedromorago.github.io/ci-shard-advisor/" class="btn btn-small btn-small-primary" target="_blank" rel="noopener">Open the live demo <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
-            <a href="https://github.com/pedromorago/ci-shard-advisor" class="btn btn-small" target="_blank" rel="noopener">Code on GitHub <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
+            <a href="https://github.com/pedromorago/ci-shard-advisor" class="btn btn-small btn-small-primary" target="_blank" rel="noopener">Code on GitHub <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
           </div>
         </section>
 
